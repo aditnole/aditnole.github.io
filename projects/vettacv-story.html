@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building VettaCV</title>
+  <meta name="description" content="How VettaCV grew from a resume-tailoring prototype into a production job-search app: structured LLM output, token budgets, the editor, Firebase data model, SEO, Razorpay, AWS, and how it's doing.">
+  <meta property="og:title" content="Building VettaCV: from a tailoring script to a production job-search app">
+  <meta property="og:description" content="The sequence it was built in, the decisions behind it, and the numbers so far.">
+  <meta property="og:type" content="article">
+  <link href="../favicon.png" rel="icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d110f;
+      --panel: #151b18;
+      --panel-2: #1b2320;
+      --line: #26302b;
+      --ink: #e9eeeb;
+      --ink-2: #a9b5ae;
+      --ink-3: #74827a;
+      --accent: #12d640;
+      --accent-soft: rgba(18, 214, 64, 0.12);
+      --warm: #f0b860;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 400 17px/1.7 "Open Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1, h2, h3 { font-family: Raleway, sans-serif; line-height: 1.2; margin: 0; }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.86em; }
+    code { background: var(--panel-2); padding: 0.1em 0.4em; border-radius: 4px; }
+
+    .top { position: sticky; top: 0; z-index: 5; background: rgba(13, 17, 15, 0.86); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .top .in { max-width: 1080px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; }
+    .top .in span { color: var(--ink-3); }
+    @media (max-width: 640px) { .top .in span { display: none; } }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .grid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; gap: 0; } .toc { display: none; } }
+
+    header.hero { padding: 72px 0 40px; border-bottom: 1px solid var(--line); }
+    .eyebrow { font: 600 12px/1 "JetBrains Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+    .hero h1 { font-size: clamp(34px, 5.4vw, 58px); font-weight: 800; letter-spacing: -0.02em; margin-top: 16px; max-width: 18ch; }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p.lede { font-size: 19px; color: var(--ink-2); max-width: 60ch; margin: 20px 0 0; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; font-size: 14px; color: var(--ink-3); }
+    .meta b { color: var(--ink); font-weight: 600; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 36px 0 0; }
+    .stats > div { background: var(--panel); padding: 18px 18px 16px; }
+    .stats .n { font: 800 30px/1 Raleway, sans-serif; }
+    .stats .l { font-size: 13px; color: var(--ink-3); margin-top: 8px; line-height: 1.4; }
+    @media (max-width: 640px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    .toc { position: sticky; top: 76px; align-self: start; padding-top: 48px; font-size: 14px; }
+    .toc p { margin: 0 0 10px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; counter-reset: c; }
+    .toc li { counter-increment: c; margin: 0 0 8px; }
+    .toc li a { color: var(--ink-3); display: flex; gap: 10px; }
+    .toc li a::before { content: counter(c, decimal-leading-zero); font: 600 11px/2 "JetBrains Mono", monospace; color: var(--ink-3); opacity: 0.7; }
+    .toc li a:hover { color: var(--ink); text-decoration: none; }
+
+    article { padding: 8px 0 80px; min-width: 0; }
+    section.ch { padding-top: 48px; scroll-margin-top: 64px; }
+    .ch .num { font: 600 12px/1 "JetBrains Mono", monospace; color: var(--ink-3); letter-spacing: 0.1em; }
+    .ch h2 { font-size: clamp(26px, 3.4vw, 34px); font-weight: 800; letter-spacing: -0.01em; margin: 10px 0 18px; }
+    .ch h3 { font-size: 19px; font-weight: 700; margin: 30px 0 8px; }
+    .ch p { margin: 0 0 16px; color: var(--ink-2); max-width: 68ch; }
+    .ch p strong, .ch li strong { color: var(--ink); }
+    .ch ul { color: var(--ink-2); padding-left: 1.2em; max-width: 68ch; margin: 0 0 16px; }
+    .ch li { margin: 0 0 8px; }
+    .ch li::marker { color: var(--accent); }
+
+    .callout { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 16px 20px; margin: 22px 0; color: var(--ink-2); max-width: 68ch; }
+    .callout b { color: var(--ink); }
+
+    pre { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; overflow-x: auto; font: 400 13.5px/1.6 "JetBrains Mono", monospace; color: #cfe7d6; max-width: 68ch; margin: 18px 0 22px; }
+    pre .c { color: var(--ink-3); }
+    pre .k { color: var(--accent); }
+
+    .timeline { list-style: none; margin: 8px 0 0; padding: 0; position: relative; max-width: 68ch; }
+    .timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+    .timeline li { position: relative; padding: 0 0 22px 34px; }
+    .timeline li::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+    .timeline li.major::before { background: var(--accent); }
+    .timeline .when { font: 600 12px/1.4 "JetBrains Mono", monospace; color: var(--accent); letter-spacing: 0.04em; }
+    .timeline .what { color: var(--ink); font-weight: 600; margin-top: 2px; }
+    .timeline .why { color: var(--ink-2); font-size: 15px; margin-top: 2px; }
+
+    .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 18px 0 22px; max-width: 760px; }
+    .cards > div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+    .cards h4 { margin: 0 0 6px; font: 700 15px/1.3 Raleway, sans-serif; color: var(--ink); }
+    .cards p { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+    @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+
+    .stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 20px; }
+    .stack span { font: 600 12.5px/1 "JetBrains Mono", monospace; padding: 8px 11px; border-radius: 999px; background: var(--panel-2); color: var(--ink-2); border: 1px solid var(--line); }
+
+    .arch { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 18px 0 24px; max-width: 760px; }
+    .arch svg { display: block; width: 100%; height: auto; }
+    @media (max-width: 640px) { .arch { padding: 10px; } .bar { grid-template-columns: 110px 1fr 40px; } }
+
+    .chart { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px 14px; margin: 18px 0 8px; max-width: 760px; }
+    .chart svg { width: 100%; height: auto; display: block; }
+    .chart .cap { font-size: 12.5px; color: var(--ink-3); margin-top: 8px; }
+
+    .bars { max-width: 560px; margin: 14px 0 20px; }
+    .bar { display: grid; grid-template-columns: 140px 1fr 44px; align-items: center; gap: 12px; font-size: 14.5px; margin: 0 0 8px; }
+    .bar .t { height: 10px; border-radius: 999px; background: var(--panel-2); overflow: hidden; }
+    .bar .t i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+    .bar .v { text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 600; }
+    .bar .c { color: var(--ink-2); }
+
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 18px 0 8px; max-width: 760px; }
+    .kpis > div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+    .kpis .n { font: 800 26px/1 Raleway, sans-serif; }
+    .kpis .d { font-size: 13px; margin-top: 6px; }
+    .kpis .l { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+    .up { color: var(--accent); } .down { color: #ff8a7a; }
+    @media (max-width: 640px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    footer { border-top: 1px solid var(--line); padding: 32px 0 60px; color: var(--ink-3); font-size: 14px; }
+    footer .in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+  </style>
+</head>
+<body>
+
+<div class="top">
+  <div class="in">
+    <a href="../index.html">← Aditya Yadav</a>
+    <span>Project write-up · VettaCV</span>
+    <a href="https://www.vettacv.com" target="_blank" rel="noopener">vettacv.com ↗</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">Build log · 2024 → 2026</div>
+    <h1>Building VettaCV: from a tailoring script to a <em>production</em> job-search app</h1>
+    <p class="lede">
+      VettaCV started as a side project with one idea: a resume should be rewritten for every job you apply to.
+      Two and a half years later it parses resumes, tailors them, matches people to live jobs, runs AI interview
+      practice, and connects candidates with real interviewers. This is the order it was built in, and why.
+    </p>
+    <div class="meta">
+      <span><b>Role</b> Co-founder, product &amp; engineering</span>
+      <span><b>Built with</b> Manish Sahu (early backend)</span>
+      <span><b>Live</b> <a href="https://www.vettacv.com" target="_blank" rel="noopener">vettacv.com</a> · <a href="https://app.vettacv.com" target="_blank" rel="noopener">app.vettacv.com</a></span>
+    </div>
+    <div class="stats">
+      <div><div class="n">3</div><div class="l">codebases: landing site, web app, API</div></div>
+      <div><div class="n">250+</div><div class="l">commits since the first API commit in April 2024</div></div>
+      <div><div class="n">400+</div><div class="l">people from 7+ countries used it this year (GA4)</div></div>
+      <div><div class="n">+134%</div><div class="l">active users, last 90 days vs the 90 before</div></div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <nav class="toc" aria-label="Chapters">
+      <p class="mono" style="color:var(--ink-3)">CHAPTERS</p>
+      <ol>
+        <li><a href="#idea">The idea</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="#prototype">Prototype</a></li>
+        <li><a href="#structured">Structured output</a></li>
+        <li><a href="#tokens">Spending fewer tokens</a></li>
+        <li><a href="#backend">Backend</a></li>
+        <li><a href="#frontend">Front-end</a></li>
+        <li><a href="#data">Database</a></li>
+        <li><a href="#seo">SEO</a></li>
+        <li><a href="#payments">Payments</a></li>
+        <li><a href="#infra">Domain &amp; AWS</a></li>
+        <li><a href="#platform">Tool → platform</a></li>
+        <li><a href="#numbers">How it's doing</a></li>
+        <li><a href="#lessons">Lessons</a></li>
+      </ol>
+    </nav>
+
+    <article>
+
+      <section class="ch" id="idea">
+        <div class="num">01</div>
+        <h2>The idea: one resume doesn't fit every job</h2>
+        <p>
+          Most people write one resume and send it everywhere. But every role is read differently. A recruiter
+          skims for a handful of signals, and the applicant-tracking system in front of them looks for the words in
+          the job description. A good engineer applying for a data role with a resume written for a backend role
+          loses before anyone reads it.
+        </p>
+        <p>
+          Tailoring fixes that: reorder what matters, use the posting's language for things you actually did,
+          and cut what doesn't help. It works, but doing it by hand for every application takes an evening.
+          <strong>The bet behind VettaCV was that a language model could do the first 80% in seconds, without inventing anything.</strong>
+        </p>
+        <div class="callout">
+          <b>The rule from day one:</b> tailoring may rephrase, reorder and emphasise. It never adds experience,
+          tools or numbers the candidate didn't have. Everything later, from prompts to the diff view, was built around that.
+        </div>
+      </section>
+
+      <section class="ch" id="timeline">
+        <div class="num">02</div>
+        <h2>Timeline</h2>
+        <p>It wasn't planned as a product. Each step was the next thing that broke or the next thing users asked for.</p>
+        <ol class="timeline">
+          <li class="major"><div class="when">LATE 2023</div><div class="what">Prototype, then CVSwitch</div><div class="why">A Streamlit app to test tailoring end to end, then a Flutter web app under the name CVSwitch.</div></li>
+          <li><div class="when">APR 2024</div><div class="what">The API</div><div class="why">Flask service: resume PDF → JSON, JSON → PDF, role-based rewriting. Dockerised from week one.</div></li>
+          <li><div class="when">JUL 2024</div><div class="what">Moved to GPT-4o</div><div class="why">Upgraded the model behind parsing and rewriting.</div></li>
+          <li><div class="when">AUG 2024</div><div class="what">Landing page</div><div class="why">A Next.js marketing site, separate from the app.</div></li>
+          <li class="major"><div class="when">MAR–APR 2025</div><div class="what">New web app + structured output</div><div class="why">Next.js app with Firebase sign-in; cover letters, LinkedIn optimiser, and a resume editor. Parsing moved to Pydantic structured output.</div></li>
+          <li><div class="when">MAY–JUN 2025</div><div class="what">Job tailoring, AI writer, payments</div><div class="why">Keyword gaps against a job description, rewrite suggestions, and paid plans.</div></li>
+          <li><div class="when">AUG 2025</div><div class="what">AWS Amplify deploys</div><div class="why">Push to main → build → live.</div></li>
+          <li class="major"><div class="when">MAR–JUN 2026</div><div class="what">Rebuilt editor, new brand: VettaCV</div><div class="why">A working WYSIWYG editor, onboarding, a dashboard, AI interview practice, and live mock interviews.</div></li>
+          <li><div class="when">APR–AUG 2026</div><div class="what">Growth work</div><div class="why">Blog, Google Analytics, Razorpay on the landing site, technical SEO and programmatic pages.</div></li>
+          <li class="major"><div class="when">SEP–OCT 2026</div><div class="what">From tool to job-search platform</div><div class="why">Jobs matched to your resume, a 3-click apply kit, vetted interviewers, referrals, company interview guides.</div></li>
+        </ol>
+      </section>
+
+      <section class="ch" id="prototype">
+        <div class="num">03</div>
+        <h2>Prototype: prove it in Streamlit first</h2>
+        <p>
+          The first version was a Streamlit page: upload a resume, paste a job description, get a tailored version back.
+          Streamlit was the right call because it answered the only question that mattered: <strong>is the output good enough that
+          someone would use it instead of editing by hand?</strong> No auth, no database, no design.
+        </p>
+        <p>
+          It was. The output problems showed up immediately though: the model returned prose when we needed sections,
+          dropped bullet points, and occasionally "improved" a resume with skills the person didn't have. Fixing those,
+          not the UI, became the real work.
+        </p>
+        <p>
+          From there it became CVSwitch, a Flutter web app where users could sign in, upload a resume and a job description,
+          pick a template and generate a tailored CV. Behind it sat the first real API.
+        </p>
+      </section>
+
+      <section class="ch" id="structured">
+        <div class="num">04</div>
+        <h2>Getting structured data out of an LLM</h2>
+        <p>
+          A resume isn't text, it's data: contact details, jobs with dates, bullets, education, skills. Every feature needs
+          that structure: the editor, the PDF, tailoring, matching. Early on we asked the model for JSON in the prompt and then
+          validated it (the repo still has the commits named <code>addvalidator</code> and <code>fixed validator</code>).
+          It mostly worked, and "mostly" is a bug factory.
+        </p>
+        <p>
+          Then OpenAI shipped <strong>Structured Outputs</strong>: you pass a Pydantic model, and the response is guaranteed to
+          match it. We moved parsing onto it, and one schema became the backbone of the whole product:
+        </p>
+<pre><span class="c"># abridged from the real schema</span>
+<span class="k">class</span> WorkExperience(BaseModel):
+    name: Optional[str]          <span class="c"># company</span>
+    position: Optional[str]
+    startDate: Optional[str]
+    endDate: Optional[str]
+    description: Optional[str]
+
+<span class="k">class</span> Resume(BaseModel):
+    basics: Optional[BasicInfo]
+    workExperiences: Optional[List[WorkExperience]]
+    education: Optional[List[Education]]
+    projects: Optional[List[Project]]
+    skills: Optional[Section]
+
+<span class="c"># parsing, tailoring and the editor all speak "Resume"</span>
+completion = client.responses.parse(
+    model=MODEL, input=messages, text_format=Resume)
+resume = completion.output_parsed</pre>
+        <p>
+          The same shape is what the editor edits, what the PDF renders, what tailoring rewrites, and what job matching reads.
+          No glue code between features, and no "the model forgot the closing brace" errors.
+        </p>
+      </section>
+
+      <section class="ch" id="tokens">
+        <div class="num">05</div>
+        <h2>Spending fewer tokens</h2>
+        <p>
+          On a side-project budget every call matters, and cost scales with users. Most of the savings didn't come from clever
+          prompts. They came from <strong>not calling the model at all</strong> when code could do the job.
+        </p>
+        <div class="cards">
+          <div><h4>Let the schema do the talking</h4><p>With structured output, the prompt no longer carries long JSON examples and formatting rules. The schema is the instruction.</p></div>
+          <div><h4>Send a compact resume</h4><p>Prompts get a trimmed, plain-text version of the resume (sections and bullets, no layout or empty fields) instead of the raw document.</p></div>
+          <div><h4>Right-size the model</h4><p>Everything runs on small models (gpt-4o-mini, o4-mini, gpt-4.1-mini). Resume parsing even moved off a reasoning model (o4-mini) to gpt-4o-mini: no hidden reasoning tokens, and faster.</p></div>
+          <div><h4>Regex before LLM</h4><p>Importing a job from a link, reading pay ranges, detecting a candidate's country, and filtering jobs are plain code. No tokens, no latency, no surprises.</p></div>
+          <div><h4>Cache and share</h4><p>A company interview guide is researched once per company and role family and shared for 30 days: about $0.03–0.06 per guide instead of per user.</p></div>
+          <div><h4>Charge only on success</h4><p>Credits are deducted after a generation succeeds, so a failed call never costs the user, and retries don't double-charge.</p></div>
+        </div>
+      </section>
+
+      <section class="ch" id="backend">
+        <div class="num">06</div>
+        <h2>Backend</h2>
+        <div class="stack"><span>Python</span><span>Flask</span><span>OpenAI</span><span>Firebase Admin</span><span>nginx</span><span>EC2</span><span>systemd</span></div>
+        <p>
+          The API is a single Flask service. That was deliberate: one deployable, one place to read logs, one process to restart.
+          It parses resumes, tailors them, writes cover letters, runs interview practice, matches jobs, and handles the
+          interviewer marketplace.
+        </p>
+        <h3>Running lean</h3>
+        <p>
+          It runs on a small EC2 instance with about 1 GB of RAM. That constraint shaped a lot: heavy work like refreshing the
+          jobs index runs as a separate, memory-capped job at 3 AM IST, never inside the web workers, and scheduled jobs never
+          "catch up" after a restart, so a reboot can't trigger a memory spike.
+        </p>
+        <h3>Things that had to be right</h3>
+        <ul>
+          <li><strong>Identity:</strong> every request carries a Firebase ID token, and the API checks it matches the user it acts on.</li>
+          <li><strong>Money:</strong> credit grants are idempotent per payment ID and can only come from the server, never from the browser.</li>
+          <li><strong>Email:</strong> interviewer notifications are batched (at most one an hour, two a day), with one-click unsubscribe.</li>
+        </ul>
+      </section>
+
+      <section class="ch" id="frontend">
+        <div class="num">07</div>
+        <h2>Front-end: the editor, vibe coding, and the revert button</h2>
+        <div class="stack"><span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind</span><span>Firebase Auth</span></div>
+        <h3>The editor was the hardest part</h3>
+        <p>
+          People don't trust a resume they can't edit. The editor has to show exactly what the PDF will look like, update as
+          you type, survive a refresh, and print pixel-perfect on A4 and Letter. We studied open-source JSON-driven resume
+          builders, but none fit a flow where an AI rewrites sections and the user accepts or rejects each change. The first
+          version took weeks, and the one that finally felt solid shipped in March 2026: drafts autosave locally, and printing
+          comes straight from the rendered page.
+        </p>
+        <h3>Vibe coding, and why we got good at reverting</h3>
+        <p>
+          AI coding tools made it possible for a tiny team to ship a lot of UI quickly. They also made it easy to change ten
+          files when you meant to change one. What kept it sane:
+        </p>
+        <ul>
+          <li><strong>Small branches and pull requests,</strong> one change each, so a bad change is one revert, not an archaeology dig.</li>
+          <li><strong>Preview pages with fixture data</strong> to check a screen in every state without logging in.</li>
+          <li><strong>Type checks and tests before every merge,</strong> because "it compiled on my machine" isn't a release process.</li>
+          <li><strong>Reading every diff.</strong> Generated code is a first draft, not a decision.</li>
+        </ul>
+        <h3>Design, take three</h3>
+        <p>
+          The look changed twice. A playful, mascot-heavy theme tested well for first impressions but felt like a toy for
+          something as serious as a job search. The current design is calmer: neutral surfaces, one accent colour, lists
+          instead of card grids, and Momo the Shiba kept for the moments that need warmth, like interview practice.
+        </p>
+      </section>
+
+      <section class="ch" id="data">
+        <div class="num">08</div>
+        <h2>Choosing a database, and shaping the data</h2>
+        <p>
+          We chose <strong>Firebase</strong>: Auth for Google sign-in, Firestore for data, Storage for files. For a small team the
+          deciding factors were sign-in out of the box, no servers to run, and a document model that fits a resume, which is
+          one nested JSON object that kept changing shape as features grew.
+        </p>
+        <h3>How we think about the data</h3>
+        <ul>
+          <li><strong>Everything hangs off the Firebase user ID.</strong> Resumes, saved jobs, filters, applications and credits are keyed by it.</li>
+          <li><strong>A resume is one document,</strong> stored in the same shape as the <code>Resume</code> schema, so nothing translates between storage, API and UI.</li>
+          <li><strong>Snapshots, not joins.</strong> When a candidate requests a mock interview we copy what the interviewer needs (years of experience, past companies, title) into the request, never their name or email. Privacy is decided when data is written.</li>
+          <li><strong>Caches are just collections.</strong> Job-fit scores, company guides and embeddings are stored with a version stamp, so a model or prompt change invalidates them cleanly.</li>
+        </ul>
+        <div class="callout">
+          <b>The trade-off:</b> Firestore's queries are simple, so some filtering (location, salary, posted-within) happens in
+          memory on a cached index. At hundreds of users that's faster and cheaper than adding a second database.
+        </div>
+      </section>
+
+      <section class="ch" id="seo">
+        <div class="num">09</div>
+        <h2>SEO, and now AEO</h2>
+        <p>
+          The marketing site is a <strong>statically exported Next.js site</strong> served from S3 and CloudFront: fast, cheap,
+          and easy for crawlers. The SEO work came in rounds:
+        </p>
+        <ul>
+          <li>Fixing the basics: a robots.txt that accidentally blocked crawling, canonical URLs, redirects and breadcrumb schema.</li>
+          <li>A blog with practical guides (ATS checks, how to tailor a resume).</li>
+          <li><strong>Programmatic pages</strong> like <code>/resume-tips/[jobTitle]</code>, generated from a template for each common role.</li>
+          <li>Writing for <strong>answer engines</strong> too: clear question-and-answer sections that AI assistants can quote.</li>
+        </ul>
+        <p>That last one is paying off: "AI Assistant" is now the second-largest traffic source after direct visits, ahead of organic search.</p>
+      </section>
+
+      <section class="ch" id="payments">
+        <div class="num">10</div>
+        <h2>Payments with Razorpay</h2>
+        <p>
+          Pricing is credit-based with monthly and annual plans. Razorpay handles both currencies: <strong>INR for India, USD for
+          everyone else</strong>. The rules that matter:
+        </p>
+        <ul>
+          <li>The server decides the currency from the visitor's country (with the browser time zone as a fallback). The client never chooses its own price.</li>
+          <li>The plan and billing period are read back from the Razorpay order, not from the browser, when credits are granted.</li>
+          <li>Each payment can grant credits exactly once, so a retried webhook or a double click can't double-credit.</li>
+        </ul>
+      </section>
+
+      <section class="ch" id="infra">
+        <div class="num">11</div>
+        <h2>Domain, DNS and AWS</h2>
+        <div class="arch">
+          <svg viewBox="0 0 760 210" role="img" aria-label="Architecture: GoDaddy domain with Route 53 DNS pointing www and app to CloudFront and AWS Amplify, and api to nginx and Flask on EC2, backed by Firebase and OpenAI">
+            <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#74827a"/></marker></defs>
+            <g font-family="JetBrains Mono, monospace" font-size="12">
+              <rect x="10" y="80" width="130" height="50" rx="10" fill="#1b2320" stroke="#26302b"/>
+              <text x="75" y="101" fill="#e9eeeb" text-anchor="middle">vettacv.com</text>
+              <text x="75" y="119" fill="#74827a" text-anchor="middle">GoDaddy → Route 53</text>
+              <rect x="200" y="14" width="170" height="50" rx="10" fill="#1b2320" stroke="#26302b"/>
+              <text x="285" y="35" fill="#12d640" text-anchor="middle">www</text>
+              <text x="285" y="53" fill="#a9b5ae" text-anchor="middle">CloudFront + S3</text>
+              <rect x="200" y="80" width="170" height="50" rx="10" fill="#1b2320" stroke="#26302b"/>
+              <text x="285" y="101" fill="#12d640" text-anchor="middle">app</text>
+              <text x="285" y="119" fill="#a9b5ae" text-anchor="middle">Amplify (Next.js)</text>
+              <rect x="200" y="146" width="170" height="50" rx="10" fill="#1b2320" stroke="#26302b"/>
+              <text x="285" y="167" fill="#12d640" text-anchor="middle">api</text>
+              <text x="285" y="185" fill="#a9b5ae" text-anchor="middle">nginx → Flask, EC2</text>
+              <rect x="440" y="80" width="140" height="50" rx="10" fill="#1b2320" stroke="#26302b"/>
+              <text x="510" y="101" fill="#e9eeeb" text-anchor="middle">Firebase</text>
+              <text x="510" y="119" fill="#74827a" text-anchor="middle">Auth · Firestore</text>
+              <rect x="440" y="146" width="140" height="50" rx="10" fill="#1b2320" stroke="#26302b"/>
+              <text x="510" y="167" fill="#e9eeeb" text-anchor="middle">OpenAI</text>
+              <text x="510" y="185" fill="#74827a" text-anchor="middle">GPT models</text>
+              <rect x="620" y="146" width="130" height="50" rx="10" fill="#1b2320" stroke="#26302b"/>
+              <text x="685" y="167" fill="#e9eeeb" text-anchor="middle">Razorpay</text>
+              <text x="685" y="185" fill="#74827a" text-anchor="middle">Resend email</text>
+            </g>
+            <g stroke="#74827a" stroke-width="1.5" fill="none" marker-end="url(#a)">
+              <path d="M140,95 C170,95 170,39 198,39"/>
+              <path d="M140,105 L198,105"/>
+              <path d="M140,115 C170,115 170,171 198,171"/>
+              <path d="M370,105 L438,105"/>
+              <path d="M370,105 C400,105 400,171 438,171" stroke-dasharray="3 4"/>
+              <path d="M370,171 L438,171"/>
+              <path d="M370,165 C405,140 410,118 438,114"/>
+              <path d="M580,171 L618,171"/>
+            </g>
+          </svg>
+        </div>
+        <p>
+          The domain is registered at GoDaddy, but DNS lives in <strong>AWS Route 53</strong>, which keeps every record next to the
+          services they point at. Three subdomains, three jobs:
+        </p>
+        <ul>
+          <li><code>www</code> is the static marketing site on S3 + CloudFront.</li>
+          <li><code>app</code> is the Next.js product on AWS Amplify, rebuilt on every push to main.</li>
+          <li><code>api</code> is Flask behind nginx with TLS on EC2. The app proxies to it, so the browser only ever talks to one origin.</li>
+        </ul>
+        <p>
+          Email took its own afternoon: SPF, DKIM and DMARC records in Route 53 so notifications from the domain land in the inbox,
+          not in spam.
+        </p>
+      </section>
+
+      <section class="ch" id="platform">
+        <div class="num">12</div>
+        <h2>From a tool to a job-search platform</h2>
+        <p>
+          Users kept asking the same question after tailoring a resume: <em>"OK, where do I send it?"</em> The 2026 work answers that.
+        </p>
+        <div class="cards">
+          <div><h4>Jobs matched to your resume</h4><p>A daily index of openings from public company job boards (Greenhouse, Lever, Ashby) at dozens of companies, across India, Singapore, UAE, the US, the UK and Canada, ranked against your resume.</p></div>
+          <div><h4>Apply in three clicks</h4><p>Auto-tailor for the role, review a word-level diff, and get an apply kit with drafted answers to the application's own questions.</p></div>
+          <div><h4>AI interview practice</h4><p>Role-specific mock interviews with feedback, plus company guides built from cited web research.</p></div>
+          <div><h4>Real interviewers</h4><p>LinkedIn-verified professionals run paid mock interviews and can refer strong candidates. Candidates pick the round (system design, product sense…) they want to practise.</p></div>
+        </div>
+      </section>
+
+      <section class="ch" id="numbers">
+        <div class="num">13</div>
+        <h2>How it's doing</h2>
+        <p>From Google Analytics on the marketing site and app, as of October 2026:</p>
+        <div class="kpis">
+          <div><div class="n">332</div><div class="d up">↑ 119.9%</div><div class="l">new users, last 90 days</div></div>
+          <div><div class="n">323</div><div class="d up">↑ 134.1%</div><div class="l">active users, last 90 days</div></div>
+          <div><div class="n">3.9K</div><div class="d up">↑ 202%</div><div class="l">events, last 90 days</div></div>
+          <div><div class="n">404</div><div class="d down">↓ 11.6%</div><div class="l">page views, last 90 days</div></div>
+        </div>
+        <div class="chart">
+          <svg viewBox="0 0 700 220" role="img" aria-label="Weekly new users from July to October 2026, rising from about 2 a week to between 40 and 60 a week">
+            <g stroke="#26302b" stroke-width="1">
+              <line x1="40" y1="20" x2="690" y2="20"/><line x1="40" y1="65" x2="690" y2="65"/>
+              <line x1="40" y1="110" x2="690" y2="110"/><line x1="40" y1="155" x2="690" y2="155"/>
+              <line x1="40" y1="200" x2="690" y2="200"/>
+            </g>
+            <g font-family="JetBrains Mono, monospace" font-size="11" fill="#74827a">
+              <text x="30" y="24" text-anchor="end">80</text><text x="30" y="69" text-anchor="end">60</text>
+              <text x="30" y="114" text-anchor="end">40</text><text x="30" y="159" text-anchor="end">20</text>
+              <text x="30" y="204" text-anchor="end">0</text>
+              <text x="40" y="216">Jul 19</text><text x="256" y="216" text-anchor="middle">Aug 30</text>
+              <text x="473" y="216" text-anchor="middle">Sep 27</text><text x="690" y="216" text-anchor="end">Oct 11</text>
+            </g>
+            <polyline fill="none" stroke="#12d640" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+              points="40,195.5 94,191 148,186.5 202,175.25 256,184.25 310,155 364,94.25 418,114.5 473,116.75 527,146 581,65 635,116.75 690,98.75"/>
+            <polygon fill="rgba(18,214,64,0.10)"
+              points="40,200 40,195.5 94,191 148,186.5 202,175.25 256,184.25 310,155 364,94.25 418,114.5 473,116.75 527,146 581,65 635,116.75 690,98.75 690,200"/>
+          </svg>
+          <div class="cap">New users per week, July–October 2026. Values read off the GA4 chart, so treat them as approximate.</div>
+        </div>
+        <h3>Where people come from</h3>
+        <p>Active users by country, January to October 2026:</p>
+        <div class="bars">
+          <div class="bar"><span class="c">United States</span><span class="t"><i style="width:100%"></i></span><span class="v">184</span></div>
+          <div class="bar"><span class="c">India</span><span class="t"><i style="width:85%"></i></span><span class="v">157</span></div>
+          <div class="bar"><span class="c">France</span><span class="t"><i style="width:11%"></i></span><span class="v">20</span></div>
+          <div class="bar"><span class="c">Egypt</span><span class="t"><i style="width:8%"></i></span><span class="v">15</span></div>
+          <div class="bar"><span class="c">UAE</span><span class="t"><i style="width:6%"></i></span><span class="v">11</span></div>
+          <div class="bar"><span class="c">United Kingdom</span><span class="t"><i style="width:6%"></i></span><span class="v">11</span></div>
+          <div class="bar"><span class="c">Saudi Arabia</span><span class="t"><i style="width:5%"></i></span><span class="v">9</span></div>
+        </div>
+        <p>
+          Two things stand out. The US is the largest audience even though the product started India-first, which is why job
+          matching now covers the US, UK and Canada. And after direct visits, the biggest source of new visitors is
+          <strong>AI assistants</strong>, ahead of Google search, so writing for answer engines was worth it.
+        </p>
+        <p>
+          Small numbers, honestly. But they're real people, growing week over week, finding it without paid ads.
+        </p>
+      </section>
+
+      <section class="ch" id="lessons">
+        <div class="num">14</div>
+        <h2>What I'd tell myself in 2024</h2>
+        <ul>
+          <li><strong>Prototype the hard part, not the app.</strong> Streamlit proved the output was worth building around. Everything else could wait.</li>
+          <li><strong>Pick one data shape and protect it.</strong> The Pydantic <code>Resume</code> schema saved more time than any framework choice.</li>
+          <li><strong>The cheapest token is the one you don't send.</strong> Code first, then the smallest model that does the job well.</li>
+          <li><strong>Constraints are a design tool.</strong> A 1 GB server forced clean background jobs and caching that would have been needed anyway.</li>
+          <li><strong>Ship small, revert fast.</strong> With AI writing a lot of the code, review and small pull requests are the real engineering.</li>
+          <li><strong>Listen for the next question.</strong> "Where do I send this?" turned a resume tool into a job-search platform.</li>
+        </ul>
+        <p style="margin-top:28px">
+          Try it at <a href="https://www.vettacv.com" target="_blank" rel="noopener">vettacv.com</a>. If you're an experienced
+          professional who'd like to run mock interviews, the interviewer program is open too.
+        </p>
+      </section>
+
+    </article>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="in">
+      <a href="../index.html">← Back to portfolio</a>
+      <span>VettaCV · build log</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
