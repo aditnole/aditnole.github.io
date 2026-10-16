@@ -101,18 +101,24 @@
     .path { position: relative; }
     .path .rail { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--line); }
     .path .rail i { position: absolute; left: 0; top: 0; width: 2px; height: 0; background: var(--blue); }
-    .step { position: relative; display: grid; grid-template-columns: 180px 1fr 170px; gap: 32px; padding: 30px 0 30px 30px; border-bottom: 1px solid var(--line); }
-    .step::before { content: ""; position: absolute; left: -5px; top: 37px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 2px var(--line); transition: box-shadow .4s, background .4s; }
+    .step { position: relative; padding: 34px 0 34px 34px; border-bottom: 1px solid var(--line); }
+    .step::before { content: ""; position: absolute; left: -5px; top: 42px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 2px var(--line); transition: box-shadow .4s, background .4s; }
     .step.on::before { background: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
-    .step .yr { font: 500 13.5px/1.5 "JetBrains Mono", monospace; color: var(--ink-3); padding-top: 4px; }
-    .step .yr b { display: block; color: var(--ink); font: 600 17px/1.3 Inter, sans-serif; margin-top: 4px; }
-    .step h3 { font-size: 20px; font-weight: 700; margin: 0; letter-spacing: -0.01em; transition: color .3s; }
-    .step .why { font: italic 500 19px/1.45 Fraunces, Georgia, serif; color: var(--blue); margin: 8px 0 0; }
-    .step .did { color: var(--ink-2); font-size: 15.5px; margin: 8px 0 0; }
-    .step .m { text-align: right; padding-top: 2px; }
-    .step .m b { display: block; font: 600 34px/1 Fraunces, Georgia, serif; font-variant-numeric: tabular-nums; }
-    .step .m span { display: block; font-size: 12.5px; color: var(--ink-3); margin-top: 6px; line-height: 1.35; }
-    .step:hover h3 { color: var(--blue); }
+    .step .top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; }
+    .step .co { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--ink-3); letter-spacing: 0.04em; }
+    .step .co b { color: var(--ink); font: 700 13px/1 "JetBrains Mono", monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+    .step h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.015em; margin: 10px 0 0; }
+    .step .row { display: grid; grid-template-columns: 74px 1fr; gap: 16px; margin-top: 16px; align-items: baseline; }
+    .step .row > span { font: 500 11px/1.9 "JetBrains Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+    .step .owned { font: italic 500 20px/1.45 Fraunces, Georgia, serif; color: var(--ink); margin: 0; }
+    .step .owned em { font-style: italic; color: var(--blue); }
+    .step .built { display: flex; flex-wrap: wrap; gap: 6px; }
+    .step .built i { font-style: normal; font-size: 13.5px; color: var(--ink-2); background: var(--paper); box-shadow: 0 0 0 1px var(--line); padding: 5px 10px; border-radius: 8px; }
+    .step .impact { display: flex; flex-wrap: wrap; gap: 14px 36px; }
+    .step .impact div { min-width: 150px; max-width: 220px; }
+    .step .impact b { display: block; font: 600 34px/1 Fraunces, Georgia, serif; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+    .step .impact small { display: block; font-size: 13px; line-height: 1.4; color: var(--ink-2); margin-top: 6px; }
+    .step.now .co b { color: var(--blue); }
 
     .feature { position: relative; display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 48px; align-items: center; background: var(--navy); color: #fff; border-radius: 32px; padding: 56px; overflow: hidden; }
     .feature::after { content: ""; position: absolute; right: -120px; top: -160px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,165,250,0.35), transparent 65%); pointer-events: none; }
@@ -175,8 +181,9 @@
       .do { grid-template-columns: 1fr; }
       .do > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
       .do > div { padding: 24px 0; }
-      .step { grid-template-columns: 1fr; gap: 6px; padding-left: 24px; }
-      .step .m { text-align: left; margin-top: 10px; }
+      .step { padding-left: 24px; }
+      .step .row { grid-template-columns: 1fr; gap: 6px; }
+      .step .impact div { min-width: 130px; }
       .feature { grid-template-columns: 1fr; padding: 32px 24px; border-radius: 24px; }
       .feature .stats { gap: 22px; }
       .shot .frame { transform: none; }
@@ -201,7 +208,7 @@
     <a class="me" href="#">Aditya Yadav</a>
     <div class="links">
       <a class="ul hide-m" href="#what">What I do</a>
-      <a class="ul hide-m" href="#path">Path</a>
+      <a class="ul hide-m" href="#path">Career</a>
       <a class="ul hide-m" href="#work">Work</a>
       <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">Say hello</a>
     </div>
@@ -214,8 +221,8 @@
       <div class="label intro">Senior Data Scientist · Atlassian &nbsp;/&nbsp; Builder · VettaCV</div>
       <h1 class="serif intro d1">Aditya Yadav</h1>
       <p class="lede intro d2">
-        I turn <b>undefined problems into testable ones.</b> Experimentation and product analytics at
-        <b>Atlassian</b>, and on the side I build <b>VettaCV</b>, an AI app that helps people land their next job.
+        I turn <b>undefined problems into testable ones</b>, and I own them end to end: instrumentation, models,
+        experiments and the decision. Senior data scientist at <b>Atlassian</b>; on the side, I build <b>VettaCV</b>.
       </p>
       <div class="ctas intro d3">
         <a class="pill dark" href="#work">See my work ↓</a>
@@ -262,7 +269,7 @@
         <div class="n">02</div>
         <h3>Product analytics &amp; ML</h3>
         <p>KPI design, customer segmentation and fraud models, always tied back to business impact.</p>
-        <div class="proof">−20% <small>resolution time for a migration support agent (Atlassian)</small></div>
+        <div class="proof">13% <small>fewer safety incidents in Thailand (Grab)</small></div>
       </div>
       <div class="rv d2">
         <div class="n">03</div>
@@ -275,61 +282,68 @@
 
   <section id="path">
     <div class="sh rv">
-      <div class="label">02 — The path</div>
-      <h2 class="serif">Each move asked a <i>bigger</i> question.</h2>
+      <div class="label">02 — Career</div>
+      <h2 class="serif">Problems I <i>owned</i>, end to end.</h2>
     </div>
     <div class="path">
       <div class="rail" aria-hidden="true"><i id="rail"></i></div>
 
-      <div class="step rv">
-        <div class="yr">2017 – 2020<b>IndShine</b></div>
-        <div>
-          <h3>Senior Data Analyst · drones &amp; geospatial</h3>
-          <p class="why">Learn the whole loop at a startup, from raw data to pricing to the customer.</p>
-          <p class="did">Segment-based pricing across construction and agriculture, 3D maps from 2D imagery for government infrastructure, and timeline prediction from geospatial history.</p>
-        </div>
-        <div class="m"><b data-n="20" data-s="%">20%</b><span>better project timeline estimates</span></div>
-      </div>
+      <article class="step now rv">
+        <div class="top"><div class="co"><b>Atlassian</b> · Bengaluru</div><div class="co">2025 – now</div></div>
+        <h3>Senior Data Scientist · Cloud migration</h3>
+        <div class="row"><span>Owned</span><p class="owned">Experimentation and analytics for Atlassian's <em>Data Center → Cloud</em> migration, from metric definitions to the weekly leadership review.</p></div>
+        <div class="row"><span>Built</span><div class="built"><i>Experiments for an AI migration-support agent</i><i>Agent observability metrics</i><i>Customer complexity classifier</i><i>DBT rebuild of ~40 legacy SQL jobs</i></div></div>
+        <div class="row"><span>Impact</span><div class="impact">
+          <div><b data-n="50" data-p="+" data-s="%">+50%</b><small>deflection rate for the migration-support agent</small></div>
+          <div><b data-n="20" data-p="−" data-s="%">−20%</b><small>time to resolve a migration issue</small></div>
+          <div><b>24 → 21</b><small>days for an average customer migration</small></div>
+        </div></div>
+      </article>
 
-      <div class="step rv">
-        <div class="yr">2020 – 2021<b>Netradyne</b></div>
-        <div>
-          <h3>Data Analyst · driver-safety telematics</h3>
-          <p class="why">Work on live device data, where a missed signal is a real risk on the road.</p>
-          <p class="did">Tiered pricing from bandwidth patterns, anomaly detection on device telemetry, and clustering speeding alerts to find accident-prone zones.</p>
-        </div>
-        <div class="m"><b data-n="12" data-s="%">12%</b><span>fewer accidents in flagged zones</span></div>
-      </div>
+      <article class="step rv">
+        <div class="top"><div class="co"><b>Grab</b> · Southeast Asia</div><div class="co">2022 – 2024</div></div>
+        <h3>Data Scientist · Trust, Integrity &amp; Safety</h3>
+        <div class="row"><span>Owned</span><p class="owned">Built <em>content-moderation analytics from 0 to 1</em>, then owned fraud and safety analytics for a 10M+ user super app.</p></div>
+        <div class="row"><span>Built</span><div class="built"><i>Fraud models: collusion, impersonation</i><i>Risk-based user verification</i><i>User Friction Score</i><i>A/B &amp; switchback experiments</i><i>C-level safety readouts</i></div></div>
+        <div class="row"><span>Impact</span><div class="impact">
+          <div><b data-n="13" data-s="%">13%</b><small>fewer safety incidents in Thailand</small></div>
+          <div><b data-n="30" data-s="pp">30pp</b><small>lower fraud incident rate, ~SGD 200K/month GMV protected</small></div>
+          <div><b data-n="70" data-s="pp">70pp</b><small>less verification friction while still catching 80% of fraud</small></div>
+        </div></div>
+      </article>
 
-      <div class="step rv">
-        <div class="yr">2021 – 2022<b>J.P. Morgan</b></div>
-        <div>
-          <h3>Senior Analyst · thematic indices</h3>
-          <p class="why">See how models hold up when every number is money, and apply NLP to markets.</p>
-          <p class="did">A BERT sentiment pipeline that scored stocks by theme for a custom index, and a volatility-based index through corporate actions.</p>
-        </div>
-        <div class="m"><b data-n="100" data-p="$" data-s="K">$100K</b><span>book value target, volatility index</span></div>
-      </div>
+      <article class="step rv">
+        <div class="top"><div class="co"><b>J.P. Morgan</b> · Mumbai</div><div class="co">2021 – 2022</div></div>
+        <h3>Senior Analyst · Thematic indices</h3>
+        <div class="row"><span>Owned</span><p class="owned">Designed and shipped <em>thematic equity indices</em>, from the NLP signal to live index performance.</p></div>
+        <div class="row"><span>Built</span><div class="built"><i>BERT sentiment pipeline on news</i><i>Theme scoring for AI &amp; renewables</i><i>Volatility-based index</i></div></div>
+        <div class="row"><span>Impact</span><div class="impact">
+          <div><b>New</b><small>thematic indices built: AI, renewables and more</small></div>
+          <div><b data-n="100" data-p="$" data-s="K">$100K</b><small>in client value</small></div>
+        </div></div>
+      </article>
 
-      <div class="step rv">
-        <div class="yr">2022 – 2024<b>Grab</b></div>
-        <div>
-          <h3>Data Scientist · trust, integrity &amp; safety</h3>
-          <p class="why">Consumer scale across Southeast Asia, where experiments directly protect people.</p>
-          <p class="did">Experiments on content reporting, fraud models for collusion and impersonation, risk-based verification, and monthly C-level readouts.</p>
-        </div>
-        <div class="m"><b data-n="30" data-s="pp">30pp</b><span>drop in fraud incident rate</span></div>
-      </div>
+      <article class="step rv">
+        <div class="top"><div class="co"><b>Netradyne</b> · Bengaluru</div><div class="co">2020 – 2021</div></div>
+        <h3>Data Analyst · Driver-safety telematics</h3>
+        <div class="row"><span>Owned</span><p class="owned">Telemetry analytics for <em>driver safety</em> on live device data, from pipelines to in-vehicle alerts.</p></div>
+        <div class="row"><span>Built</span><div class="built"><i>Pipeline automation</i><i>Telemetry anomaly detection</i><i>Accident-hotspot clustering</i><i>SQL → NoSQL migration</i></div></div>
+        <div class="row"><span>Impact</span><div class="impact">
+          <div><b>1/6th</b><small>runtime cut by automation</small></div>
+          <div><b data-n="12" data-s="%">12%</b><small>fewer accidents in flagged zones</small></div>
+        </div></div>
+      </article>
 
-      <div class="step rv">
-        <div class="yr">2025 – now<b>Atlassian</b></div>
-        <div>
-          <h3>Senior Data Scientist · DC-to-Cloud migration</h3>
-          <p class="why">Bring experimentation to a complex B2B problem at enterprise scale.</p>
-          <p class="did">Experiments for a migration support agent, a data-driven customer classification for migrations, a DBT rebuild of legacy SQL, and the migration-reliability KPIs leadership reviews weekly.</p>
-        </div>
-        <div class="m"><b data-n="50" data-p="+" data-s="%">+50%</b><span>deflection rate, migration support agent</span></div>
-      </div>
+      <article class="step rv">
+        <div class="top"><div class="co"><b>IndShine</b> · Delhi</div><div class="co">2017 – 2020</div></div>
+        <h3>Senior Data Analyst · Drones &amp; geospatial</h3>
+        <div class="row"><span>Owned</span><p class="owned">Pricing and geospatial analytics for <em>drone survey projects</em> in construction, agriculture and government.</p></div>
+        <div class="row"><span>Built</span><div class="built"><i>3D maps from 2D imagery</i><i>Timeline prediction models</i><i>Segment-based pricing</i></div></div>
+        <div class="row"><span>Impact</span><div class="impact">
+          <div><b data-n="20" data-s="%">20%</b><small>more accurate project timelines</small></div>
+          <div><b data-n="5" data-s="%">5%</b><small>revenue uplift from pricing</small></div>
+        </div></div>
+      </article>
     </div>
   </section>
 
