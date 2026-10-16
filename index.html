@@ -1,703 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-5BB8W2X');</script>
-  <!-- End Google Tag Manager -->
-  <link rel="icon" type="image/png" href="/favicon.png"/>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aditya Yadav</title>
+  <meta name="description" content="Aditya Yadav: data scientist at Grab working on trust and safety, and builder of VettaCV. From maps and telematics to finance, safety and my own products.">
+  <meta property="og:title" content="Aditya Yadav · data scientist who ships products">
+  <meta property="og:description" content="Seven years in data science, from geospatial and telematics to finance and trust & safety, and now building VettaCV.">
+  <meta property="og:image" content="https://aditnole.github.io/assets/img/profile.jpeg">
+  <link href="favicon.png" rel="icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f8fe;
+      --card: #ffffff;
+      --ink: #0f1b2d;
+      --ink-2: #44526a;
+      --ink-3: #7b879b;
+      --line: #dfe8f5;
+      --blue: #2563eb;
+      --blue-2: #1d4ed8;
+      --soft: #e8f0ff;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16.5px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 0 22px; }
+    .mono { font: 500 12px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
+    h1, h2, h3 { margin: 0; }
+    .serif { font-family: Fraunces, Georgia, serif; font-optical-sizing: auto; }
 
-  <title>Personal Portfolio</title>
-  <meta content="" name="descriptison">
-  <meta content="" name="keywords">
+    /* soft background shape that drifts slowly */
+    .glow { position: fixed; inset: -20vmax auto auto -10vmax; width: 60vmax; height: 60vmax; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(37,99,235,0.16), rgba(37,99,235,0) 60%); pointer-events: none; z-index: -1;
+      animation: drift 22s var(--ease) infinite alternate; }
+    @keyframes drift { to { transform: translate(18vmax, 10vmax) scale(1.1); } }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    nav.top { position: sticky; top: 0; z-index: 10; background: rgba(244,248,254,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+    nav.top.scrolled { border-color: var(--line); }
+    nav.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    nav.top .me { font-weight: 700; color: var(--ink); }
+    nav.top ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 14.5px; font-weight: 500; }
+    nav.top ul a { color: var(--ink-2); }
+    nav.top ul a:hover { color: var(--ink); text-decoration: none; }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+    /* hero */
+    .hero { padding: 84px 0 64px; display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 48px; align-items: center; }
+    .hero h1 { font-size: clamp(40px, 6.4vw, 70px); line-height: 1.02; font-weight: 600; letter-spacing: -0.025em; }
+    .hero h1 em { font-style: italic; color: var(--blue); }
+    .hero p { font-size: 19px; color: var(--ink-2); max-width: 56ch; margin: 22px 0 0; }
+    .hero .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; padding: 11px 18px; border-radius: 12px; transition: transform .25s var(--ease), background .2s, box-shadow .25s; }
+    .btn:hover { text-decoration: none; transform: translateY(-2px); }
+    .btn.primary { background: var(--ink); color: #fff; }
+    .btn.primary:hover { box-shadow: 0 10px 24px -10px rgba(15,27,45,0.5); }
+    .btn.ghost { background: var(--card); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+    .portrait { width: 190px; height: 190px; border-radius: 28px; object-fit: cover; box-shadow: 0 0 0 6px #fff, 0 24px 48px -20px rgba(15,27,45,0.35); transform: rotate(3deg); transition: transform .5s var(--ease); }
+    .portrait:hover { transform: rotate(0deg) scale(1.02); }
+    .now { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink-2); background: var(--card); box-shadow: 0 0 0 1px var(--line); padding: 7px 12px; border-radius: 999px; margin-bottom: 22px; }
+    .now i { width: 8px; height: 8px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 0 0 rgba(22,163,74,0.5); animation: pulse 2.4s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(22,163,74,0); } 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); } }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    section { padding: 56px 0; }
+    .head { margin-bottom: 30px; }
+    .head h2 { font-size: clamp(30px, 4vw, 42px); font-weight: 600; letter-spacing: -0.02em; margin-top: 10px; }
+    .head p { color: var(--ink-2); margin: 10px 0 0; max-width: 60ch; }
 
+    /* journey */
+    .journey { position: relative; padding-left: 46px; }
+    .rail { position: absolute; left: 13px; top: 8px; bottom: 8px; width: 3px; background: var(--line); border-radius: 3px; overflow: hidden; }
+    .rail i { position: absolute; inset: 0 0 auto 0; height: 0%; background: linear-gradient(var(--blue), #60a5fa); border-radius: 3px; }
+    .stop { position: relative; margin-bottom: 26px; }
+    .stop::before { content: ""; position: absolute; left: -40px; top: 22px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); border: 3px solid var(--line); transition: border-color .4s, background .4s, transform .4s var(--ease); }
+    .stop.lit::before { border-color: var(--blue); background: #fff; transform: scale(1.15); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px; transition: box-shadow .3s, transform .3s var(--ease); }
+    .card:hover { box-shadow: 0 18px 40px -24px rgba(15,27,45,0.35); transform: translateY(-2px); }
+    .stop .when { font: 500 12.5px/1 "JetBrains Mono", monospace; color: var(--blue); }
+    .stop h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin-top: 10px; }
+    .stop h3 span { font-weight: 500; color: var(--ink-3); font-size: 16px; }
+    .stop .why { margin: 10px 0 0; color: var(--ink); font-size: 15.5px; }
+    .stop .why b { font-family: Fraunces, Georgia, serif; font-style: italic; font-weight: 600; color: var(--blue-2); }
+    .stop .did { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; }
+    .nums { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .nums div { background: var(--soft); border-radius: 12px; padding: 9px 12px; min-width: 120px; }
+    .nums b { display: block; font-size: 20px; font-weight: 700; color: var(--blue-2); font-variant-numeric: tabular-nums; }
+    .nums span { font-size: 12px; color: var(--ink-2); }
+    .stop.feature .card { background: linear-gradient(135deg, #0f1b2d, #1e3a8a); border: 0; color: #fff; }
+    .stop.feature .why, .stop.feature h3 { color: #fff; }
+    .stop.feature .why b { color: #93c5fd; }
+    .stop.feature .did { color: #c7d2fe; }
+    .stop.feature .when { color: #93c5fd; }
+    .stop.feature .nums div { background: rgba(255,255,255,0.1); }
+    .stop.feature .nums b { color: #fff; }
+    .stop.feature .nums span { color: #c7d2fe; }
+    .stop.feature .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .stop.feature .btn.ghost { background: rgba(255,255,255,0.1); color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,0.18); }
+    .stop.feature .btn.primary { background: #fff; color: var(--ink); }
+    .brandrow { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .brandrow img.logo { width: 34px; height: 34px; background: #fff; border-radius: 9px; padding: 3px; }
+    .brandrow img.pup { width: 46px; height: 46px; border-radius: 12px; margin-left: auto; object-fit: cover; }
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169007209-3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    .thread { margin-top: 10px; padding: 22px 24px; border-radius: 20px; background: var(--soft); color: var(--ink); font-size: 16.5px; }
+    .thread b { font-family: Fraunces, Georgia, serif; font-style: italic; font-weight: 600; color: var(--blue-2); }
 
-    gtag('config', 'UA-169007209-3');
-  </script>
+    /* work */
+    .work { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .work a.card { display: block; color: var(--ink); padding: 0; overflow: hidden; }
+    .work a.card:hover { text-decoration: none; }
+    .work .img { aspect-ratio: 16 / 8; background: var(--soft) center / cover no-repeat; transition: transform .6s var(--ease); }
+    .work a.card:hover .img { transform: scale(1.04); }
+    .work .img.contain { background-size: 62% auto; background-color: #fff; }
+    .work .img.cover-vetta { background: linear-gradient(135deg, #0f1b2d, #1e3a8a); display: flex; align-items: center; justify-content: center; gap: 18px; }
+    .work .img.cover-vetta img.l { width: 64px; height: 64px; background: #fff; border-radius: 16px; padding: 6px; }
+    .work .img.cover-vetta b { color: #fff; font: 600 30px/1 Fraunces, Georgia, serif; }
+    .work .img.cover-vetta img.p { width: 64px; height: 64px; border-radius: 16px; object-fit: cover; }
+    .work .txt { padding: 16px 18px 18px; }
+    .work .txt b { display: block; font-size: 16.5px; }
+    .work .txt span { display: block; font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+    .more { margin-top: 14px; font-size: 14.5px; color: var(--ink-2); }
 
+    .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tools span { background: var(--card); box-shadow: 0 0 0 1px var(--line); padding: 8px 12px; border-radius: 10px; font-size: 14px; color: var(--ink-2); }
 
+    footer { padding: 64px 0 80px; }
+    .contact { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .contact h2 { font-size: clamp(26px, 3.4vw, 34px); font-weight: 600; letter-spacing: -0.02em; }
+    .contact p { margin: 8px 0 0; color: var(--ink-2); }
+    .small { margin-top: 22px; font-size: 13px; color: var(--ink-3); text-align: center; }
 
-  <!-- =======================================================
-  * Template Name: Personal - v2.1.0
-  * Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    /* reveal on scroll */
+    .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .rv.in { opacity: 1; transform: none; }
+    /* the hero animates on load, never waiting for a scroll trigger */
+    .intro { animation: rise .9s var(--ease) both; }
+    .intro.d1 { animation-delay: .08s; } .intro.d2 { animation-delay: .16s; } .intro.d3 { animation-delay: .24s; } .intro.d4 { animation-delay: .32s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+    @media (max-width: 760px) {
+      nav.top ul { display: none; }
+      .hero { grid-template-columns: 1fr; padding-top: 48px; gap: 28px; }
+      .hero .portrait { order: -1; width: 120px; height: 120px; border-radius: 22px; }
+      .work { grid-template-columns: 1fr; }
+      .journey { padding-left: 34px; }
+      .rail { left: 7px; }
+      .stop::before { left: -34px; }
+      .card { padding: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before { animation: none !important; transition: none !important; }
+      .rv { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
 </head>
-
 <body>
-  
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BB8W2X"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <!-- ======= Header ======= -->
-  <header id="header" class="header-tops">
+<div class="glow" aria-hidden="true"></div>
 
-    <div class="container">
+<nav class="top" id="top">
+  <div class="wrap">
+    <a class="me" href="#">Aditya Yadav</a>
+    <ul>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
-      <h1><a href="index.html">Aditya Yadav</a></h1>
-      <h2 style="color:#fff">I'm <span class="typing" style="color:#e8eeea"></span></h2>
-      <nav class="nav-menu d-none d-lg-block">
-        <ul>
-          <li class="active"><a href="#header"> <span>Home</span></a></li>
-          <li><a href="#about"><span>About</span></a></li>
-          <li><a href="#education"> <span>Education</span></a></li>
-          <li><a href="#experience"> <span>Experience</span></a></li>
-<!--          <li><a href="#projects"> <span>Projects</span></a></li>-->
-          <li><a href="#portfolio"> <span>Projects</span></a></li>
-          <li><a href="#skills"> <span>Skills</span></a></li>
-          <li><a href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view?usp=sharing" target="_blank"> <span>Resume</span></a></li>
-          <!-- <li><a href="#links"> <span>Resume & Links</span></a></li> -->
-          <li><a href="#contacts"> <span>Contact</span></a></li>
-
-        </ul>
-      </nav><!-- .nav-menu -->
-
-      <div class="social-links">
-          <a href="https://www.linkedin.com/in/adityayadaviit" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-          <a href="https://www.github.com/aditnole" target="_blank" class="github"><i class="bx bxl-github"></i></a>
-          <a href="mailto:aditya.yadav.of@gmail.com" target="_blank" class="google"><i class="bx bxl-google"></i></a>
-
-      </div>
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= About Section ======= -->
-  <section id="about" class="about">
-
-    <!-- ======= About Me ======= -->
-    <div class="about-me container">
-
-      <div class="section-title">
-        <h2>About</h2>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-4" data-aos="fade-right">
-          <img src="assets/img/profile.jpeg" class="img-fluid" alt="">
-        </div>
-        <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-          <p><strong>Experience</strong>: 7 years in Data Science and Analytics</p>
-            <ul>
-              <li><strong>Domains</strong>: Fraud, Risk, Telematics, Equity, Maps, Content Moderation</li>
-              <li><strong>Core Skills</strong>:</li>
-              <ul>
-                <li><strong>Technical</strong>: Python, Machine Learning, Deep Learning, NLP, Text Classification, Experimentation, Statistics</li>
-                <li><strong>Analytics</strong>: User Segmentation, User Funnel Analysis, Exploratory Data Analysis (EDA)</li>
-                <li><strong>Tools</strong>: Mixpanel, Stakeholder Management, Cross-functional Collaboration</li>
-              </ul>
-              <li><strong>Key Strengths</strong>:</li>
-              <ul>
-                <li>Developed and managed analytical systems to drive actionable insights for B2C and B2B products</li>
-                <li>Specialized in conducting and designing experiments for product growth and optimization</li>
-                <li>Proven expertise in Analytics Leadership and effectively engaging stakeholders across Engineering, Product, and Operations</li>
-              </ul>
-            </ul>
-          <div class="row">
-            <div class="col-lg-6">
-              <ul>
-                <!-- <li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong> 1 Dec 1994 </li> -->
-                <!-- <li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +91 9462491xxx</li> -->
-              </ul>
-            </div>
-            <div class="col-lg-6">
-              <ul>
-                <li><i class="icofont-rounded-right"></i> <strong>City:</strong> Bangalore, India</li>
-                <li><i class="icofont-rounded-right"></i> <strong>Email:</strong> aditya.yadav.of@gmail.com</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <!-- End About Me -->
-
-    <!-- ======= Interests ======= -->
-    <div class="interests container">
-
-      <div class="section-title">
-        <h2>Interests</h2>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-3 col-md-4">
-          <div class="icon-box">
-            <i class="ri-global-line" style="color: #ffbb2c;"></i>
-            <h3>Experimentation</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-          <div class="icon-box">
-            <i class="ri-database-2-line" style="color: #5578ff;"></i>
-            <h3>Machine Learning</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-          <div class="icon-box">
-            <i class="ri-camera-3-line" style="color: #e80368;"></i>
-            <h3>Large Language Models</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-          <div class="icon-box">
-            <i class="ri-english-input" style="color: #1c7d32;"></i>
-            <h3>Natural Language Processing</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-code-s-slash-fill" style="color: #28a745;"></i>
-            <h3>Agentics Frameworks, Langchain, RAG</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-bar-chart-box-line" style="color: #f1081f;"></i>
-            <h3>Visualization</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-file-list-3-line" style="color: #47aeff;"></i>
-            <h3>SQL</h3>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 mt-4">
-          <div class="icon-box">
-            <i class="ri-image-line" style="color: #ffc107;"></i>
-            <h3>Power BI , Tableau </h3>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- End Interests -->
-  </section><!-- End About Section -->
-
-
-
-  <!-- ======= Education Section ======= -->
-  <section id="education" class="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Education</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-12" data-aos="fade-up" style="display: inline-block;">
-
-
-            <!-- <div class="col-md-4 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="padding:0px 0px;padding-bottom: 5px;display: inline-block;">
-              <img src="assets/img/education/ASU.jpg" class="img-fluid" alt="">
-              <h4 style="text-align:left;"><a href="https://www.asu.edu/" target="_blank" style="color:#12d640">Arizona State University</a><br> </h4> -->
-              <!-- <p style="text-align:left;color:#fff;padding: 5px 10px;"><em>MS in Computer Science</em></p> -->
-              <!-- <h5 style="text-align:left;padding: 0px 10px;">Janurary 2021 - Present</h5>
-              <h6 style="text-align:left;color:#fff;padding: 0px 10px;">Relevant Coursework</h6>
-              <ul style="text-align:left;color:#fff;">
-                <li>Distributed Database Systems</li>
-                <li>Cloud Computing</li>
-                <li>Foundation Of Algorithms</li>
-              </ul>
-            </div>  -->
-            <div class="col-md-4 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="padding:0px 0px;padding-bottom: 5px;display: inline-block;">
-              <img src="assets/img/education/au.png" class="img-fluid" alt="">
-              <!-- <h4 style="text-align:left;"><a href="https://ahduni.edu.in/" target="_blank" style="color:#12d640">Ahmedabad University</a><br> </h4> -->
-              <p style="text-align:left;color:#fff;padding: 5px 10px;"><em>Bachelor of Technology </em></p>
-              <h5 style="text-align:left;padding: 0px 10px;">June 2013 - June 2017</h5>
-              <h6 style="text-align:left;color:#fff;padding: 0px 10px;">Relevant Coursework</h6>
-              <ul style="text-align:left;color:#fff;">
-                <!-- <li>Data Structures &amp; Algorithms</li> -->
-                <li>Optimization</li>
-                <li>Algorithms &amp; Optimization for Big Data</li>
-                <li>Machine Learning</li>
-                <!-- <li>Computer Vision</li> -->
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="portfolio">
-        <div class="container">
-          <div class="section-title">
-            <h2>Online Certification</h2>
-          </div>
-      
-          <div class="row portfolio-container" style="position: relative;">
-            
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-aos="fade-up">
-              <div class="portfolio-wrap">
-                <img src="assets/img/certification/dai.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Gen AI with LLM</h4>
-                  <div class="portfolio-links">
-                    <a href="https://www.coursera.org/account/accomplishments/verify/TL5VQASUBT4F?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=pdf_header_button&utm_product=course" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-aos="fade-up">
-              <div class="portfolio-wrap">
-                <img src="assets/img/certification/worldquant.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>WorldQuant Machine Learning</h4>
-                  <div class="portfolio-links">
-                    <a href="https://www.credly.com/badges/ee79baa0-996e-4852-ab92-7dc005466301/public_url" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-            <div class="col-lg-4 col-md-6 portfolio-item filter-project" data-aos="fade-up">
-              <div class="portfolio-wrap">
-                <img src="assets/img/certification/UniversityofAlberta.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Software Product Management</h4>
-                  <div class="portfolio-links">
-                    <a href="https://www.coursera.org/account/accomplishments/verify/5YF9YEHLQZ8F" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-            <div class="col-lg-4 col-md-6 portfolio-item filter-project" data-aos="fade-up">
-              <div class="portfolio-wrap">
-                <img src="assets/img/certification/dai.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Deep Learning Specialization</h4>
-                  <div class="portfolio-links">
-                    <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/G3EB3ED2URWJ" target="_blank" title="Certificate"><i class="bx bx-link"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-          </div>
-        </div>
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <div class="now intro"><i></i>Data Scientist at Grab · building VettaCV</div>
+      <h1 class="serif intro d1">I turn messy data into <em>decisions</em>, then into products.</h1>
+      <p class="intro d2">
+        Seven years in data science across maps, telematics, finance and trust &amp; safety. Today I lead safety analytics
+        at Grab, and on the side I build <a href="https://vettacv.com" target="_blank" rel="noopener">VettaCV</a>, an AI job-search app.
+        Based in Bangalore.
+      </p>
+      <div class="links intro d3">
+        <a class="btn primary" href="#journey">See the journey ↓</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="https://www.github.com/aditnole" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn ghost" href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
       </div>
     </div>
+    <img class="portrait intro d4" src="assets/img/profile.jpeg" alt="Aditya Yadav" width="190" height="190">
+  </header>
 
-  </section>
-  <!-- End Education Section -->
+  <section id="journey">
+    <div class="head rv">
+      <div class="mono">The journey · 2013 → now</div>
+      <h2 class="serif">Every move asked a bigger question.</h2>
+      <p>Different industries, one thread: start with the data, find the decision it should change, and measure whether it did.</p>
+    </div>
 
+    <div class="journey">
+      <div class="rail" aria-hidden="true"><i id="railFill"></i></div>
 
+      <article class="stop rv">
+        <div class="card">
+          <div class="when">2013 – 2017</div>
+          <h3>Engineering degree <span>· B.Tech</span></h3>
+          <p class="why"><b>Where it started:</b> optimisation, algorithms for big data, and my first machine-learning course.</p>
+          <p class="did">The math clicked. I wanted to use it on real problems, not textbook ones.</p>
+        </div>
+      </article>
 
-  <!-- Start Experience Section -->
-
-
-  <section id="experience" class="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Experience</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-12" data-aos="fade-up">
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-            <h4 style="text-align:left;"><a href="https://grab.com/" style="color:#12d640">Grab</a><br> </h4>
-            <h5 style="text-align:left;">August 2022 - Present</h5>
-            <p style="text-align:left;color:#fff"><em>Data Scientist</em></p>
-            <ul style="text-align:left;">
-              <li>Owned analytics for both Content Moderation (as an IC) and Safety, leading a team of 3.</li>
-              <li>Led analytics initiatives focusing on platform abuse trends, KPIs, and data science model performance across user-generated content on the Grab App.</li>
-              <li>Developed risk signals to identify risky users, resulting in a 2x increase in incident detection.</li>
-              <li>Created a language model to detect profanity using BERT, reducing text-based incidents by 10% across Thailand.</li>
-              <li>Developed a user segmentation system and a Customer Lifetime Value (CLV) prediction model, achieving a 2pp reduction in churn rate and generating $4k in monthly savings.</li>
-              <li>Conducted extensive A/B testing and advanced experimentation techniques to optimize content detection and driver allocation.</li>
-            </ul>
-          </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-            <h4 style="text-align:left;"><a href="https://snapmydesign.com/" style="color:#12d640">Snap My Design & CVSwitch</a><br> </h4>
-            <h5 style="text-align:left;">December 2023 - January 2024</h5>
-            <p style="text-align:left;color:#fff"><em>Co-Founder</em></p>
-            <ul style="text-align:left;">
-              <li>Developed SnapMyDesign, a platform for generating custom illustrations and designs, enabling designers to create digital assets.</li>
-              <li>Launched CVSwitch, an app that streamlines resume building by generating tailored CV content for job seekers. It has since grown into <a href="https://www.vettacv.com" style="color:#12d640">VettaCV</a> (<a href="projects/vettacv-story.html" style="color:#12d640">how it was built</a>).</li>
-            </ul>
-          </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-            <h4 style="text-align:left;"><a href="https://www.jpmorganchase.com/" style="color:#12d640">JP Morgan Chase & Co.</a><br> </h4>
-            <h5 style="text-align:left;">November 2021 - August 2022</h5>
-            <p style="text-align:left;color:#fff"><em>Senior Analyst</em></p>
-            <ul style="text-align:left;">
-              <li>Developed a theme-based index for sectors like AI and Renewables, increasing client book value by $100k.</li>
-              <li>Utilized VADER sentiment analysis and NLP techniques to categorize stocks.</li>
-              <li>Created a volatility-based index tailored to diverse client needs, targeting a book value of $200k.</li>
-            </ul>
-          </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-            <h4 style="text-align:left;"><a href="https://www.netradyne.com/" style="color:#12d640">Netradyne</a><br> </h4>
-            <h5 style="text-align:left;">November 2020 - November 2021</h5>
-            <p style="text-align:left;color:#fff"><em>Data Scientist</em></p>
-            <ul style="text-align:left;">
-              <li>Developed an anomaly detection model for monitoring alert rates, resulting in a 50% drop in response time.</li>
-              <li>Integrated new alerts into the driver safety score and created a Tableau dashboard for insights on driver performance.</li>
-            </ul>
-          </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-            <h4 style="text-align:left;"><a href="https://www.indshine.com/" style="color:#12d640">IndShine</a><br> </h4>
-            <h5 style="text-align:left;">June 2017 - June 2020</h5>
-            <p style="text-align:left;color:#fff"><em>Product Analyst</em></p>
-            <ul style="text-align:left;">
-              <li>Analyzed pricing based on user segments in construction and agriculture, leading to a 5% revenue increase.</li>
-              <li>Created 3D maps from 2D images for government projects using ArcGIS.</li>
-              <li>Developed predictive models to improve project timeline accuracy by 20% using historical geospatial data.</li>
-            </ul>
+      <article class="stop rv">
+        <div class="card">
+          <div class="when">2017 – 2020 · IndShine</div>
+          <h3>Product Analyst <span>· drones &amp; geospatial</span></h3>
+          <p class="why"><b>Why a startup:</b> to learn the whole loop, from raw data to pricing to the customer, faster than anywhere else.</p>
+          <p class="did">Priced services by user segment, built 3D maps from 2D imagery for government projects, and predicted project timelines from historical geospatial data.</p>
+          <div class="nums">
+            <div><b data-count="5" data-suffix="%">5%</b><span>revenue from segment pricing</span></div>
+            <div><b data-count="20" data-suffix="%">20%</b><span>better timeline accuracy</span></div>
           </div>
         </div>
-      </div>
+      </article>
+
+      <article class="stop rv">
+        <div class="card">
+          <div class="when">2020 – 2021 · Netradyne</div>
+          <h3>Data Scientist <span>· driver safety telematics</span></h3>
+          <p class="why"><b>Why the switch:</b> from analysing data to building models that run on live data, where a missed signal is a real risk on the road.</p>
+          <p class="did">Built anomaly detection for alert rates and folded new alerts into the driver safety score.</p>
+          <div class="nums">
+            <div><b data-count="50" data-suffix="%">50%</b><span>faster response to anomalies</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="stop rv">
+        <div class="card">
+          <div class="when">2021 – 2022 · JP Morgan Chase</div>
+          <h3>Senior Analyst <span>· equity indices</span></h3>
+          <p class="why"><b>Why finance:</b> to see how models hold up when every number is money, and to work on NLP for markets.</p>
+          <p class="did">Built a theme-based index (AI, renewables) using sentiment analysis to classify stocks, plus a volatility-based index for client needs.</p>
+          <div class="nums">
+            <div><b data-count="100" data-prefix="$" data-suffix="k">$100k</b><span>client book value added</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="stop rv">
+        <div class="card">
+          <div class="when">2022 – now · Grab</div>
+          <h3>Data Scientist <span>· content moderation &amp; safety</span></h3>
+          <p class="why"><b>Why Grab:</b> consumer scale across Southeast Asia, and problems where data directly protects people.</p>
+          <p class="did">Own analytics for content moderation and safety and lead a team of three: risk signals, a BERT profanity model, user segmentation and CLV, and a lot of experimentation.</p>
+          <div class="nums">
+            <div><b data-count="2" data-suffix="×">2×</b><span>incident detection</span></div>
+            <div><b data-count="10" data-suffix="%">10%</b><span>fewer text incidents, Thailand</span></div>
+            <div><b data-count="2" data-suffix="pp">2pp</b><span>lower churn</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="stop feature rv">
+        <div class="card">
+          <div class="when">2023 – now · on the side</div>
+          <h3>Founder · SnapMyDesign → CVSwitch → VettaCV</h3>
+          <div class="brandrow">
+            <img class="logo" src="assets/img/vettacv/vettacv-mark.svg" alt="VettaCV logo">
+            <span style="color:#c7d2fe;font-size:14px">Tailored resumes · matched jobs · real interviewers</span>
+            <img class="pup" src="assets/img/vettacv/shiba-wave.webp" alt="Momo, the VettaCV Shiba">
+          </div>
+          <p class="why"><b>Why build:</b> after years of shaping other people's products with data, I wanted to own one end to end, from the model to the checkout page.</p>
+          <p class="did">Started with an illustration generator, then a resume tailor that grew into VettaCV: jobs matched to your resume, AI interview practice, and real interviewers who can refer you.</p>
+          <div class="nums">
+            <div><b data-count="400" data-suffix="+">400+</b><span>users this year</span></div>
+            <div><b data-count="134" data-prefix="+" data-suffix="%">+134%</b><span>active users, 90 days</span></div>
+          </div>
+          <div class="cta">
+            <a class="btn primary" href="https://vettacv.com" target="_blank" rel="noopener">Visit vettacv.com →</a>
+            <a class="btn ghost" href="projects/vettacv-story.html">How I built it</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="thread rv">
+      The thread: <b>data is only useful when it changes a decision.</b> Each role moved me closer to the decision itself,
+      and building VettaCV puts me on both sides of it.
     </div>
   </section>
 
-  <!-- End Experience Section -->
-
-
-
-
-  <!-- Start Project Section -->
-  <section id="portfolio" class="portfolio">
-    <div class="container">
-
-      <div class="section-title">
-        <h2>Projects</h2>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-12 d-flex justify-content-center">
-          <ul id="portfolio-flters">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">Web-App</li>
-            <li data-filter=".filter-project">Project</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="row portfolio-container">
-
-        
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>VettaCV: Resume &amp; Job Search App</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/CvSwitch.png" class="img-fluid" alt="VettaCV">
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/vettacv-story.html" target="_blank" rel="noopener" title="How VettaCV was built"><i class="bx bx-book-open"></i></a>
-                <a href="projects/cvswitch.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>Illustration Generator</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/snapmydesign.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/snapmydesign.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>Bolt (Case Study)</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/bolt.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/bolt_case_study.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>WerkSpot - Netherlands (Case Study 2)</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/instapro_group.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              
-              <div class="portfolio-links">
-                <a href="projects/instaprogroup.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>To-Do App</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/todo.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <div class="portfolio-links">
-                <a href="projects/todo.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-          <!-- <br> -->
-          <center><h4>Agoda (Case Study)</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/Agoda.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Resume Section Classifier</h4>
-              <div class="portfolio-links">
-                <a href="projects/agoda.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <br>
-          <center><h4>Tech Blog</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/blog.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <div class="portfolio-links">
-                <a href="projects/blog.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-project">
-          <center><h4>Book Recommender System</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/bookrec.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <div class="portfolio-links">
-                <a href="projects/bookrec.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-          <center><h4>Insincere Comments Classification</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/kaggle.png" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <div class="portfolio-links">
-                <a href="projects/ml.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-project"> -->
-          <!-- <br> -->
-          <!-- <center><h4>Image Generator</h4></center>
-          <div class="portfolio-wrap">
-            <img src="assets/img/project/gan.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <div class="portfolio-links">
-                <a href="projects/gan.html" data-gall="portfolioDetailsGallery" data-vbtype="iframe" class="venobox" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div> -->
-          <!-- </div> -->
-        <!-- </div> -->
-
-      </div>
+  <section id="work">
+    <div class="head rv">
+      <div class="mono">Selected work</div>
+      <h2 class="serif">A few things worth a click.</h2>
     </div>
+    <div class="work">
+      <a class="card rv" href="projects/vettacv-story.html">
+        <div class="img cover-vetta"><img class="l" src="assets/img/vettacv/vettacv-mark.svg" alt=""><b>VettaCV</b><img class="p" src="assets/img/vettacv/shiba-wave.webp" alt=""></div>
+        <div class="txt"><b>Building VettaCV</b><span>Engineering notes: LLM schema, token budget, payments, infra and numbers.</span></div>
+      </a>
+      <a class="card rv" href="projects/snapmydesign.html">
+        <div class="img" style="background-image:url('assets/img/project/snapmydesign.png')"></div>
+        <div class="txt"><b>SnapMyDesign</b><span>Illustrations and design ideas generated from text or a reference image.</span></div>
+      </a>
+      <a class="card rv" href="projects/bolt_case_study.html">
+        <div class="img" style="background-image:url('assets/img/project/bolt.jpg')"></div>
+        <div class="txt"><b>Bolt · case study</b><span>A data-backed acquisition strategy for a European mobility startup.</span></div>
+      </a>
+      <a class="card rv" href="projects/instaprogroup.html">
+        <div class="img contain" style="background-image:url('assets/img/project/instapro_group.jpg')"></div>
+        <div class="txt"><b>Werkspot · case study</b><span>Demand–supply gaps and a switchback experiment for a new matching algorithm.</span></div>
+      </a>
+    </div>
+    <p class="more rv">More: <a href="projects/agoda.html">hotel pricing trends (Agoda)</a> · <a href="projects/bookrec.html">book recommender</a> · <a href="projects/ml.html">insincere comments classification</a></p>
   </section>
 
-  <!-- End Project Section -->
-
-
-
-  <!-- Start Skills Section -->
-
-  <section id="skills" class="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Skills</h2>
-      </div>
-      <div class="row">
-        <div class="col-lg-12" data-aos="fade-up">
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100" style="background:#fff">
-            <h4 style="text-align:left;color:#09203a">Languages and Databases</h4>
-                <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/python/python-horizontal.svg" alt="vectorlogo.zone" height="50" width="150">
-                  <img src="https://www.vectorlogo.zone/logos/java/java-horizontal.svg" alt="vectorlogo.zone" height="50" width="120">
-                  <img src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="upload.wikimedia.org" height="60" width="90">
-                  <img src="https://www.vectorlogo.zone/logos/mysql/mysql-horizontal.svg" alt="vectorlogo.zone" height="70" width="130">
-                  <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-horizontal.svg" alt="vectorlogo.zone" height="50" width="190">
-
-                </p>
-            </div>
-            <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-              <h4 style="text-align:left;color:#09203a">Frameworks</h4>
-                <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/djangoproject/djangoproject-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/nodejs/nodejs-horizontal.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/getbootstrap/getbootstrap-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/pytorch/pytorch-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/opencv/opencv-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" alt="upload.wikimedia.org" width="90" height="70">
-              </p>
-          </div>
-          <div class="col-md-12 mt-4 mt-md-0 icon-box" data-aos="lefade-up" data-aos-delay="100" style="background:#fff">
-              <h4 style="text-align:left;color:#09203a">Tools</h4>
-                <p style="text-align:left;">
-                  <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/heroku/heroku-ar21.svg" alt="vectorlogo.zone">
-                  <img src="https://www.vectorlogo.zone/logos/jupyter/jupyter-ar21.svg" alt="vectorlogo.zone">
-              </p>
-          </div>
-        </div>
-      </div>
+  <section>
+    <div class="head rv">
+      <div class="mono">Toolkit</div>
+    </div>
+    <div class="tools rv">
+      <span>Python</span><span>SQL</span><span>Experimentation &amp; A/B testing</span><span>PyTorch · TensorFlow</span><span>NLP · BERT</span>
+      <span>LLMs · RAG · agents</span><span>Mixpanel · Tableau · Power BI</span><span>Flask · Next.js</span><span>AWS · GCP</span>
     </div>
   </section>
+</main>
 
-  <!-- End Skills Section -->
-
-
-
-
-  <!-- Start Links section -->
-  <section id="links" class="services">
-    <div class="container">
-      <div class="section-title">
-        <h2>Resume & Links</h2>
-      </div>
-      <div class="row">
-        <div class="col-md-3 mt-4 mt-md-0 icon-box" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view" target="_blank"><div class="icon"><i class="icofont-page"></i></div></a>
-          <h4 class="title"><a href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view" target="_blank">Resume</a></h4>
-          <p class="description" style="color:#fff;">The link contains downloadable resume</p>
-        </div>
-        <!-- <div class="col-md-3 mt-4 mt-md-0 icon-box" data-aos="fade-up">
-          <a href="https://github.com/adityayadav/LeetCode_Problems" target="_blank"><div class="icon"><i class="icofont-link"></i></div></a>
-          <h4 class="title"><a href="https://github.com/adityayadav/LeetCode_Problems" target="_blank">LeetCode Repository</a></h4>
-          <p class="description" style="color:#fff;"> The github repository contains leetcode problems solution in python.</p>
-        </div> -->
-        
-      </div>
+<footer class="wrap" id="contact">
+  <div class="contact rv">
+    <div>
+      <h2 class="serif">Let's talk data, products or VettaCV.</h2>
+      <p>Open to conversations about analytics leadership, ML products and building things.</p>
     </div>
-  </section> <!--End Links Section -->
-
-
-  <!-- Start Contact Section -->
-
-  <section id="contacts" class="contact">
-    <div class="container">
-
-      <div class="section-title">
-        <h2>Contact</h2>
-      </div>
-
-      <div class="row mt-2">
-
-        <div class="col-md-6 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-map"></i>
-            <h3>My Address</h3>
-            <!-- <p>1275 E University Dr</p>
-            <p>Unit 212</p> -->
-            <p>Bangalore, India</p>
-          </div>
-        </div>
-
-        <div class="col-md-6 mt-4 mt-md-0 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-share-alt"></i>
-            <h3>Social Profiles</h3>
-            <div class="social-links">
-              <a href="https://www.linkedin.com/in/adityayadaviit" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              <a href="https://www.github.com/aditnole" target="_blank" class="github"><i class="bx bxl-github"></i></a>
-              <a href="mailto:aditya.yadav.of@gmail.com" target="_blank" class="google"><i class="bx bxl-google"></i></a>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 mt-4 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-envelope"></i>
-            <h3>Email</h3>
-            <p>aditya.yadav.of@gmail.com</p>
-            
-          </div>
-        </div>
-        <!-- <div class="col-md-6 mt-4 d-flex align-items-stretch">
-          <div class="info-box">
-            <i class="bx bx-phone-call"></i>
-            <h3>Contact</h3>
-            <p>+91 9462491xxx</p>
-          </div>
-        </div> -->
-      </div>
-      <!-- <div id="sfczmlqxr5caww28rswrt8849ghbekgnh3j" ></div><script type="text/javascript" src="https://counter1.stat.ovh/private/counter.js?c=zmlqxr5caww28rswrt8849ghbekgnh3j&down=async" async></script><noscript><a href="https://www.freecounterstat.com" title="free web counter"><img src="https://counter1.stat.ovh/private/freecounterstat.php?c=zmlqxr5caww28rswrt8849ghbekgnh3j" border="0" title="free web counter" alt="free web counter" style="visibility: none;"></a></noscript> -->
+    <div class="links" style="display:flex;flex-wrap:wrap;gap:10px">
+      <a class="btn primary" href="mailto:aditya.yadav.of@gmail.com">Email me</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-  </section>
+  </div>
+  <p class="small">© Aditya Yadav · Bangalore</p>
+</footer>
 
-  <!-- End Contact Section -->
+<script>
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor/counterup/counterup.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
-  <script type="text/javascript">
-    var typed = new Typed('.typing',{
-      strings: ["Data Scientist", "an AI Enthusiast", "a Product Strategist"],
-      loop: true,
-      typeSpeed: 65,
-      backSpeed: 65
-    });
-  </script>
+    // Reveal blocks as they enter the viewport; light up journey stops; count numbers up once.
+    function countUp(el) {
+      var target = parseFloat(el.dataset.count), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
+      if (reduce || isNaN(target)) return;
+      var start = null, dur = 1100;
+      function step(t) {
+        if (!start) start = t;
+        var p = Math.min(1, (t - start) / dur), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = pre + Math.round(target * e) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        if (en.target.classList.contains("stop")) {
+          en.target.classList.add("lit");
+          en.target.querySelectorAll("[data-count]").forEach(countUp);
+        }
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" }) : null;
+    document.querySelectorAll(".rv").forEach(function (el) { io ? io.observe(el) : el.classList.add("in"); });
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
+    // The rail fills as you scroll through the journey; the nav gets a hairline once you leave the top.
+    var journey = document.querySelector(".journey"), fill = document.getElementById("railFill"), nav = document.getElementById("top");
+    function onScroll() {
+      nav.classList.toggle("scrolled", window.scrollY > 8);
+      var r = journey.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.max(0, Math.min(1, (vh * 0.6 - r.top) / r.height));
+      fill.style.height = (p * 100).toFixed(1) + "%";
+    }
+    setTimeout(function () {
+      document.querySelectorAll(".rv:not(.in)").forEach(function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in");
+      });
+    }, 3000);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+  })();
+</script>
 </body>
-
 </html>
