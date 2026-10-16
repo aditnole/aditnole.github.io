@@ -138,7 +138,11 @@
     .shot .bar span { margin-left: 10px; font: 500 11px/1 "JetBrains Mono", monospace; color: #94a3b8; }
     .shot img { display: block; width: 100%; height: auto; }
 
-    .more { border-top: 1px solid var(--line); margin-top: 28px; }
+    .side { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-top: 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 28px; padding: 36px 40px; }
+    .side h3 { font-size: clamp(24px, 2.6vw, 30px); line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; margin: 14px 0 0; }
+    .side p { color: var(--ink-2); margin: 10px 0 0; max-width: 58ch; font-size: 16px; }
+    .side-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+    .more { border-top: 1px solid var(--line); margin-top: 16px; }
     .more a { display: grid; grid-template-columns: 1fr 1.4fr 130px 24px; gap: 24px; align-items: baseline; padding: 22px 4px; border-bottom: 1px solid var(--line); transition: background .3s, padding .4s var(--ease); }
     .more a:hover { background: var(--paper); padding-left: 16px; padding-right: 16px; }
     .more b { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
@@ -176,6 +180,7 @@
       .feature { grid-template-columns: 1fr; padding: 32px 24px; border-radius: 24px; }
       .feature .stats { gap: 22px; }
       .shot .frame { transform: none; }
+      .side { grid-template-columns: 1fr; padding: 28px 24px; border-radius: 22px; }
       .more a { grid-template-columns: 1fr 24px; gap: 4px 12px; }
       .more a b, .more a span:not(.arr), .more a em { grid-column: 1; }
       .more a .arr { grid-column: 2; grid-row: 1; }
@@ -317,16 +322,6 @@
       </div>
 
       <div class="step rv">
-        <div class="yr">2024 – 2025<b>Building</b></div>
-        <div>
-          <h3>SnapMyDesign &amp; VettaCV</h3>
-          <p class="why">Own a product end to end, not just the analysis behind it.</p>
-          <p class="did">An AI photoshoot generator for product visuals, and VettaCV, a resume tailor that grew into a job-search platform.</p>
-        </div>
-        <div class="m"><b data-n="2">2</b><span>products shipped</span></div>
-      </div>
-
-      <div class="step rv">
         <div class="yr">2025 – now<b>Atlassian</b></div>
         <div>
           <h3>Senior Data Scientist · DC-to-Cloud migration</h3>
@@ -340,8 +335,8 @@
 
   <section id="work">
     <div class="sh rv">
-      <div class="label">03 — Work</div>
-      <h2 class="serif">What I'm <i>building</i> now.</h2>
+      <div class="label">03 — Side projects</div>
+      <h2 class="serif">What I <i>build</i> on the side.</h2>
     </div>
 
     <div class="feature rv">
@@ -375,8 +370,20 @@
       </div>
     </div>
 
+    <div class="side rv">
+      <div>
+        <div class="label" style="color:var(--blue)">SnapMyDesign · AI photoshoot generator</div>
+        <h3 class="serif">Professional product visuals, without a designer.</h3>
+        <p>Text-to-image and style-transfer models behind one simple workflow, so non-designers can generate product photos and try-ons. Built the full UX end to end.</p>
+      </div>
+      <div class="side-ctas">
+        <a class="pill dark" href="https://www.snapmydesign.com" target="_blank" rel="noopener">Visit snapmydesign.com →</a>
+        <a class="pill light" href="projects/snapmydesign.html">Details</a>
+      </div>
+    </div>
+
+    <div class="label rv" style="margin-top:64px">Case studies &amp; experiments</div>
     <div class="more">
-      <a class="rv" href="projects/snapmydesign.html"><b>SnapMyDesign</b><span>Illustrations and design ideas generated from text or an image.</span><em>Product</em><span class="arr">→</span></a>
       <a class="rv" href="projects/instaprogroup.html"><b>Werkspot</b><span>Demand–supply gaps and a switchback test for a new matching algorithm.</span><em>Case study</em><span class="arr">→</span></a>
       <a class="rv" href="projects/bolt_case_study.html"><b>Bolt</b><span>A data-backed acquisition strategy for a mobility startup.</span><em>Case study</em><span class="arr">→</span></a>
       <a class="rv" href="projects/agoda.html"><b>Agoda</b><span>Business opportunities in hotel pricing trends.</span><em>Case study</em><span class="arr">→</span></a>
