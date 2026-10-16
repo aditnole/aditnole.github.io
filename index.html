@@ -4,390 +4,443 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aditya Yadav</title>
-  <meta name="description" content="Aditya Yadav: data scientist at Grab working on trust and safety, and builder of VettaCV. From maps and telematics to finance, safety and my own products.">
-  <meta property="og:title" content="Aditya Yadav · data scientist who ships products">
-  <meta property="og:description" content="Seven years in data science, from geospatial and telematics to finance and trust & safety, and now building VettaCV.">
+  <meta name="description" content="Aditya Yadav: data scientist at Grab leading trust and safety analytics, and founder of VettaCV, an AI job-search app.">
+  <meta property="og:title" content="Aditya Yadav · data scientist & builder">
+  <meta property="og:description" content="Safety analytics at Grab by day, building VettaCV on the side. Seven years in data science across maps, telematics, finance and trust & safety.">
   <meta property="og:image" content="https://aditnole.github.io/assets/img/profile.jpeg">
   <link href="favicon.png" rel="icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f8fe;
-      --card: #ffffff;
-      --ink: #0f1b2d;
-      --ink-2: #44526a;
-      --ink-3: #7b879b;
-      --line: #dfe8f5;
+      --bg: #f7f9fc;
+      --paper: #ffffff;
+      --ink: #0b1220;
+      --ink-2: #4a5568;
+      --ink-3: #8a94a6;
+      --line: #e3e9f2;
       --blue: #2563eb;
-      --blue-2: #1d4ed8;
-      --soft: #e8f0ff;
+      --blue-soft: #e9f0ff;
+      --navy: #0f1b3d;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16.5px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-    a { color: var(--blue); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 0 22px; }
-    .mono { font: 500 12px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
-    h1, h2, h3 { margin: 0; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(900px 520px at 85% -10%, rgba(37,99,235,0.10), transparent 60%),
+                  radial-gradient(700px 420px at -10% 30%, rgba(37,99,235,0.06), transparent 60%); }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
     .serif { font-family: Fraunces, Georgia, serif; font-optical-sizing: auto; }
+    .label { font: 500 12px/1 "JetBrains Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+    .ul { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; transition: background-size .45s var(--ease); }
+    .ul:hover { background-size: 100% 1.5px; }
 
-    /* soft background shape that drifts slowly */
-    .glow { position: fixed; inset: -20vmax auto auto -10vmax; width: 60vmax; height: 60vmax; border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(37,99,235,0.16), rgba(37,99,235,0) 60%); pointer-events: none; z-index: -1;
-      animation: drift 22s var(--ease) infinite alternate; }
-    @keyframes drift { to { transform: translate(18vmax, 10vmax) scale(1.1); } }
+    nav { position: sticky; top: 0; z-index: 20; transition: background .3s, box-shadow .3s; }
+    nav.solid { background: rgba(247,249,252,0.86); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+    nav .wrap { height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    nav .me { font-weight: 700; letter-spacing: -0.01em; }
+    nav .links { display: flex; align-items: center; gap: 28px; font-size: 15px; color: var(--ink-2); }
+    nav .links a:hover { color: var(--ink); }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: transform .3s var(--ease), box-shadow .3s; }
+    .pill:hover { transform: translateY(-2px); }
+    .pill.dark { background: var(--ink); color: #fff; }
+    .pill.dark:hover { box-shadow: 0 12px 28px -12px rgba(11,18,32,0.55); }
+    .pill.light { background: var(--paper); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+    nav .pill { padding: 8px 16px; font-size: 14px; color: #fff; }
 
-    nav.top { position: sticky; top: 0; z-index: 10; background: rgba(244,248,254,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .3s; }
-    nav.top.scrolled { border-color: var(--line); }
-    nav.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    nav.top .me { font-weight: 700; color: var(--ink); }
-    nav.top ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: 14.5px; font-weight: 500; }
-    nav.top ul a { color: var(--ink-2); }
-    nav.top ul a:hover { color: var(--ink); text-decoration: none; }
+    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; padding: 72px 0 88px; }
+    .hero .label { color: var(--blue); }
+    .hero h1 { font-size: clamp(52px, 8vw, 96px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; margin: 18px 0 0; }
+    .hero .lede { font-size: clamp(19px, 2vw, 22px); line-height: 1.55; color: var(--ink-2); margin: 26px 0 0; max-width: 33ch; }
+    .hero .lede b { color: var(--ink); font-weight: 600; }
+    .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .hero .socials { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; font-size: 14.5px; color: var(--ink-2); }
+    .hero .socials a:hover { color: var(--ink); }
 
-    /* hero */
-    .hero { padding: 84px 0 64px; display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 48px; align-items: center; }
-    .hero h1 { font-size: clamp(40px, 6.4vw, 70px); line-height: 1.02; font-weight: 600; letter-spacing: -0.025em; }
-    .hero h1 em { font-style: italic; color: var(--blue); }
-    .hero p { font-size: 19px; color: var(--ink-2); max-width: 56ch; margin: 22px 0 0; }
-    .hero .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; padding: 11px 18px; border-radius: 12px; transition: transform .25s var(--ease), background .2s, box-shadow .25s; }
-    .btn:hover { text-decoration: none; transform: translateY(-2px); }
-    .btn.primary { background: var(--ink); color: #fff; }
-    .btn.primary:hover { box-shadow: 0 10px 24px -10px rgba(15,27,45,0.5); }
-    .btn.ghost { background: var(--card); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
-    .portrait { width: 190px; height: 190px; border-radius: 28px; object-fit: cover; box-shadow: 0 0 0 6px #fff, 0 24px 48px -20px rgba(15,27,45,0.35); transform: rotate(3deg); transition: transform .5s var(--ease); }
-    .portrait:hover { transform: rotate(0deg) scale(1.02); }
-    .now { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink-2); background: var(--card); box-shadow: 0 0 0 1px var(--line); padding: 7px 12px; border-radius: 999px; margin-bottom: 22px; }
-    .now i { width: 8px; height: 8px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 0 0 rgba(22,163,74,0.5); animation: pulse 2.4s infinite; }
-    @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(22,163,74,0); } 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); } }
+    .stage { position: relative; height: 440px; }
+    .stage .photo { position: absolute; right: 8%; top: 0; width: 300px; height: 360px; border-radius: 30px; object-fit: cover;
+      box-shadow: 0 40px 80px -40px rgba(11,18,32,0.55), 0 0 0 8px #fff; transition: transform .6s var(--ease); }
+    .float { position: absolute; background: var(--paper); border-radius: 18px; box-shadow: 0 20px 44px -22px rgba(11,18,32,0.4), 0 0 0 1px var(--line);
+      padding: 14px 16px; will-change: transform; transition: transform .6s var(--ease); }
+    .float.vetta { left: 0; bottom: 18px; display: flex; align-items: center; gap: 12px; width: 270px; }
+    .float.vetta img { width: 42px; height: 42px; border-radius: 12px; }
+    .float.vetta img.pup { object-fit: cover; }
+    .float.vetta b { display: block; font-size: 15px; }
+    .float.vetta span span { display: block; font-size: 12.5px; color: var(--ink-2); }
+    .float.yrs { right: 0; top: 260px; }
+    .float.yrs b { display: block; font: 600 32px/1 Fraunces, Georgia, serif; color: var(--blue); }
+    .float.yrs span { font-size: 12.5px; color: var(--ink-2); }
+    .float.live { left: 6%; top: 34px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 9px 14px; border-radius: 999px; }
+    .float.live i { width: 8px; height: 8px; border-radius: 50%; background: #16a34a; animation: pulse 2.4s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(22,163,74,.45); } 70% { box-shadow: 0 0 0 8px rgba(22,163,74,0); } 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); } }
 
-    section { padding: 56px 0; }
-    .head { margin-bottom: 30px; }
-    .head h2 { font-size: clamp(30px, 4vw, 42px); font-weight: 600; letter-spacing: -0.02em; margin-top: 10px; }
-    .head p { color: var(--ink-2); margin: 10px 0 0; max-width: 60ch; }
+    .cos { display: flex; align-items: center; gap: 18px 44px; flex-wrap: wrap; padding: 26px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .cos .label { margin-right: 6px; }
+    .cos b { font: 600 22px/1 Fraunces, Georgia, serif; color: #6b7588; letter-spacing: -0.01em; transition: color .3s; }
+    .cos b:hover { color: var(--ink); }
 
-    /* journey */
-    .journey { position: relative; padding-left: 46px; }
-    .rail { position: absolute; left: 13px; top: 8px; bottom: 8px; width: 3px; background: var(--line); border-radius: 3px; overflow: hidden; }
-    .rail i { position: absolute; inset: 0 0 auto 0; height: 0%; background: linear-gradient(var(--blue), #60a5fa); border-radius: 3px; }
-    .stop { position: relative; margin-bottom: 26px; }
-    .stop::before { content: ""; position: absolute; left: -40px; top: 22px; width: 15px; height: 15px; border-radius: 50%; background: var(--bg); border: 3px solid var(--line); transition: border-color .4s, background .4s, transform .4s var(--ease); }
-    .stop.lit::before { border-color: var(--blue); background: #fff; transform: scale(1.15); }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px; transition: box-shadow .3s, transform .3s var(--ease); }
-    .card:hover { box-shadow: 0 18px 40px -24px rgba(15,27,45,0.35); transform: translateY(-2px); }
-    .stop .when { font: 500 12.5px/1 "JetBrains Mono", monospace; color: var(--blue); }
-    .stop h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin-top: 10px; }
-    .stop h3 span { font-weight: 500; color: var(--ink-3); font-size: 16px; }
-    .stop .why { margin: 10px 0 0; color: var(--ink); font-size: 15.5px; }
-    .stop .why b { font-family: Fraunces, Georgia, serif; font-style: italic; font-weight: 600; color: var(--blue-2); }
-    .stop .did { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; }
-    .nums { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-    .nums div { background: var(--soft); border-radius: 12px; padding: 9px 12px; min-width: 120px; }
-    .nums b { display: block; font-size: 20px; font-weight: 700; color: var(--blue-2); font-variant-numeric: tabular-nums; }
-    .nums span { font-size: 12px; color: var(--ink-2); }
-    .stop.feature .card { background: linear-gradient(135deg, #0f1b2d, #1e3a8a); border: 0; color: #fff; }
-    .stop.feature .why, .stop.feature h3 { color: #fff; }
-    .stop.feature .why b { color: #93c5fd; }
-    .stop.feature .did { color: #c7d2fe; }
-    .stop.feature .when { color: #93c5fd; }
-    .stop.feature .nums div { background: rgba(255,255,255,0.1); }
-    .stop.feature .nums b { color: #fff; }
-    .stop.feature .nums span { color: #c7d2fe; }
-    .stop.feature .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-    .stop.feature .btn.ghost { background: rgba(255,255,255,0.1); color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,0.18); }
-    .stop.feature .btn.primary { background: #fff; color: var(--ink); }
-    .brandrow { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-    .brandrow img.logo { width: 34px; height: 34px; background: #fff; border-radius: 9px; padding: 3px; }
-    .brandrow img.pup { width: 46px; height: 46px; border-radius: 12px; margin-left: auto; object-fit: cover; }
+    section { padding: 104px 0 0; }
+    .sh { display: grid; grid-template-columns: 220px 1fr; gap: 40px; margin-bottom: 44px; }
+    .sh h2 { font-size: clamp(32px, 4.2vw, 48px); line-height: 1.08; font-weight: 600; letter-spacing: -0.025em; margin: 0; max-width: 18ch; }
+    .sh h2 i { color: var(--blue); }
+    .sh .label { padding-top: 14px; }
 
-    .thread { margin-top: 10px; padding: 22px 24px; border-radius: 20px; background: var(--soft); color: var(--ink); font-size: 16.5px; }
-    .thread b { font-family: Fraunces, Georgia, serif; font-style: italic; font-weight: 600; color: var(--blue-2); }
+    .do { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .do > div { padding: 30px 28px 6px 0; display: flex; flex-direction: column; }
+    .do .proof { margin-top: auto !important; padding-top: 18px; }
+    .do > div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+    .do .n { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--blue); }
+    .do h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin: 14px 0 8px; }
+    .do p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+    .do .proof { margin-top: 18px; font: 600 28px/1.1 Fraunces, Georgia, serif; color: var(--ink); }
+    .do .proof small { display: block; font: 400 13px/1.4 Inter, sans-serif; color: var(--ink-3); margin-top: 6px; }
 
-    /* work */
-    .work { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .work a.card { display: block; color: var(--ink); padding: 0; overflow: hidden; }
-    .work a.card:hover { text-decoration: none; }
-    .work .img { aspect-ratio: 16 / 8; background: var(--soft) center / cover no-repeat; transition: transform .6s var(--ease); }
-    .work a.card:hover .img { transform: scale(1.04); }
-    .work .img.contain { background-size: 62% auto; background-color: #fff; }
-    .work .img.cover-vetta { background: linear-gradient(135deg, #0f1b2d, #1e3a8a); display: flex; align-items: center; justify-content: center; gap: 18px; }
-    .work .img.cover-vetta img.l { width: 64px; height: 64px; background: #fff; border-radius: 16px; padding: 6px; }
-    .work .img.cover-vetta b { color: #fff; font: 600 30px/1 Fraunces, Georgia, serif; }
-    .work .img.cover-vetta img.p { width: 64px; height: 64px; border-radius: 16px; object-fit: cover; }
-    .work .txt { padding: 16px 18px 18px; }
-    .work .txt b { display: block; font-size: 16.5px; }
-    .work .txt span { display: block; font-size: 14px; color: var(--ink-2); margin-top: 4px; }
-    .more { margin-top: 14px; font-size: 14.5px; color: var(--ink-2); }
+    .path { position: relative; }
+    .path .rail { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--line); }
+    .path .rail i { position: absolute; left: 0; top: 0; width: 2px; height: 0; background: var(--blue); }
+    .step { position: relative; display: grid; grid-template-columns: 180px 1fr 170px; gap: 32px; padding: 30px 0 30px 30px; border-bottom: 1px solid var(--line); }
+    .step::before { content: ""; position: absolute; left: -5px; top: 37px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 2px var(--line); transition: box-shadow .4s, background .4s; }
+    .step.on::before { background: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
+    .step .yr { font: 500 13.5px/1.5 "JetBrains Mono", monospace; color: var(--ink-3); padding-top: 4px; }
+    .step .yr b { display: block; color: var(--ink); font: 600 17px/1.3 Inter, sans-serif; margin-top: 4px; }
+    .step h3 { font-size: 20px; font-weight: 700; margin: 0; letter-spacing: -0.01em; transition: color .3s; }
+    .step .why { font: italic 500 19px/1.45 Fraunces, Georgia, serif; color: var(--blue); margin: 8px 0 0; }
+    .step .did { color: var(--ink-2); font-size: 15.5px; margin: 8px 0 0; }
+    .step .m { text-align: right; padding-top: 2px; }
+    .step .m b { display: block; font: 600 34px/1 Fraunces, Georgia, serif; font-variant-numeric: tabular-nums; }
+    .step .m span { display: block; font-size: 12.5px; color: var(--ink-3); margin-top: 6px; line-height: 1.35; }
+    .step:hover h3 { color: var(--blue); }
 
-    .tools { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tools span { background: var(--card); box-shadow: 0 0 0 1px var(--line); padding: 8px 12px; border-radius: 10px; font-size: 14px; color: var(--ink-2); }
+    .feature { position: relative; display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 48px; align-items: center; background: var(--navy); color: #fff; border-radius: 32px; padding: 56px; overflow: hidden; }
+    .feature::after { content: ""; position: absolute; right: -120px; top: -160px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,165,250,0.35), transparent 65%); pointer-events: none; }
+    .feature .brand { display: flex; align-items: center; gap: 12px; }
+    .feature .brand img { width: 44px; height: 44px; border-radius: 12px; background: #fff; padding: 4px; }
+    .feature .brand img.pup { padding: 0; object-fit: cover; }
+    .feature .brand span { font: 500 12px/1 "JetBrains Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #93c5fd; }
+    .feature h3 { font: 600 clamp(30px, 3.6vw, 42px)/1.1 Fraunces, Georgia, serif; letter-spacing: -0.02em; margin: 22px 0 0; }
+    .feature p { color: #c7d2fe; margin: 16px 0 0; font-size: 16.5px; }
+    .feature ul { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px; }
+    .feature li { display: flex; gap: 10px; color: #e0e7ff; font-size: 15.5px; }
+    .feature li::before { content: "→"; color: #60a5fa; }
+    .feature .stats { display: flex; gap: 32px; margin-top: 26px; }
+    .feature .stats b { display: block; font: 600 30px/1 Fraunces, Georgia, serif; }
+    .feature .stats span { font-size: 12.5px; color: #a5b4fc; }
+    .feature .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .feature .pill.light { background: #fff; box-shadow: none; }
+    .feature .pill.ghost { color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,0.25); }
+    .shot { position: relative; z-index: 1; perspective: 1200px; }
+    .shot .frame { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6); transform: rotateY(-8deg) rotateX(4deg); transition: transform .8s var(--ease); }
+    .shot .bar { height: 30px; background: #f1f5f9; display: flex; align-items: center; gap: 6px; padding: 0 12px; }
+    .shot .bar i { width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; }
+    .shot .bar span { margin-left: 10px; font: 500 11px/1 "JetBrains Mono", monospace; color: #94a3b8; }
+    .shot img { display: block; width: 100%; height: auto; }
 
-    footer { padding: 64px 0 80px; }
-    .contact { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
-    .contact h2 { font-size: clamp(26px, 3.4vw, 34px); font-weight: 600; letter-spacing: -0.02em; }
-    .contact p { margin: 8px 0 0; color: var(--ink-2); }
-    .small { margin-top: 22px; font-size: 13px; color: var(--ink-3); text-align: center; }
+    .more { border-top: 1px solid var(--line); margin-top: 28px; }
+    .more a { display: grid; grid-template-columns: 1fr 1.4fr 130px 24px; gap: 24px; align-items: baseline; padding: 22px 4px; border-bottom: 1px solid var(--line); transition: background .3s, padding .4s var(--ease); }
+    .more a:hover { background: var(--paper); padding-left: 16px; padding-right: 16px; }
+    .more b { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+    .more span { color: var(--ink-2); font-size: 15px; }
+    .more em { font: 500 12px/1 "JetBrains Mono", monospace; font-style: normal; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; }
+    .more .arr { color: var(--ink-3); transition: transform .4s var(--ease), color .3s; }
+    .more a:hover .arr { transform: translateX(4px); color: var(--blue); }
 
-    /* reveal on scroll */
-    .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .end { padding: 120px 0 56px; text-align: center; }
+    .end h2 { font-size: clamp(40px, 6vw, 76px); line-height: 1.02; font-weight: 600; letter-spacing: -0.03em; margin: 18px auto 0; max-width: 16ch; }
+    .end h2 i { color: var(--blue); }
+    .end .ctas { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+    footer { border-top: 1px solid var(--line); padding: 24px 0 40px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--ink-3); }
+    footer a:hover { color: var(--ink); }
+
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
     .rv.in { opacity: 1; transform: none; }
-    /* the hero animates on load, never waiting for a scroll trigger */
-    .intro { animation: rise .9s var(--ease) both; }
-    .intro.d1 { animation-delay: .08s; } .intro.d2 { animation-delay: .16s; } .intro.d3 { animation-delay: .24s; } .intro.d4 { animation-delay: .32s; }
-    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .rv.d1 { transition-delay: .08s; } .rv.d2 { transition-delay: .16s; }
+    .intro { animation: rise 1s var(--ease) both; }
+    .intro.d1 { animation-delay: .1s; } .intro.d2 { animation-delay: .2s; } .intro.d3 { animation-delay: .3s; } .intro.d4 { animation-delay: .4s; } .intro.d5 { animation-delay: .55s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
-    @media (max-width: 760px) {
-      nav.top ul { display: none; }
-      .hero { grid-template-columns: 1fr; padding-top: 48px; gap: 28px; }
-      .hero .portrait { order: -1; width: 120px; height: 120px; border-radius: 22px; }
-      .work { grid-template-columns: 1fr; }
-      .journey { padding-left: 34px; }
-      .rail { left: 7px; }
-      .stop::before { left: -34px; }
-      .card { padding: 18px; }
+    @media (max-width: 900px) {
+      nav .links a.hide-m { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 28px; padding: 36px 0 56px; }
+      .stage { height: 380px; max-width: 420px; }
+      .stage .photo { width: 240px; height: 290px; right: 4%; }
+      .sh { grid-template-columns: 1fr; gap: 12px; margin-bottom: 28px; }
+      .sh .label { padding-top: 0; }
+      .do { grid-template-columns: 1fr; }
+      .do > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+      .do > div { padding: 24px 0; }
+      .step { grid-template-columns: 1fr; gap: 6px; padding-left: 24px; }
+      .step .m { text-align: left; margin-top: 10px; }
+      .feature { grid-template-columns: 1fr; padding: 32px 24px; border-radius: 24px; }
+      .feature .stats { gap: 22px; }
+      .shot .frame { transform: none; }
+      .more a { grid-template-columns: 1fr 24px; gap: 4px 12px; }
+      .more a b, .more a span:not(.arr), .more a em { grid-column: 1; }
+      .more a .arr { grid-column: 2; grid-row: 1; }
+      section { padding-top: 76px; }
     }
+    @media (max-width: 420px) { .wrap { padding: 0 18px; } .float.vetta { width: 236px; } }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before { animation: none !important; transition: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
       .rv { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
-<div class="glow" aria-hidden="true"></div>
 
-<nav class="top" id="top">
+<nav id="nav">
   <div class="wrap">
     <a class="me" href="#">Aditya Yadav</a>
-    <ul>
-      <li><a href="#journey">Journey</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="links">
+      <a class="ul hide-m" href="#what">What I do</a>
+      <a class="ul hide-m" href="#path">Path</a>
+      <a class="ul hide-m" href="#work">Work</a>
+      <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">Say hello</a>
+    </div>
   </div>
 </nav>
 
 <main class="wrap">
   <header class="hero">
     <div>
-      <div class="now intro"><i></i>Data Scientist at Grab · building VettaCV</div>
-      <h1 class="serif intro d1">I turn messy data into <em>decisions</em>, then into products.</h1>
-      <p class="intro d2">
-        Seven years in data science across maps, telematics, finance and trust &amp; safety. Today I lead safety analytics
-        at Grab, and on the side I build <a href="https://vettacv.com" target="_blank" rel="noopener">VettaCV</a>, an AI job-search app.
-        Based in Bangalore.
+      <div class="label intro">Data Scientist · Grab &nbsp;/&nbsp; Founder · VettaCV</div>
+      <h1 class="serif intro d1">Aditya Yadav</h1>
+      <p class="lede intro d2">
+        I build the <b>data and ML systems that keep people safe</b> on Grab, and on the side
+        I'm building <b>VettaCV</b>, an AI app that helps people land their next job.
       </p>
-      <div class="links intro d3">
-        <a class="btn primary" href="#journey">See the journey ↓</a>
-        <a class="btn ghost" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn ghost" href="https://www.github.com/aditnole" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn ghost" href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+      <div class="ctas intro d3">
+        <a class="pill dark" href="#work">See my work ↓</a>
+        <a class="pill light" href="#path">How I got here</a>
+      </div>
+      <div class="socials intro d4">
+        <a class="ul" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="ul" href="https://www.github.com/aditnole" target="_blank" rel="noopener">GitHub</a>
+        <a class="ul" href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+        <span style="color:var(--ink-3)">Bangalore</span>
       </div>
     </div>
-    <img class="portrait intro d4" src="assets/img/profile.jpeg" alt="Aditya Yadav" width="190" height="190">
+
+    <div class="stage intro d5" id="stage">
+      <img class="photo" src="assets/img/profile.jpeg" alt="Aditya Yadav" data-depth="6">
+      <div class="float live" data-depth="16"><i></i>Currently at Grab</div>
+      <div class="float yrs" data-depth="22"><b>7 yrs</b><span>in data science</span></div>
+      <a class="float vetta" href="https://vettacv.com" target="_blank" rel="noopener" data-depth="12">
+        <img src="assets/img/vettacv/vettacv-mark.svg" alt="">
+        <span style="flex:1"><b>VettaCV</b><span>Tailored resumes · matched jobs</span></span>
+        <img class="pup" src="assets/img/vettacv/shiba-wave.webp" alt="">
+      </a>
+    </div>
   </header>
 
-  <section id="journey">
-    <div class="head rv">
-      <div class="mono">The journey · 2013 → now</div>
-      <h2 class="serif">Every move asked a bigger question.</h2>
-      <p>Different industries, one thread: start with the data, find the decision it should change, and measure whether it did.</p>
+  <div class="cos rv">
+    <span class="label">Where I've worked</span>
+    <b>IndShine</b><b>Netradyne</b><b>J.P. Morgan</b><b>Grab</b>
+  </div>
+
+  <section id="what">
+    <div class="sh rv">
+      <div class="label">01 — What I do</div>
+      <h2 class="serif">Data that changes <i>decisions</i>, and products that ship.</h2>
     </div>
-
-    <div class="journey">
-      <div class="rail" aria-hidden="true"><i id="railFill"></i></div>
-
-      <article class="stop rv">
-        <div class="card">
-          <div class="when">2013 – 2017</div>
-          <h3>Engineering degree <span>· B.Tech</span></h3>
-          <p class="why"><b>Where it started:</b> optimisation, algorithms for big data, and my first machine-learning course.</p>
-          <p class="did">The math clicked. I wanted to use it on real problems, not textbook ones.</p>
-        </div>
-      </article>
-
-      <article class="stop rv">
-        <div class="card">
-          <div class="when">2017 – 2020 · IndShine</div>
-          <h3>Product Analyst <span>· drones &amp; geospatial</span></h3>
-          <p class="why"><b>Why a startup:</b> to learn the whole loop, from raw data to pricing to the customer, faster than anywhere else.</p>
-          <p class="did">Priced services by user segment, built 3D maps from 2D imagery for government projects, and predicted project timelines from historical geospatial data.</p>
-          <div class="nums">
-            <div><b data-count="5" data-suffix="%">5%</b><span>revenue from segment pricing</span></div>
-            <div><b data-count="20" data-suffix="%">20%</b><span>better timeline accuracy</span></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="stop rv">
-        <div class="card">
-          <div class="when">2020 – 2021 · Netradyne</div>
-          <h3>Data Scientist <span>· driver safety telematics</span></h3>
-          <p class="why"><b>Why the switch:</b> from analysing data to building models that run on live data, where a missed signal is a real risk on the road.</p>
-          <p class="did">Built anomaly detection for alert rates and folded new alerts into the driver safety score.</p>
-          <div class="nums">
-            <div><b data-count="50" data-suffix="%">50%</b><span>faster response to anomalies</span></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="stop rv">
-        <div class="card">
-          <div class="when">2021 – 2022 · JP Morgan Chase</div>
-          <h3>Senior Analyst <span>· equity indices</span></h3>
-          <p class="why"><b>Why finance:</b> to see how models hold up when every number is money, and to work on NLP for markets.</p>
-          <p class="did">Built a theme-based index (AI, renewables) using sentiment analysis to classify stocks, plus a volatility-based index for client needs.</p>
-          <div class="nums">
-            <div><b data-count="100" data-prefix="$" data-suffix="k">$100k</b><span>client book value added</span></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="stop rv">
-        <div class="card">
-          <div class="when">2022 – now · Grab</div>
-          <h3>Data Scientist <span>· content moderation &amp; safety</span></h3>
-          <p class="why"><b>Why Grab:</b> consumer scale across Southeast Asia, and problems where data directly protects people.</p>
-          <p class="did">Own analytics for content moderation and safety and lead a team of three: risk signals, a BERT profanity model, user segmentation and CLV, and a lot of experimentation.</p>
-          <div class="nums">
-            <div><b data-count="2" data-suffix="×">2×</b><span>incident detection</span></div>
-            <div><b data-count="10" data-suffix="%">10%</b><span>fewer text incidents, Thailand</span></div>
-            <div><b data-count="2" data-suffix="pp">2pp</b><span>lower churn</span></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="stop feature rv">
-        <div class="card">
-          <div class="when">2023 – now · on the side</div>
-          <h3>Founder · SnapMyDesign → CVSwitch → VettaCV</h3>
-          <div class="brandrow">
-            <img class="logo" src="assets/img/vettacv/vettacv-mark.svg" alt="VettaCV logo">
-            <span style="color:#c7d2fe;font-size:14px">Tailored resumes · matched jobs · real interviewers</span>
-            <img class="pup" src="assets/img/vettacv/shiba-wave.webp" alt="Momo, the VettaCV Shiba">
-          </div>
-          <p class="why"><b>Why build:</b> after years of shaping other people's products with data, I wanted to own one end to end, from the model to the checkout page.</p>
-          <p class="did">Started with an illustration generator, then a resume tailor that grew into VettaCV: jobs matched to your resume, AI interview practice, and real interviewers who can refer you.</p>
-          <div class="nums">
-            <div><b data-count="400" data-suffix="+">400+</b><span>users this year</span></div>
-            <div><b data-count="134" data-prefix="+" data-suffix="%">+134%</b><span>active users, 90 days</span></div>
-          </div>
-          <div class="cta">
-            <a class="btn primary" href="https://vettacv.com" target="_blank" rel="noopener">Visit vettacv.com →</a>
-            <a class="btn ghost" href="projects/vettacv-story.html">How I built it</a>
-          </div>
-        </div>
-      </article>
+    <div class="do">
+      <div class="rv">
+        <div class="n">01</div>
+        <h3>Safety &amp; risk analytics</h3>
+        <p>I own analytics for content moderation and safety at Grab and lead a team of three.</p>
+        <div class="proof">2× <small>incident detection from new risk signals</small></div>
+      </div>
+      <div class="rv d1">
+        <div class="n">02</div>
+        <h3>ML that runs in production</h3>
+        <p>NLP, anomaly detection and experimentation on live data, measured by impact, not just accuracy.</p>
+        <div class="proof">−10% <small>text-based incidents with a BERT model</small></div>
+      </div>
+      <div class="rv d2">
+        <div class="n">03</div>
+        <h3>Products, end to end</h3>
+        <p>From the model to the checkout page: I design, build and ship VettaCV.</p>
+        <div class="proof">+134% <small>active users in the last 90 days</small></div>
+      </div>
     </div>
+  </section>
 
-    <div class="thread rv">
-      The thread: <b>data is only useful when it changes a decision.</b> Each role moved me closer to the decision itself,
-      and building VettaCV puts me on both sides of it.
+  <section id="path">
+    <div class="sh rv">
+      <div class="label">02 — The path</div>
+      <h2 class="serif">Each move asked a <i>bigger</i> question.</h2>
+    </div>
+    <div class="path">
+      <div class="rail" aria-hidden="true"><i id="rail"></i></div>
+
+      <div class="step rv">
+        <div class="yr">2017 – 2020<b>IndShine</b></div>
+        <div>
+          <h3>Product Analyst · drones &amp; geospatial</h3>
+          <p class="why">Learn the whole loop at a startup, from raw data to pricing to the customer.</p>
+          <p class="did">Segment-based pricing, 3D maps from 2D imagery for government projects, and timeline prediction from geospatial history.</p>
+        </div>
+        <div class="m"><b data-n="5" data-s="%">5%</b><span>revenue lift from pricing</span></div>
+      </div>
+
+      <div class="step rv">
+        <div class="yr">2020 – 2021<b>Netradyne</b></div>
+        <div>
+          <h3>Data Scientist · driver safety</h3>
+          <p class="why">Move from analysing data to models on live data, where a missed signal is a real risk.</p>
+          <p class="did">Anomaly detection for alert rates, and new alerts folded into the driver safety score.</p>
+        </div>
+        <div class="m"><b data-n="50" data-s="%">50%</b><span>faster anomaly response</span></div>
+      </div>
+
+      <div class="step rv">
+        <div class="yr">2021 – 2022<b>J.P. Morgan</b></div>
+        <div>
+          <h3>Senior Analyst · equity indices</h3>
+          <p class="why">See how models hold up when every number is money, and apply NLP to markets.</p>
+          <p class="did">A theme-based index (AI, renewables) using sentiment to classify stocks, and a volatility-based index for clients.</p>
+        </div>
+        <div class="m"><b data-n="100" data-p="$" data-s="k">$100k</b><span>client book value added</span></div>
+      </div>
+
+      <div class="step rv">
+        <div class="yr">2022 – now<b>Grab</b></div>
+        <div>
+          <h3>Data Scientist · trust &amp; safety</h3>
+          <p class="why">Work at consumer scale across Southeast Asia, where data directly protects people.</p>
+          <p class="did">Risk signals, a BERT profanity model, user segmentation and CLV, and a lot of A/B testing. Leading a team of three.</p>
+        </div>
+        <div class="m"><b data-n="2" data-s="pp">2pp</b><span>lower churn from segmentation</span></div>
+      </div>
+
+      <div class="step rv">
+        <div class="yr">2023 – now<b>On the side</b></div>
+        <div>
+          <h3>Founder · SnapMyDesign → VettaCV</h3>
+          <p class="why">Own a product end to end, not just the analysis behind it.</p>
+          <p class="did">An illustration generator first, then a resume tailor that grew into VettaCV.</p>
+        </div>
+        <div class="m"><b data-n="400" data-s="+">400+</b><span>users this year</span></div>
+      </div>
     </div>
   </section>
 
   <section id="work">
-    <div class="head rv">
-      <div class="mono">Selected work</div>
-      <h2 class="serif">A few things worth a click.</h2>
+    <div class="sh rv">
+      <div class="label">03 — Work</div>
+      <h2 class="serif">What I'm <i>building</i> now.</h2>
     </div>
-    <div class="work">
-      <a class="card rv" href="projects/vettacv-story.html">
-        <div class="img cover-vetta"><img class="l" src="assets/img/vettacv/vettacv-mark.svg" alt=""><b>VettaCV</b><img class="p" src="assets/img/vettacv/shiba-wave.webp" alt=""></div>
-        <div class="txt"><b>Building VettaCV</b><span>Engineering notes: LLM schema, token budget, payments, infra and numbers.</span></div>
-      </a>
-      <a class="card rv" href="projects/snapmydesign.html">
-        <div class="img" style="background-image:url('assets/img/project/snapmydesign.png')"></div>
-        <div class="txt"><b>SnapMyDesign</b><span>Illustrations and design ideas generated from text or a reference image.</span></div>
-      </a>
-      <a class="card rv" href="projects/bolt_case_study.html">
-        <div class="img" style="background-image:url('assets/img/project/bolt.jpg')"></div>
-        <div class="txt"><b>Bolt · case study</b><span>A data-backed acquisition strategy for a European mobility startup.</span></div>
-      </a>
-      <a class="card rv" href="projects/instaprogroup.html">
-        <div class="img contain" style="background-image:url('assets/img/project/instapro_group.jpg')"></div>
-        <div class="txt"><b>Werkspot · case study</b><span>Demand–supply gaps and a switchback experiment for a new matching algorithm.</span></div>
-      </a>
+
+    <div class="feature rv">
+      <div style="position:relative;z-index:1">
+        <div class="brand">
+          <img src="assets/img/vettacv/vettacv-mark.svg" alt="VettaCV logo">
+          <img class="pup" src="assets/img/vettacv/shiba-wave.webp" alt="Momo, the VettaCV Shiba">
+          <span>VettaCV · founder</span>
+        </div>
+        <h3>An AI job search that starts with your resume.</h3>
+        <p>Designed and built end to end, from the LLM pipeline to payments.</p>
+        <ul>
+          <li>Tailors a resume to any job in seconds, without inventing anything</li>
+          <li>Matches you to live openings and drafts the application answers</li>
+          <li>Practise with AI, or with real interviewers who can refer you</li>
+        </ul>
+        <div class="stats">
+          <div><b>400+</b><span>users this year</span></div>
+          <div><b>7+</b><span>countries</span></div>
+          <div><b>+134%</b><span>active users, 90 days</span></div>
+        </div>
+        <div class="ctas">
+          <a class="pill light" href="https://vettacv.com" target="_blank" rel="noopener">Visit vettacv.com →</a>
+          <a class="pill ghost" href="projects/vettacv-story.html">How I built it</a>
+        </div>
+      </div>
+      <div class="shot" id="shot">
+        <div class="frame">
+          <img src="assets/img/vettacv/vettacv-interview.webp" alt="VettaCV mock interview screen" width="628" height="530">
+        </div>
+      </div>
     </div>
-    <p class="more rv">More: <a href="projects/agoda.html">hotel pricing trends (Agoda)</a> · <a href="projects/bookrec.html">book recommender</a> · <a href="projects/ml.html">insincere comments classification</a></p>
+
+    <div class="more">
+      <a class="rv" href="projects/snapmydesign.html"><b>SnapMyDesign</b><span>Illustrations and design ideas generated from text or an image.</span><em>Product</em><span class="arr">→</span></a>
+      <a class="rv" href="projects/instaprogroup.html"><b>Werkspot</b><span>Demand–supply gaps and a switchback test for a new matching algorithm.</span><em>Case study</em><span class="arr">→</span></a>
+      <a class="rv" href="projects/bolt_case_study.html"><b>Bolt</b><span>A data-backed acquisition strategy for a mobility startup.</span><em>Case study</em><span class="arr">→</span></a>
+      <a class="rv" href="projects/agoda.html"><b>Agoda</b><span>Business opportunities in hotel pricing trends.</span><em>Case study</em><span class="arr">→</span></a>
+      <a class="rv" href="projects/bookrec.html"><b>Book recommender</b><span>A recommendation system for books.</span><em>ML</em><span class="arr">→</span></a>
+    </div>
   </section>
 
-  <section>
-    <div class="head rv">
-      <div class="mono">Toolkit</div>
-    </div>
-    <div class="tools rv">
-      <span>Python</span><span>SQL</span><span>Experimentation &amp; A/B testing</span><span>PyTorch · TensorFlow</span><span>NLP · BERT</span>
-      <span>LLMs · RAG · agents</span><span>Mixpanel · Tableau · Power BI</span><span>Flask · Next.js</span><span>AWS · GCP</span>
-    </div>
-  </section>
-</main>
-
-<footer class="wrap" id="contact">
-  <div class="contact rv">
-    <div>
-      <h2 class="serif">Let's talk data, products or VettaCV.</h2>
-      <p>Open to conversations about analytics leadership, ML products and building things.</p>
-    </div>
-    <div class="links" style="display:flex;flex-wrap:wrap;gap:10px">
-      <a class="btn primary" href="mailto:aditya.yadav.of@gmail.com">Email me</a>
-      <a class="btn ghost" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
+  <div class="end">
+    <div class="label rv">04 — Contact</div>
+    <h2 class="serif rv d1">Let's build something <i>useful</i>.</h2>
+    <div class="ctas rv d2">
+      <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">aditya.yadav.of@gmail.com</a>
+      <a class="pill light" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
-  <p class="small">© Aditya Yadav · Bangalore</p>
-</footer>
+
+  <footer>
+    <span>© Aditya Yadav</span>
+    <span><a class="ul" href="https://www.github.com/aditnole" target="_blank" rel="noopener">GitHub</a> · <a class="ul" href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view?usp=sharing" target="_blank" rel="noopener">Resume</a> · <a class="ul" href="projects/vettacv-story.html">Build log</a></span>
+  </footer>
+</main>
 
 <script>
   (function () {
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var nav = document.getElementById("nav"), rail = document.getElementById("rail"), path = document.querySelector(".path");
 
-    // Reveal blocks as they enter the viewport; light up journey stops; count numbers up once.
-    function countUp(el) {
-      var target = parseFloat(el.dataset.count), pre = el.dataset.prefix || "", suf = el.dataset.suffix || "";
-      if (reduce || isNaN(target)) return;
-      var start = null, dur = 1100;
-      function step(t) {
-        if (!start) start = t;
-        var p = Math.min(1, (t - start) / dur), e = 1 - Math.pow(1 - p, 3);
-        el.textContent = pre + Math.round(target * e) + suf;
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
+    function count(el) {
+      var n = +el.dataset.n, p = el.dataset.p || "", s = el.dataset.s || "";
+      if (reduce || !n) return;
+      var t0 = null;
+      (function f(t) {
+        t0 = t0 || t;
+        var k = Math.min(1, (t - t0) / 1200), e = 1 - Math.pow(1 - k, 3);
+        el.textContent = p + Math.round(n * e) + s;
+        if (k < 1) requestAnimationFrame(f);
+      })(performance.now());
     }
-    var io = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        en.target.classList.add("in");
-        if (en.target.classList.contains("stop")) {
-          en.target.classList.add("lit");
-          en.target.querySelectorAll("[data-count]").forEach(countUp);
-        }
-        io.unobserve(en.target);
+
+    var io = "IntersectionObserver" in window && new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("in");
+        if (e.target.classList.contains("step")) { e.target.classList.add("on"); e.target.querySelectorAll("[data-n]").forEach(count); }
+        io.unobserve(e.target);
       });
-    }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" }) : null;
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
     document.querySelectorAll(".rv").forEach(function (el) { io ? io.observe(el) : el.classList.add("in"); });
-
-    // The rail fills as you scroll through the journey; the nav gets a hairline once you leave the top.
-    var journey = document.querySelector(".journey"), fill = document.getElementById("railFill"), nav = document.getElementById("top");
-    function onScroll() {
-      nav.classList.toggle("scrolled", window.scrollY > 8);
-      var r = journey.getBoundingClientRect(), vh = window.innerHeight;
-      var p = Math.max(0, Math.min(1, (vh * 0.6 - r.top) / r.height));
-      fill.style.height = (p * 100).toFixed(1) + "%";
-    }
     setTimeout(function () {
-      document.querySelectorAll(".rv:not(.in)").forEach(function (el) {
-        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("in");
-      });
-    }, 3000);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+      document.querySelectorAll(".rv:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add("in"); });
+    }, 2500);
+
+    function onScroll() {
+      nav.classList.toggle("solid", scrollY > 10);
+      var r = path.getBoundingClientRect();
+      rail.style.height = Math.max(0, Math.min(1, (innerHeight * 0.55 - r.top) / r.height)) * 100 + "%";
+    }
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
     onScroll();
+
+    if (reduce || !matchMedia("(hover: hover)").matches) return;
+    // Hero layers drift with the cursor at different depths; the product shot tilts toward it.
+    var stage = document.getElementById("stage"), layers = stage.querySelectorAll("[data-depth]");
+    document.querySelector(".hero").addEventListener("mousemove", function (ev) {
+      var b = stage.getBoundingClientRect(), x = (ev.clientX - b.left) / b.width - 0.5, y = (ev.clientY - b.top) / b.height - 0.5;
+      layers.forEach(function (l) { var d = +l.dataset.depth; l.style.transform = "translate(" + (-x * d).toFixed(1) + "px," + (-y * d).toFixed(1) + "px)"; });
+    });
+    var shot = document.getElementById("shot"), frame = shot.querySelector(".frame");
+    shot.addEventListener("mousemove", function (ev) {
+      var b = shot.getBoundingClientRect(), x = (ev.clientX - b.left) / b.width - 0.5, y = (ev.clientY - b.top) / b.height - 0.5;
+      frame.style.transform = "rotateY(" + (x * 10).toFixed(2) + "deg) rotateX(" + (-y * 8).toFixed(2) + "deg)";
+    });
+    shot.addEventListener("mouseleave", function () { frame.style.transform = ""; });
   })();
 </script>
 </body>
