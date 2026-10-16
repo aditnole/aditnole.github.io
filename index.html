@@ -14,108 +14,144 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f7f9fc;
-      --paper: #ffffff;
-      --ink: #0b1220;
-      --ink-2: #4a5568;
-      --ink-3: #8a94a6;
-      --line: #e3e9f2;
-      --blue: #2563eb;
-      --blue-soft: #e9f0ff;
-      --navy: #0f1b3d;
+      --bg: #f6f8fc; --paper: #ffffff; --sunk: #eef3fb;
+      --ink: #0b1220; --ink-2: #4a5568; --ink-3: #8a94a6;
+      --line: #e2e8f2; --blue: #2563eb; --blue-2: #1d4ed8; --blue-soft: #e8efff;
+      --navy: #0f1b3d; --green: #16a34a; --on-blue: #ffffff;
+      --shadow: 0 24px 60px -30px rgba(11,18,32,0.35);
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0b1020; --paper: #121a2e; --sunk: #0f1628;
+        --ink: #e8edf7; --ink-2: #a7b1c6; --ink-3: #6f7a91;
+        --line: #1f2a42; --blue: #6ea0ff; --blue-2: #93b8ff; --blue-soft: #16233f;
+        --navy: #101c3f; --on-blue: #0b1220; --shadow: 0 24px 60px -30px rgba(0,0,0,0.8); color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0b1020; --paper: #121a2e; --sunk: #0f1628;
+      --ink: #e8edf7; --ink-2: #a7b1c6; --ink-3: #6f7a91;
+      --line: #1f2a42; --blue: #6ea0ff; --blue-2: #93b8ff; --blue-soft: #16233f;
+      --navy: #101c3f; --on-blue: #0b1220; --shadow: 0 24px 60px -30px rgba(0,0,0,0.8); color-scheme: dark;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      background: radial-gradient(900px 520px at 85% -10%, rgba(37,99,235,0.10), transparent 60%),
-                  radial-gradient(700px 420px at -10% 30%, rgba(37,99,235,0.06), transparent 60%); }
+      background: radial-gradient(900px 520px at 85% -10%, color-mix(in srgb, var(--blue) 12%, transparent), transparent 60%),
+                  radial-gradient(700px 420px at -10% 35%, color-mix(in srgb, var(--blue) 6%, transparent), transparent 60%); }
     a { color: inherit; text-decoration: none; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+    button { font: inherit; color: inherit; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
     .serif { font-family: Fraunces, Georgia, serif; font-optical-sizing: auto; }
     .label { font: 500 12px/1 "JetBrains Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
     .ul { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; transition: background-size .45s var(--ease); }
-    .ul:hover { background-size: 100% 1.5px; }
-
-    nav { position: sticky; top: 0; z-index: 20; transition: background .3s, box-shadow .3s; }
-    nav.solid { background: rgba(247,249,252,0.86); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
-    nav .wrap { height: 68px; display: flex; align-items: center; justify-content: space-between; }
-    nav .me { font-weight: 700; letter-spacing: -0.01em; }
-    nav .links { display: flex; align-items: center; gap: 28px; font-size: 15px; color: var(--ink-2); }
-    nav .links a:hover { color: var(--ink); }
-    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 15px; transition: transform .3s var(--ease), box-shadow .3s; }
+    .ul:hover, .ul.active { background-size: 100% 1.5px; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-weight: 600; font-size: 15px; border: 0; cursor: pointer; transition: transform .3s var(--ease), box-shadow .3s, background .2s; }
     .pill:hover { transform: translateY(-2px); }
-    .pill.dark { background: var(--ink); color: #fff; }
-    .pill.dark:hover { box-shadow: 0 12px 28px -12px rgba(11,18,32,0.55); }
+    .pill.dark { background: var(--ink); color: var(--bg); }
+    .pill.blue { background: var(--blue); color: var(--on-blue); }
+    .pill.blue:hover { box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--blue) 70%, transparent); }
     .pill.light { background: var(--paper); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
-    nav .pill { padding: 8px 16px; font-size: 14px; color: #fff; }
-
-    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; padding: 72px 0 88px; }
-    .hero .label { color: var(--blue); }
-    .hero h1 { font-size: clamp(52px, 8vw, 96px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; margin: 18px 0 0; }
-    .hero .lede { font-size: clamp(19px, 2vw, 21px); line-height: 1.6; color: var(--ink-2); margin: 26px 0 0; max-width: 38ch; }
-    .hero .lede b { color: var(--ink); font-weight: 600; }
-    .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-    .hero .socials { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; font-size: 14.5px; color: var(--ink-2); }
-    .hero .socials a:hover { color: var(--ink); }
-
-    .stage { position: relative; height: 440px; }
-    .stage .photo { position: absolute; right: 8%; top: 0; width: 300px; height: 360px; border-radius: 30px; object-fit: cover;
-      box-shadow: 0 40px 80px -40px rgba(11,18,32,0.55), 0 0 0 8px #fff; transition: transform .6s var(--ease); }
-    .float { position: absolute; background: var(--paper); border-radius: 18px; box-shadow: 0 20px 44px -22px rgba(11,18,32,0.4), 0 0 0 1px var(--line);
-      padding: 14px 16px; will-change: transform; transition: transform .6s var(--ease); }
-    .float.vetta { left: 0; bottom: 18px; display: flex; align-items: center; gap: 12px; width: 270px; }
-    .float.vetta img { width: 42px; height: 42px; border-radius: 12px; }
-    .float.vetta img.pup { object-fit: cover; }
-    .float.vetta b { display: block; font-size: 15px; }
-    .float.vetta span span { display: block; font-size: 12.5px; color: var(--ink-2); }
-    .float.yrs { right: 0; top: 260px; }
-    .float.yrs b { display: block; font: 600 32px/1 Fraunces, Georgia, serif; color: var(--blue); }
-    .float.yrs span { font-size: 12.5px; color: var(--ink-2); }
-    .float.live { left: 6%; top: 34px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 9px 14px; border-radius: 999px; }
-    .float.live i { width: 8px; height: 8px; border-radius: 50%; background: #16a34a; animation: pulse 2.4s infinite; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; animation: pulse 2.4s infinite; flex-shrink: 0; }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(22,163,74,.45); } 70% { box-shadow: 0 0 0 8px rgba(22,163,74,0); } 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); } }
 
-    .cos { display: flex; align-items: center; gap: 18px 44px; flex-wrap: wrap; padding: 26px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .cos .label { margin-right: 6px; }
-    .cos b { font: 600 22px/1 Fraunces, Georgia, serif; color: #6b7588; letter-spacing: -0.01em; transition: color .3s; }
-    .cos b:hover { color: var(--ink); }
+    /* ---------- top bar ---------- */
+    nav.top { position: sticky; top: 0; z-index: 40; transition: background .3s, box-shadow .3s; }
+    nav.top.solid { background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+    nav.top .wrap { height: 68px; display: flex; align-items: center; gap: 24px; }
+    nav.top .me { white-space: nowrap; font-weight: 700; letter-spacing: -0.01em; margin-right: auto; display: flex; align-items: center; gap: 10px; }
+    nav.top .me img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+    nav.top .links { display: flex; gap: 22px; font-size: 14.5px; color: var(--ink-2); }
+    nav.top .links a:hover, nav.top .links a.active { color: var(--ink); }
+    .iconbtn { width: 38px; height: 38px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--paper); box-shadow: 0 0 0 1px var(--line); border: 0; cursor: pointer; color: var(--ink-2); transition: color .2s, transform .3s var(--ease); }
+    .iconbtn:hover { color: var(--ink); transform: translateY(-1px); }
+    .iconbtn svg { width: 17px; height: 17px; }
 
+    /* ---------- book-a-chat popover ---------- */
+    .book { position: relative; }
+    .book > .pill { padding: 9px 16px; font-size: 14.5px; white-space: nowrap; }
+    .pop { position: absolute; right: 0; top: calc(100% + 12px); width: 360px; background: var(--paper); border-radius: 20px; box-shadow: var(--shadow), 0 0 0 1px var(--line);
+      padding: 20px; opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.98); transform-origin: top right; transition: opacity .25s, transform .35s var(--ease), visibility .25s; z-index: 50; }
+    .pop::before { content: ""; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
+    .book.open .pop { opacity: 1; visibility: visible; transform: none; }
+    @media (hover: hover) { .book:hover .pop, .book:focus-within .pop { opacity: 1; visibility: visible; transform: none; } }
+    .pop h4 { margin: 0; font: 600 20px/1.2 Fraunces, Georgia, serif; }
+    .pop p { margin: 6px 0 14px; color: var(--ink-2); font-size: 14px; line-height: 1.5; }
+    .pop .topics { display: grid; gap: 6px; }
+    .pop .topic { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; background: var(--sunk); border: 0; text-align: left; cursor: pointer; transition: background .2s, transform .3s var(--ease); width: 100%; }
+    .pop .topic:hover { background: var(--blue-soft); transform: translateX(3px); }
+    .pop .topic .em { font-size: 18px; width: 24px; text-align: center; }
+    .pop .topic b { display: block; font-size: 14.5px; font-weight: 600; }
+    .pop .topic small { display: block; font-size: 12.5px; color: var(--ink-2); line-height: 1.35; }
+    .pop .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); gap: 10px; }
+    .pop .foot a { color: var(--blue); font-weight: 600; white-space: nowrap; }
+
+    /* ---------- hero ---------- */
+    .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: center; padding: 64px 0 40px; }
+    .status { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); background: var(--paper); box-shadow: 0 0 0 1px var(--line); padding: 8px 14px; border-radius: 999px; }
+    .hero h1 { font-size: clamp(52px, 8vw, 96px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; margin: 22px 0 0; }
+    .hero .lede { font-size: clamp(18px, 1.9vw, 21px); line-height: 1.6; color: var(--ink-2); margin: 24px 0 0; max-width: 40ch; }
+    .hero .lede b { color: var(--ink); font-weight: 600; }
+    .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .hero .socials { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 22px; font-size: 14.5px; color: var(--ink-2); }
+    .hero .socials a:hover { color: var(--ink); }
+    .stage { position: relative; height: 430px; }
+    .stage .photo { position: absolute; right: 6%; top: 0; width: 300px; height: 360px; border-radius: 30px; object-fit: cover; box-shadow: var(--shadow), 0 0 0 8px var(--paper); transition: transform .6s var(--ease); }
+    .float { position: absolute; background: var(--paper); border-radius: 18px; box-shadow: var(--shadow), 0 0 0 1px var(--line); padding: 12px 16px; transition: transform .6s var(--ease); }
+    .float.yrs { right: 0; top: 250px; }
+    .float.yrs b { display: block; font: 600 30px/1 Fraunces, Georgia, serif; color: var(--blue); }
+    .float.yrs span { font-size: 12.5px; color: var(--ink-2); }
+    .float.now { left: 4%; top: 30px; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 9px 14px; border-radius: 999px; }
+    .float.vetta { left: 0; bottom: 16px; display: flex; align-items: center; gap: 12px; width: 268px; }
+    .float.vetta img { width: 40px; height: 40px; border-radius: 11px; object-fit: cover; }
+    .float.vetta img.logo { background: #fff; padding: 3px; }
+    .float.vetta b { display: block; font-size: 15px; }
+    .float.vetta small { display: block; font-size: 12.5px; color: var(--ink-2); }
+
+    /* ---------- pipeline band ---------- */
+    .flow { margin: 8px 0 0; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: center; }
+    .flow svg { width: 100%; height: 70px; display: block; overflow: visible; }
+    .flow .node rect { fill: var(--paper); stroke: var(--line); }
+    .flow .node text { fill: var(--ink); font: 600 13px Inter, sans-serif; }
+    .flow .node .sub { fill: var(--ink-3); font: 500 10.5px "JetBrains Mono", monospace; letter-spacing: .04em; }
+    .flow .edge { stroke: var(--line); stroke-width: 2; fill: none; }
+    .flow .pulse { fill: var(--blue); }
+    .flow .node.hot rect { stroke: var(--blue); }
+
+    /* ---------- sections ---------- */
     section { padding: 104px 0 0; }
-    .sh { display: grid; grid-template-columns: 220px 1fr; gap: 40px; margin-bottom: 44px; }
-    .sh h2 { font-size: clamp(32px, 4.2vw, 48px); line-height: 1.08; font-weight: 600; letter-spacing: -0.025em; margin: 0; max-width: 18ch; }
-    .sh h2 i { color: var(--blue); }
+    .sh { display: grid; grid-template-columns: 220px 1fr; gap: 40px; margin-bottom: 40px; }
+    .sh h2 { font-size: clamp(32px, 4.2vw, 46px); line-height: 1.08; font-weight: 600; letter-spacing: -0.025em; margin: 0; max-width: 20ch; }
     .sh .label { padding-top: 14px; }
+    .sh p { grid-column: 2; margin: -22px 0 0; color: var(--ink-2); max-width: 58ch; }
 
-    .caps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-    .cap { display: flex; flex-direction: column; padding: 28px 26px 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .3s; }
-    .cap:hover { background: var(--paper); }
-    .cap .n { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--blue); }
-    .cap h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; margin: 14px 0 8px; }
-    .cap p { margin: 0; color: var(--ink-2); font-size: 15px; }
-    .cap .note { margin-top: auto !important; padding-top: 18px; font-size: 14px; line-height: 1.5; color: var(--ink); border-top: 1px dashed var(--line); }
-    .cap p + .note { margin-top: auto; }
-    .feature .quiet { color: #c7d2fe; margin-top: 22px; font-size: 15px; }
-    .cap .proof small { display: block; font: 400 13px/1.4 Inter, sans-serif; color: var(--ink-3); margin-top: 6px; }
-    a.more-cap { background: var(--blue-soft); }
-    a.more-cap:hover { background: #dfe8ff; }
+    /* bento */
+    .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    .tile { grid-column: span 2; background: var(--paper); border: 1px solid var(--line); border-radius: 22px; padding: 26px; display: flex; flex-direction: column; transition: transform .4s var(--ease), box-shadow .4s; }
+    .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .tile.big { grid-column: span 3; }
+    .tile .n { font: 500 12px/1 "JetBrains Mono", monospace; color: var(--blue); letter-spacing: .08em; }
+    .tile h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin: 14px 0 8px; }
+    .tile.big h3 { font: 600 28px/1.15 Fraunces, Georgia, serif; letter-spacing: -0.02em; }
+    .tile p { margin: 0; color: var(--ink-2); font-size: 15px; }
+    .tile .note { margin-top: auto; padding-top: 18px; font-size: 14px; line-height: 1.5; color: var(--ink); }
+    .tile .note::before { content: "↳ "; color: var(--blue); }
+    .tile.tools { background: var(--blue-soft); border-color: transparent; }
+    .tile .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tile .stack i { font-style: normal; font: 500 12px/1 "JetBrains Mono", monospace; color: var(--ink-2); background: var(--sunk); padding: 6px 8px; border-radius: 7px; }
+
+    /* tools */
     .kit { border-top: 1px solid var(--line); }
-    .kit > div { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+    .kit > div { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
     .kit span { font: 500 12px/1.6 "JetBrains Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
     .kit p { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
     .kit i { font-style: normal; font-size: 14.5px; color: var(--ink); background: var(--paper); box-shadow: 0 0 0 1px var(--line); padding: 6px 12px; border-radius: 9px; transition: box-shadow .25s, color .25s; }
     .kit i:hover { box-shadow: 0 0 0 1.5px var(--blue); color: var(--blue); }
-    .do { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
-    .do > div { padding: 30px 28px 6px 0; display: flex; flex-direction: column; }
-    .do .proof { margin-top: auto !important; padding-top: 18px; }
-    .do > div + div { padding-left: 28px; border-left: 1px solid var(--line); }
-    .do .n { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--blue); }
-    .do h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; margin: 14px 0 8px; }
-    .do p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
-    .do .proof { margin-top: 18px; font: 600 28px/1.1 Fraunces, Georgia, serif; color: var(--ink); }
-    .do .proof small { display: block; font: 400 13px/1.4 Inter, sans-serif; color: var(--ink-3); margin-top: 6px; }
 
+    /* career */
     .path { position: relative; }
     .path .rail { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--line); }
     .path .rail i { position: absolute; left: 0; top: 0; width: 2px; height: 0; background: var(--blue); }
@@ -125,19 +161,36 @@
     .step .top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; }
     .step .co { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--ink-3); letter-spacing: 0.04em; }
     .step .co b { color: var(--ink); font: 700 13px/1 "JetBrains Mono", monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+    .step.now .co b { color: var(--blue); }
     .step h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.015em; margin: 10px 0 0; }
     .step .row { display: grid; grid-template-columns: 104px 1fr; gap: 16px; margin-top: 16px; align-items: baseline; }
     .step .row > span { font: 500 11px/1.9 "JetBrains Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
     .step .owned { font-size: 17px; line-height: 1.55; color: var(--ink); margin: 0; }
-    .step .owned em { font-style: italic; color: var(--blue); }
     .step .built { display: flex; flex-wrap: wrap; gap: 6px; }
     .step .built i { font-style: normal; font-size: 13.5px; color: var(--ink-2); background: var(--paper); box-shadow: 0 0 0 1px var(--line); padding: 5px 10px; border-radius: 8px; }
     .step .impact { display: flex; flex-wrap: wrap; gap: 14px 36px; }
-    .step .impact div { min-width: 150px; max-width: 220px; }
-    .step .impact b { display: block; font: 600 26px/1 Fraunces, Georgia, serif; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+    .step .impact div { min-width: 150px; max-width: 230px; }
+    .step .impact b { display: block; font: 600 26px/1 Fraunces, Georgia, serif; color: var(--ink); font-variant-numeric: tabular-nums; }
     .step .impact small { display: block; font-size: 13px; line-height: 1.4; color: var(--ink-2); margin-top: 6px; }
-    .step.now .co b { color: var(--blue); }
 
+    /* moments */
+    .tabs { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--paper); box-shadow: 0 0 0 1px var(--line); margin-bottom: 22px; }
+    .tabs button { border: 0; background: transparent; padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--ink-2); cursor: pointer; transition: background .25s, color .25s; }
+    .tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+    .strip { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 28px 18px; margin: 0 -28px; scroll-padding-inline: 28px; scrollbar-width: thin; }
+    .strip[hidden] { display: none; }
+    .shot { flex: 0 0 auto; scroll-snap-align: start; position: relative; border-radius: 20px; overflow: hidden; height: 360px; border: 0; padding: 0; cursor: zoom-in; background: var(--sunk); box-shadow: 0 0 0 1px var(--line); }
+    .shot img { height: 100%; width: auto; display: block; transition: transform .8s var(--ease); }
+    .shot:hover img { transform: scale(1.04); }
+    .shot figcaption { position: absolute; left: 10px; bottom: 10px; font-size: 13px; font-weight: 500; color: #fff; background: rgba(11,18,32,.55); backdrop-filter: blur(6px); padding: 6px 10px; border-radius: 10px; }
+    .striphint { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+    dialog.lb { border: 0; padding: 0; background: transparent; max-width: min(92vw, 1100px); max-height: 90vh; }
+    dialog.lb::backdrop { background: rgba(5,8,16,.82); backdrop-filter: blur(4px); }
+    dialog.lb img { max-width: 100%; max-height: 82vh; display: block; border-radius: 16px; margin: 0 auto; }
+    dialog.lb p { color: #e2e8f0; text-align: center; margin: 12px 0 0; font-size: 15px; }
+    dialog.lb .x { position: fixed; top: 18px; right: 18px; }
+
+    /* side projects */
     .feature { position: relative; display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 48px; align-items: center; background: var(--navy); color: #fff; border-radius: 32px; padding: 56px; overflow: hidden; }
     .feature::after { content: ""; position: absolute; right: -120px; top: -160px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(96,165,250,0.35), transparent 65%); pointer-events: none; }
     .feature .brand { display: flex; align-items: center; gap: 12px; }
@@ -149,25 +202,20 @@
     .feature ul { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px; }
     .feature li { display: flex; gap: 10px; color: #e0e7ff; font-size: 15.5px; }
     .feature li::before { content: "→"; color: #60a5fa; }
-    .feature .stats { display: flex; gap: 32px; margin-top: 26px; }
-    .feature .stats b { display: block; font: 600 30px/1 Fraunces, Georgia, serif; }
-    .feature .stats span { font-size: 12.5px; color: #a5b4fc; }
+    .feature .quiet { color: #c7d2fe; margin-top: 22px; font-size: 15px; }
     .feature .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .feature .pill.light { background: #fff; box-shadow: none; }
+    .feature .pill.light { background: #fff; color: #0b1220; box-shadow: none; }
     .feature .pill.ghost { color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,0.25); }
-    .shot { position: relative; z-index: 1; perspective: 1200px; }
-    .shot .frame { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6); transform: rotateY(-8deg) rotateX(4deg); transition: transform .8s var(--ease); }
-    .shot .bar { height: 30px; background: #f1f5f9; display: flex; align-items: center; gap: 6px; padding: 0 12px; }
-    .shot .bar i { width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; }
-    .shot .bar span { margin-left: 10px; font: 500 11px/1 "JetBrains Mono", monospace; color: #94a3b8; }
-    .shot img { display: block; width: 100%; height: auto; }
-
+    .feature .shot { cursor: default; height: auto; background: none; box-shadow: none; perspective: 1200px; border-radius: 0; overflow: visible; position: relative; z-index: 1; }
+    .feature .shot .frame { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6); transform: rotateY(-8deg) rotateX(4deg); transition: transform .8s var(--ease); }
+    .feature .shot img { width: 100%; height: auto; display: block; }
     .side { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-top: 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 28px; padding: 36px 40px; }
     .side h3 { font-size: clamp(24px, 2.6vw, 30px); line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; margin: 14px 0 0; }
     .side p { color: var(--ink-2); margin: 10px 0 0; max-width: 58ch; font-size: 16px; }
     .side-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+    .side .pill.dark { background: var(--ink); color: var(--bg); }
     .more { border-top: 1px solid var(--line); margin-top: 16px; }
-    .more a { display: grid; grid-template-columns: 1fr 1.4fr 130px 24px; gap: 24px; align-items: baseline; padding: 22px 4px; border-bottom: 1px solid var(--line); transition: background .3s, padding .4s var(--ease); }
+    .more a { display: grid; grid-template-columns: 1fr 1.4fr 130px 24px; gap: 24px; align-items: baseline; padding: 20px 4px; border-bottom: 1px solid var(--line); transition: background .3s, padding .4s var(--ease); }
     .more a:hover { background: var(--paper); padding-left: 16px; padding-right: 16px; }
     .more b { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
     .more span { color: var(--ink-2); font-size: 15px; }
@@ -175,63 +223,98 @@
     .more .arr { color: var(--ink-3); transition: transform .4s var(--ease), color .3s; }
     .more a:hover .arr { transform: translateX(4px); color: var(--blue); }
 
-    .end { padding: 120px 0 56px; text-align: center; }
-    .end h2 { font-size: clamp(40px, 6vw, 76px); line-height: 1.02; font-weight: 600; letter-spacing: -0.03em; margin: 18px auto 0; max-width: 16ch; }
-    .end h2 i { color: var(--blue); }
-    .end .ctas { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
-    footer { border-top: 1px solid var(--line); padding: 24px 0 40px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--ink-3); }
+    /* end */
+    .end { margin-top: 120px; background: var(--paper); border: 1px solid var(--line); border-radius: 32px; padding: 64px 48px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+    .end h2 { font-size: clamp(38px, 5vw, 64px); line-height: 1.02; font-weight: 600; letter-spacing: -0.03em; margin: 14px 0 0; }
+    .end p { color: var(--ink-2); margin: 16px 0 0; max-width: 46ch; }
+    .end .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .end .reasons { display: grid; gap: 8px; }
+    .end .reasons button { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; text-align: left; border: 0; cursor: pointer; background: var(--sunk); border-radius: 14px; padding: 14px 16px; font-size: 15.5px; font-weight: 600; transition: background .2s, transform .3s var(--ease); }
+    .end .reasons button:hover { background: var(--blue-soft); transform: translateX(4px); }
+    .end .reasons button small { display: block; font-weight: 400; font-size: 13px; color: var(--ink-2); }
+    .end .reasons button span.arr { color: var(--blue); }
+    footer { padding: 32px 0 48px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--ink-3); }
     footer a:hover { color: var(--ink); }
 
+    /* mobile contact bar */
+    .mbar { display: none; }
+
+    /* motion */
     .rv { opacity: 0; transform: translateY(22px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
     .rv.in { opacity: 1; transform: none; }
     .rv.d1 { transition-delay: .08s; } .rv.d2 { transition-delay: .16s; }
     .intro { animation: rise 1s var(--ease) both; }
     .intro.d1 { animation-delay: .1s; } .intro.d2 { animation-delay: .2s; } .intro.d3 { animation-delay: .3s; } .intro.d4 { animation-delay: .4s; } .intro.d5 { animation-delay: .55s; }
-    @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    @keyframes rise { from { transform: translateY(16px); } to { transform: none; } }
 
-    @media (max-width: 900px) {
-      nav .links a.hide-m { display: none; }
-      .hero { grid-template-columns: 1fr; gap: 28px; padding: 36px 0 56px; }
-      .stage { height: 380px; max-width: 420px; }
-      .stage .photo { width: 240px; height: 290px; right: 4%; }
+    @media (max-width: 980px) {
+      nav.top .links { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 24px; padding: 32px 0 32px; }
+      .stage { height: 370px; max-width: 420px; }
+      .stage .photo { width: 236px; height: 284px; right: 4%; }
+      .flow { grid-template-columns: 1fr; gap: 10px; }
       .sh { grid-template-columns: 1fr; gap: 12px; margin-bottom: 28px; }
       .sh .label { padding-top: 0; }
-      .do { grid-template-columns: 1fr; }
-      .caps { grid-template-columns: 1fr; }
+      .sh p { grid-column: 1; margin: 0; }
+      .bento { grid-template-columns: 1fr; }
+      .tile, .tile.big { grid-column: auto; }
       .kit > div { grid-template-columns: 1fr; gap: 10px; }
-      .do > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
-      .do > div { padding: 24px 0; }
       .step { padding-left: 24px; }
       .step .row { grid-template-columns: 1fr; gap: 6px; }
       .step .impact div { min-width: 130px; }
       .feature { grid-template-columns: 1fr; padding: 32px 24px; border-radius: 24px; }
-      .feature .stats { gap: 22px; }
-      .shot .frame { transform: none; }
+      .feature .shot .frame { transform: none; }
       .side { grid-template-columns: 1fr; padding: 28px 24px; border-radius: 22px; }
       .more a { grid-template-columns: 1fr 24px; gap: 4px 12px; }
       .more a b, .more a span:not(.arr), .more a em { grid-column: 1; }
       .more a .arr { grid-column: 2; grid-row: 1; }
+      .end { grid-template-columns: 1fr; padding: 36px 24px; border-radius: 24px; margin-top: 88px; }
       section { padding-top: 76px; }
+      .shot { height: 280px; }
+      .pop { position: fixed; left: 16px; right: 16px; top: 76px; width: auto; }
+      .mbar { display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 45; gap: 8px; padding: 8px; border-radius: 18px; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(12px); box-shadow: var(--shadow), 0 0 0 1px var(--line); }
+      .mbar .pill { flex: 1; justify-content: center; padding: 12px; }
+      footer { padding-bottom: 110px; }
     }
-    @media (max-width: 420px) { .wrap { padding: 0 18px; } .float.vetta { width: 236px; } }
+    @media (max-width: 460px) { nav.top .wrap { gap: 10px; } nav.top a.iconbtn { display: none; } nav.top .book > .pill { padding: 8px 12px; font-size: 13.5px; } nav.top .book > .pill .dot { display: none; } .wrap { padding: 0 18px; } .strip { padding: 4px 18px 18px; margin: 0 -18px; scroll-padding-inline: 18px; } .float.vetta { width: 232px; } nav.top .book > .pill span.long { display: none; } }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .rv { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
+      .flow .pulse { display: none; }
     }
   </style>
 </head>
 <body>
 
-<nav id="nav">
+<nav class="top" id="nav">
   <div class="wrap">
-    <a class="me" href="#">Aditya Yadav</a>
+    <a class="me" href="#"><img src="assets/img/profile.jpeg" alt="">Aditya Yadav</a>
     <div class="links">
-      <a class="ul hide-m" href="#what">What I do</a>
-      <a class="ul hide-m" href="#tools">Tools</a>
-      <a class="ul hide-m" href="#path">Career</a>
-      <a class="ul hide-m" href="#work">Side projects</a>
-      <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">Say hello</a>
+      <a class="ul" href="#what">Work</a>
+      <a class="ul" href="#path">Career</a>
+      <a class="ul" href="#moments">Moments</a>
+      <a class="ul" href="#side">Side projects</a>
+    </div>
+    <button class="iconbtn" id="theme" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <a class="iconbtn" href="mailto:aditya.yadav.of@gmail.com" aria-label="Email Aditya" title="aditya.yadav.of@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+    </a>
+    <div class="book" id="book">
+      <button class="pill blue" id="bookBtn" aria-haspopup="true" aria-expanded="false" aria-controls="bookPop"><span class="dot" style="background:#bbf7d0"></span>Book a chat<span class="long"></span></button>
+      <div class="pop" id="bookPop" role="dialog" aria-label="Book a chat">
+        <h4>Let's catch up</h4>
+        <p>A short call, no agenda needed. Pick what's on your mind and Calendly will show my free slots.</p>
+        <div class="topics">
+          <button class="topic" data-topic="Data science discussion"><span class="em">🧠</span><span><b>Talk data science</b><small>ML systems, AI agents, an experiment you're stuck on</small></span></button>
+          <button class="topic" data-topic="Career roadmap"><span class="em">🧭</span><span><b>Map out a career move</b><small>Getting into DS/ML, or figuring out the next step</small></span></button>
+          <button class="topic" data-topic="Discuss a role"><span class="em">💼</span><span><b>Discuss a role</b><small>You're hiring, or weighing up a role yourself</small></span></button>
+          <button class="topic" data-topic="Chit-chat"><span class="em">☕</span><span><b>Just chit-chat</b><small>Say hi, compare notes, no reason needed</small></span></button>
+        </div>
+        <div class="foot"><span>Prefer email? <a href="mailto:aditya.yadav.of@gmail.com" style="font-weight:500">Write to me</a></span><a href="https://calendly.com/aditya-yadav-of/catchups" target="_blank" rel="noopener" data-cal>Pick a time →</a></div>
+      </div>
     </div>
   </div>
 </nav>
@@ -239,16 +322,15 @@
 <main class="wrap">
   <header class="hero">
     <div>
-      <div class="label intro">Data scientist · Bengaluru</div>
+      <div class="status intro"><span class="dot"></span>Senior Data Scientist at Atlassian · Bengaluru</div>
       <h1 class="serif intro d1">Aditya Yadav</h1>
       <p class="lede intro d2">
-        I'm a senior data scientist at Atlassian. Most of my work is building ML systems and, lately,
-        AI agents, and then checking carefully whether they actually help. On the side I'm building
-        VettaCV, a small app for people looking for their next job.
+        Most of my work is building <b>ML systems</b> and, lately, <b>AI agents</b>, and then checking carefully
+        whether they actually help. On the side I'm building VettaCV, a small app for people looking for their next job.
       </p>
       <div class="ctas intro d3">
-        <a class="pill dark" href="#path">Where I've been ↓</a>
-        <a class="pill light" href="#work">Side projects</a>
+        <a class="pill blue" href="https://calendly.com/aditya-yadav-of/catchups" target="_blank" rel="noopener" data-cal>Book a chat</a>
+        <a class="pill light" href="mailto:aditya.yadav.of@gmail.com">aditya.yadav.of@gmail.com</a>
       </div>
       <div class="socials intro d4">
         <a class="ul" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
@@ -257,22 +339,30 @@
         <span style="color:var(--ink-3)">Open to relocation</span>
       </div>
     </div>
-
     <div class="stage intro d5" id="stage">
       <img class="photo" src="assets/img/profile.jpeg" alt="Aditya Yadav" data-depth="6">
-      <div class="float live" data-depth="16"><i></i>Currently at Atlassian</div>
+      <div class="float now" data-depth="16"><span class="dot"></span>Currently at Atlassian</div>
       <div class="float yrs" data-depth="22"><b>8 yrs</b><span>working with data</span></div>
       <a class="float vetta" href="https://vettacv.com" target="_blank" rel="noopener" data-depth="12">
-        <img src="assets/img/vettacv/vettacv-mark.svg" alt="">
-        <span style="flex:1"><b>VettaCV</b><span>Tailored resumes · matched jobs</span></span>
-        <img class="pup" src="assets/img/vettacv/shiba-wave.webp" alt="">
+        <img class="logo" src="assets/img/vettacv/vettacv-mark.svg" alt="">
+        <span style="flex:1"><b>VettaCV</b><small>my side project</small></span>
+        <img src="assets/img/vettacv/shiba-wave.webp" alt="">
       </a>
     </div>
   </header>
 
-  <div class="cos rv">
-    <span class="label">Along the way</span>
-    <b>IIT Delhi</b><b>IndShine</b><b>Netradyne</b><b>J.P. Morgan</b><b>Grab</b><b>Atlassian</b>
+  <div class="flow rv" aria-label="How I tend to work: data, features, model, agent, evaluation, decision">
+    <span class="label">How I tend to work</span>
+    <svg viewBox="0 0 900 70" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <path id="flowpath" class="edge" d="M60,35 L840,35"/>
+      <g class="node" data-i="0"><rect x="0" y="10" width="120" height="50" rx="12"/><text x="60" y="33" text-anchor="middle">Data</text><text class="sub" x="60" y="49" text-anchor="middle">SQL · PySpark</text></g>
+      <g class="node" data-i="1"><rect x="156" y="10" width="120" height="50" rx="12"/><text x="216" y="33" text-anchor="middle">Features</text><text class="sub" x="216" y="49" text-anchor="middle">dbt · pipelines</text></g>
+      <g class="node" data-i="2"><rect x="312" y="10" width="120" height="50" rx="12"/><text x="372" y="33" text-anchor="middle">Model</text><text class="sub" x="372" y="49" text-anchor="middle">sklearn · PyTorch</text></g>
+      <g class="node" data-i="3"><rect x="468" y="10" width="120" height="50" rx="12"/><text x="528" y="33" text-anchor="middle">Agent</text><text class="sub" x="528" y="49" text-anchor="middle">LangGraph · Claude</text></g>
+      <g class="node" data-i="4"><rect x="624" y="10" width="120" height="50" rx="12"/><text x="684" y="33" text-anchor="middle">Evaluate</text><text class="sub" x="684" y="49" text-anchor="middle">A/B · causal</text></g>
+      <g class="node" data-i="5"><rect x="780" y="10" width="120" height="50" rx="12"/><text x="840" y="33" text-anchor="middle">Decision</text><text class="sub" x="840" y="49" text-anchor="middle">ship · or don't</text></g>
+      <circle class="pulse" r="5" cx="60" cy="35"><animateMotion dur="7s" repeatCount="indefinite" path="M0,0 L780,0"/></circle>
+    </svg>
   </div>
 
   <section id="what">
@@ -280,43 +370,39 @@
       <div class="label">01 — Work</div>
       <h2 class="serif">What I spend my time on.</h2>
     </div>
-    <div class="caps">
-      <div class="cap rv">
-        <div class="n">01</div>
-        <h3>ML systems</h3>
-        <p>Taking models from a notebook to something that runs every day: the data, the features, serving it, and keeping an eye on it once it's live.</p>
+    <div class="bento">
+      <div class="tile big rv">
+        <div class="n">01 · ML SYSTEMS</div>
+        <h3>Models that run every day, not just in a notebook.</h3>
+        <p>The data, the features, serving it, and keeping an eye on it once it's live.</p>
+        <div class="stack"><i>scikit-learn</i><i>PyTorch</i><i>PySpark</i><i>SageMaker</i></div>
         <p class="note">At Grab, fraud models I worked on brought the incident rate down 30 points.</p>
       </div>
-      <div class="cap rv d1">
-        <div class="n">02</div>
-        <h3>AI agents</h3>
-        <p>Building agents with LangGraph and Claude, plus the less glamorous part: measuring when they get things wrong.</p>
+      <div class="tile big rv d1">
+        <div class="n">02 · AI AGENTS</div>
+        <h3>Agents, and the unglamorous part: knowing when they're wrong.</h3>
+        <p>Building with LangGraph and Claude, then measuring frustration, errors, latency and cost per conversation.</p>
+        <div class="stack"><i>LangGraph</i><i>Claude</i><i>RAG</i><i>evals</i></div>
         <p class="note">A support agent I worked on at Atlassian now handles 50% more questions on its own.</p>
       </div>
-      <div class="cap rv d2">
-        <div class="n">03</div>
-        <h3>Consulting on the fuzzy stuff</h3>
+      <div class="tile rv">
+        <div class="n">03 · CONSULTING</div>
+        <h3>The fuzzy questions</h3>
         <p>Sitting with a team that has a vague question and turning it into something we can measure and act on.</p>
-        <p class="note">That kind of work fed into safety changes that cut incidents in Thailand by 13%.</p>
+        <p class="note">Fed into safety changes that cut incidents in Thailand by 13%.</p>
       </div>
-      <div class="cap rv">
-        <div class="n">04</div>
+      <div class="tile rv d1">
+        <div class="n">04 · EXPERIMENTS</div>
         <h3>Experiments &amp; causal inference</h3>
-        <p>A/B and switchback tests, power analysis, causal methods. Mostly in service of one question: did it actually work?</p>
-        <p class="note">One of these confirmed a 25-point jump in harmful-content detection.</p>
+        <p>A/B and switchback tests, power analysis, causal methods. Mostly in service of: did it actually work?</p>
+        <p class="note">One confirmed a 25-point jump in harmful-content detection.</p>
       </div>
-      <div class="cap rv d1">
-        <div class="n">05</div>
-        <h3>Automation</h3>
-        <p>Replacing fragile scripts and manual steps with pipelines that look after themselves.</p>
-        <p class="note">We moved ~40 legacy SQL jobs to dbt and finished three months ahead of plan.</p>
+      <div class="tile rv d2">
+        <div class="n">05 · AUTOMATION</div>
+        <h3>Pipelines that look after themselves</h3>
+        <p>Replacing fragile scripts and manual steps with tested, scheduled pipelines.</p>
+        <p class="note">~40 legacy SQL jobs moved to dbt, three months ahead of plan.</p>
       </div>
-      <a class="cap more-cap rv d2" href="#tools">
-        <div class="n">06</div>
-        <h3>Tools</h3>
-        <p>scikit-learn, PyTorch, LangGraph, Claude, PySpark, dbt, Power BI, Grafana, and a few more.</p>
-        <p class="note" style="color:var(--blue)">The full list →</p>
-      </a>
     </div>
   </section>
 
@@ -402,9 +488,44 @@
     </div>
   </section>
 
-  <section id="work">
+  <section id="moments">
     <div class="sh rv">
-      <div class="label">04 — Side projects</div>
+      <div class="label">04 — Moments</div>
+      <h2 class="serif">Outside the notebook.</h2>
+      <p>The people and places around the work: team dinners, offsites, and the odd pickleball game.</p>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Choose a company">
+      <button role="tab" aria-selected="true" aria-controls="m-atl" id="t-atl">Atlassian</button>
+      <button role="tab" aria-selected="false" aria-controls="m-grab" id="t-grab">Grab</button>
+    </div>
+    <div class="strip rv" id="m-atl" role="tabpanel" aria-labelledby="t-atl">
+      <button class="shot"><img loading="lazy" src="assets/img/moments/atl-26.webp" alt="Aditya at the Atlassian office in Bengaluru"><figcaption>Atlassian, Bengaluru</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/atl-01.webp" alt="Team lunch with Atlassian colleagues"><figcaption>Team lunch</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/atl-18.webp" alt="Pickleball paddle on the office court"><figcaption>Pickleball after work</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/atl-13.webp" alt="Music-themed lounge with records on the wall"><figcaption>A quieter corner</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/atl-21.webp" alt="Office atrium with woven lamps"><figcaption>The atrium</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/atl-25.webp" alt="Office campus at dusk"><figcaption>Heading home</figcaption></button>
+    </div>
+    <div class="strip" id="m-grab" role="tabpanel" aria-labelledby="t-grab" hidden>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-07.webp" alt="Aditya next to the Grab sign"><figcaption>Grab</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-10.webp" alt="Grab team dinner"><figcaption>Team dinner</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-12.webp" alt="Colleagues with paddles before rafting"><figcaption>Team day out on the river</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-05.webp" alt="Holi celebration photo booth at Grab"><figcaption>Holi at Grab, 2024</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-03.webp" alt="Wall reading DA was here, Grab"><figcaption>DA was here</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-09.webp" alt="Three colleagues in front of the Grab wall"><figcaption>With the team</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-04.webp" alt="Airport arrival hall, Welcome to Malaysia"><figcaption>Landing in Malaysia</figcaption></button>
+      <button class="shot"><img loading="lazy" src="assets/img/moments/grab-15.webp" alt="Long table team dinner"><figcaption>Another team dinner</figcaption></button>
+    </div>
+    <p class="striphint rv">Scroll sideways · click a photo to enlarge</p>
+    <dialog class="lb" id="lb">
+      <button class="iconbtn x" id="lbx" aria-label="Close">✕</button>
+      <img id="lbimg" alt=""><p id="lbcap"></p>
+    </dialog>
+  </section>
+
+  <section id="side">
+    <div class="sh rv">
+      <div class="label">05 — Side projects</div>
       <h2 class="serif">Things I build on the side.</h2>
     </div>
 
@@ -447,7 +568,7 @@
       </div>
     </div>
 
-    <div class="label rv" style="margin-top:64px">Case studies &amp; experiments</div>
+    <div class="label rv" style="margin-top:56px">Case studies &amp; experiments</div>
     <div class="more">
       <a class="rv" href="projects/instaprogroup.html"><b>Werkspot</b><span>Demand–supply gaps and a switchback test for a new matching algorithm.</span><em>Case study</em><span class="arr">→</span></a>
       <a class="rv" href="projects/bolt_case_study.html"><b>Bolt</b><span>A data-backed acquisition strategy for a mobility startup.</span><em>Case study</em><span class="arr">→</span></a>
@@ -456,13 +577,22 @@
     </div>
   </section>
 
-  <div class="end">
-    <div class="label rv">05 — Contact</div>
-    <h2 class="serif rv d1">Say hello.</h2>
-    <p class="rv d1" style="color:var(--ink-2);margin:16px auto 0;max-width:52ch">If any of this overlaps with what you're working on, I'd like to hear about it. Away from work I've taught with Teach for India, and these days it's mostly tennis and swimming.</p>
-    <div class="ctas rv d2">
-      <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">aditya.yadav.of@gmail.com</a>
-      <a class="pill light" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
+  <div class="end rv" id="contact">
+    <div>
+      <div class="label">06 — Say hello</div>
+      <h2 class="serif">Happy to talk.</h2>
+      <p>If any of this overlaps with what you're working on, I'd like to hear about it. Away from work I've taught with Teach for India, and these days it's mostly tennis and swimming.</p>
+      <div class="ctas">
+        <a class="pill blue" href="https://calendly.com/aditya-yadav-of/catchups" target="_blank" rel="noopener" data-cal>Book a chat</a>
+        <a class="pill light" href="mailto:aditya.yadav.of@gmail.com">Email</a>
+        <a class="pill light" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="reasons">
+      <button data-topic="Data science discussion"><span>Talk data science<small>ML systems, agents, experiments</small></span><span class="arr">→</span></button>
+      <button data-topic="Career roadmap"><span>Map out a career move<small>Into DS/ML, or the next step</small></span><span class="arr">→</span></button>
+      <button data-topic="Discuss a role"><span>Discuss a role<small>Hiring, or weighing one up</small></span><span class="arr">→</span></button>
+      <button data-topic="Chit-chat"><span>Just chit-chat<small>No reason needed</small></span><span class="arr">→</span></button>
     </div>
   </div>
 
@@ -472,58 +602,123 @@
   </footer>
 </main>
 
+<div class="mbar">
+  <a class="pill blue" href="https://calendly.com/aditya-yadav-of/catchups" target="_blank" rel="noopener" data-cal>Book a chat</a>
+  <a class="pill light" href="mailto:aditya.yadav.of@gmail.com">Email</a>
+</div>
+
 <script>
   (function () {
+    var CAL = "https://calendly.com/aditya-yadav-of/catchups";
     var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var nav = document.getElementById("nav"), rail = document.getElementById("rail"), path = document.querySelector(".path");
+    var canHover = matchMedia("(hover: hover)").matches;
 
-    function count(el) {
-      var n = +el.dataset.n, p = el.dataset.p || "", s = el.dataset.s || "";
-      if (reduce || !n) return;
-      var t0 = null;
-      (function f(t) {
-        t0 = t0 || t;
-        var k = Math.min(1, (t - t0) / 1200), e = 1 - Math.pow(1 - k, 3);
-        el.textContent = p + Math.round(n * e) + s;
-        if (k < 1) requestAnimationFrame(f);
-      })(performance.now());
+    // ---- theme ----
+    var root = document.documentElement;
+    try { var saved = localStorage.getItem("theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+    document.getElementById("theme").addEventListener("click", function () {
+      var dark = root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      var next = dark ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+
+    // ---- Calendly: popup on this page when the widget loads, otherwise a new tab ----
+    var calReady = false;
+    function loadCalendly() {
+      if (window.Calendly || document.getElementById("calendly-js")) return;
+      var l = document.createElement("link"); l.rel = "stylesheet"; l.href = "https://assets.calendly.com/assets/external/widget.css"; document.head.appendChild(l);
+      var s = document.createElement("script"); s.id = "calendly-js"; s.src = "https://assets.calendly.com/assets/external/widget.js"; s.async = true;
+      s.onload = function () { calReady = true; }; document.head.appendChild(s);
     }
+    function calUrl(topic) { return CAL + "?hide_gdpr_banner=1" + (topic ? "&a1=" + encodeURIComponent(topic) : ""); }
+    function openCal(topic, ev) {
+      if (calReady && window.Calendly) { if (ev) ev.preventDefault(); window.Calendly.initPopupWidget({ url: calUrl(topic) }); closePop(); return; }
+      if (ev) ev.preventDefault();
+      window.open(calUrl(topic), "_blank", "noopener");
+      closePop();
+    }
+    ["mouseover", "focusin", "touchstart", "scroll"].forEach(function (t) { addEventListener(t, loadCalendly, { once: true, passive: true }); });
+    document.querySelectorAll("[data-cal]").forEach(function (a) { a.addEventListener("click", function (e) { openCal("", e); }); });
+    document.querySelectorAll("[data-topic]").forEach(function (b) { b.addEventListener("click", function (e) { openCal(b.dataset.topic, e); }); });
 
+    var book = document.getElementById("book"), bookBtn = document.getElementById("bookBtn");
+    function closePop() { book.classList.remove("open"); bookBtn.setAttribute("aria-expanded", "false"); }
+    bookBtn.addEventListener("click", function (e) {
+      // With a mouse the panel opens on hover, so a click goes straight to the calendar; on touch, the tap opens the panel.
+      if (canHover) { openCal("", e); return; }
+      var open = !book.classList.contains("open");
+      book.classList.toggle("open", open); bookBtn.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", function (e) { if (!book.contains(e.target)) closePop(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePop(); });
+
+    // ---- reveal, rail, active nav ----
     var io = "IntersectionObserver" in window && new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
         e.target.classList.add("in");
-        if (e.target.classList.contains("step")) { e.target.classList.add("on"); e.target.querySelectorAll("[data-n]").forEach(count); }
+        if (e.target.classList.contains("step")) e.target.classList.add("on");
         io.unobserve(e.target);
       });
-    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
     document.querySelectorAll(".rv").forEach(function (el) { io ? io.observe(el) : el.classList.add("in"); });
-    setTimeout(function () {
-      document.querySelectorAll(".rv:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add("in"); });
-    }, 2500);
+    setTimeout(function () { document.querySelectorAll(".rv:not(.in)").forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add("in"); }); }, 2500);
 
+    var nav = document.getElementById("nav"), rail = document.getElementById("rail"), path = document.querySelector(".path");
+    var links = [].slice.call(document.querySelectorAll("nav.top .links a"));
     function onScroll() {
       nav.classList.toggle("solid", scrollY > 10);
-      var r = path.getBoundingClientRect();
-      rail.style.height = Math.max(0, Math.min(1, (innerHeight * 0.55 - r.top) / r.height)) * 100 + "%";
+      if (path && rail) { var r = path.getBoundingClientRect(); rail.style.height = Math.max(0, Math.min(1, (innerHeight * 0.55 - r.top) / r.height)) * 100 + "%"; }
+      var cur = null;
+      links.forEach(function (a) { var s = document.querySelector(a.getAttribute("href")); if (s && s.getBoundingClientRect().top < innerHeight * 0.4) cur = a; });
+      links.forEach(function (a) { a.classList.toggle("active", a === cur); });
     }
-    addEventListener("scroll", onScroll, { passive: true });
-    addEventListener("resize", onScroll);
-    onScroll();
+    addEventListener("scroll", onScroll, { passive: true }); addEventListener("resize", onScroll); onScroll();
 
-    if (reduce || !matchMedia("(hover: hover)").matches) return;
-    // Hero layers drift with the cursor at different depths; the product shot tilts toward it.
+    // ---- pipeline: light up the node the pulse is passing ----
+    var nodes = document.querySelectorAll(".flow .node");
+    if (!reduce) setInterval(function () {
+      var k = Math.floor(((performance.now() / 1000) % 7) / 7 * 6.0001);
+      nodes.forEach(function (n, i) { n.classList.toggle("hot", i === Math.min(5, k)); });
+    }, 200);
+
+    // ---- moments: tabs + lightbox ----
+    var tabs = document.querySelectorAll('[role="tab"]');
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        tabs.forEach(function (o) {
+          var on = o === t; o.setAttribute("aria-selected", String(on));
+          var p = document.getElementById(o.getAttribute("aria-controls")); p.hidden = !on; if (on) { p.classList.add("in"); p.scrollLeft = 0; }
+        });
+      });
+    });
+    var lb = document.getElementById("lb"), lbimg = document.getElementById("lbimg"), lbcap = document.getElementById("lbcap");
+    document.querySelectorAll(".strip .shot").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var img = b.querySelector("img"); lbimg.src = img.src; lbimg.alt = img.alt; lbcap.textContent = b.querySelector("figcaption").textContent;
+        if (lb.showModal) lb.showModal(); else window.open(img.src, "_blank");
+      });
+    });
+    document.getElementById("lbx").addEventListener("click", function () { lb.close(); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+
+    if (reduce || !canHover) return;
+    // Hero layers drift with the cursor; the VettaCV screenshot tilts toward it.
     var stage = document.getElementById("stage"), layers = stage.querySelectorAll("[data-depth]");
     document.querySelector(".hero").addEventListener("mousemove", function (ev) {
       var b = stage.getBoundingClientRect(), x = (ev.clientX - b.left) / b.width - 0.5, y = (ev.clientY - b.top) / b.height - 0.5;
       layers.forEach(function (l) { var d = +l.dataset.depth; l.style.transform = "translate(" + (-x * d).toFixed(1) + "px," + (-y * d).toFixed(1) + "px)"; });
     });
-    var shot = document.getElementById("shot"), frame = shot.querySelector(".frame");
-    shot.addEventListener("mousemove", function (ev) {
-      var b = shot.getBoundingClientRect(), x = (ev.clientX - b.left) / b.width - 0.5, y = (ev.clientY - b.top) / b.height - 0.5;
-      frame.style.transform = "rotateY(" + (x * 10).toFixed(2) + "deg) rotateX(" + (-y * 8).toFixed(2) + "deg)";
-    });
-    shot.addEventListener("mouseleave", function () { frame.style.transform = ""; });
+    var shot = document.getElementById("shot");
+    if (shot) {
+      var frame = shot.querySelector(".frame");
+      shot.addEventListener("mousemove", function (ev) {
+        var b = shot.getBoundingClientRect(), x = (ev.clientX - b.left) / b.width - 0.5, y = (ev.clientY - b.top) / b.height - 0.5;
+        frame.style.transform = "rotateY(" + (x * 10).toFixed(2) + "deg) rotateX(" + (-y * 8).toFixed(2) + "deg)";
+      });
+      shot.addEventListener("mouseleave", function () { frame.style.transform = ""; });
+    }
   })();
 </script>
 </body>
