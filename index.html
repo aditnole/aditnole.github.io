@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aditya Yadav</title>
-  <meta name="description" content="Aditya Yadav: senior data scientist at Atlassian working on experimentation and product analytics, and builder of VettaCV, an AI job-search app.">
+  <meta name="description" content="Aditya Yadav: senior data scientist at Atlassian who builds ML systems and AI agents end to end, from data and models to the experiments that prove them. Builder of VettaCV.">
   <meta property="og:title" content="Aditya Yadav · data scientist & builder">
-  <meta property="og:description" content="8 years in data science embedded in product teams: experimentation at Grab and Atlassian's DC-to-Cloud migration. Building VettaCV on the side.">
+  <meta property="og:description" content="8 years building ML systems, AI agents and the experiments behind them, at Atlassian, Grab and J.P. Morgan. Building VettaCV on the side.">
   <meta property="og:image" content="https://aditnole.github.io/assets/img/profile.jpeg">
   <link href="favicon.png" rel="icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,6 +88,22 @@
     .sh h2 i { color: var(--blue); }
     .sh .label { padding-top: 14px; }
 
+    .caps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .cap { display: flex; flex-direction: column; padding: 28px 26px 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .3s; }
+    .cap:hover { background: var(--paper); }
+    .cap .n { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--blue); }
+    .cap h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; margin: 14px 0 8px; }
+    .cap p { margin: 0; color: var(--ink-2); font-size: 15px; }
+    .cap .proof { margin-top: auto; padding-top: 20px; font: 600 28px/1.1 Fraunces, Georgia, serif; color: var(--ink); }
+    .cap .proof small { display: block; font: 400 13px/1.4 Inter, sans-serif; color: var(--ink-3); margin-top: 6px; }
+    a.more-cap { background: var(--blue-soft); }
+    a.more-cap:hover { background: #dfe8ff; }
+    .kit { border-top: 1px solid var(--line); }
+    .kit > div { display: grid; grid-template-columns: 220px 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+    .kit span { font: 500 12px/1.6 "JetBrains Mono", monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+    .kit p { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .kit i { font-style: normal; font-size: 14.5px; color: var(--ink); background: var(--paper); box-shadow: 0 0 0 1px var(--line); padding: 6px 12px; border-radius: 9px; transition: box-shadow .25s, color .25s; }
+    .kit i:hover { box-shadow: 0 0 0 1.5px var(--blue); color: var(--blue); }
     .do { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
     .do > div { padding: 30px 28px 6px 0; display: flex; flex-direction: column; }
     .do .proof { margin-top: auto !important; padding-top: 18px; }
@@ -179,6 +195,8 @@
       .sh { grid-template-columns: 1fr; gap: 12px; margin-bottom: 28px; }
       .sh .label { padding-top: 0; }
       .do { grid-template-columns: 1fr; }
+      .caps { grid-template-columns: 1fr; }
+      .kit > div { grid-template-columns: 1fr; gap: 10px; }
       .do > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
       .do > div { padding: 24px 0; }
       .step { padding-left: 24px; }
@@ -208,6 +226,7 @@
     <a class="me" href="#">Aditya Yadav</a>
     <div class="links">
       <a class="ul hide-m" href="#what">What I do</a>
+      <a class="ul hide-m" href="#tools">Toolkit</a>
       <a class="ul hide-m" href="#path">Career</a>
       <a class="ul hide-m" href="#work">Work</a>
       <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">Say hello</a>
@@ -218,11 +237,11 @@
 <main class="wrap">
   <header class="hero">
     <div>
-      <div class="label intro">Senior Data Scientist · Atlassian &nbsp;/&nbsp; Builder · VettaCV</div>
+      <div class="label intro">Senior Data Scientist · Atlassian &nbsp;/&nbsp; ML systems &amp; AI agents</div>
       <h1 class="serif intro d1">Aditya Yadav</h1>
       <p class="lede intro d2">
-        I turn <b>undefined problems into testable ones</b>, and I own them end to end: instrumentation, models,
-        experiments and the decision. Senior data scientist at <b>Atlassian</b>; on the side, I build <b>VettaCV</b>.
+        I build <b>ML systems and AI agents</b>, and own them end to end: data, models, automation, and the
+        experiments that prove they work. Senior data scientist at <b>Atlassian</b>; on the side, I build <b>VettaCV</b>.
       </p>
       <div class="ctas intro d3">
         <a class="pill dark" href="#work">See my work ↓</a>
@@ -256,33 +275,66 @@
   <section id="what">
     <div class="sh rv">
       <div class="label">01 — What I do</div>
-      <h2 class="serif">Experiments that change <i>decisions</i>, and products that ship.</h2>
+      <h2 class="serif">ML systems and AI agents that <i>ship</i>, and the evidence that they work.</h2>
     </div>
-    <div class="do">
-      <div class="rv">
+    <div class="caps">
+      <div class="cap rv">
         <div class="n">01</div>
-        <h3>Experimentation, end to end</h3>
-        <p>A/B and switchback tests from instrumentation and power analysis to the decision readout.</p>
-        <div class="proof">+25pp <small>harmful-content detection accuracy, confirmed by experiment (Grab)</small></div>
+        <h3>ML systems design</h3>
+        <p>End-to-end ML in production: data and features, models, serving, and monitoring once it's live.</p>
+        <div class="proof">30pp <small>lower fraud incident rate from fraud-detection models (Grab)</small></div>
       </div>
-      <div class="rv d1">
+      <div class="cap rv d1">
         <div class="n">02</div>
-        <h3>Product analytics &amp; ML</h3>
-        <p>KPI design, customer segmentation and fraud models, always tied back to business impact.</p>
+        <h3>Agentic development</h3>
+        <p>LLM agents and multi-step pipelines with LangGraph and Claude, plus the observability to trust them.</p>
+        <div class="proof">+50% <small>deflection for an AI migration-support agent (Atlassian)</small></div>
+      </div>
+      <div class="cap rv d2">
+        <div class="n">03</div>
+        <h3>Consulting data science</h3>
+        <p>Turning undefined business questions into analyses and KPIs that leadership acts on.</p>
         <div class="proof">13% <small>fewer safety incidents in Thailand (Grab)</small></div>
       </div>
-      <div class="rv d2">
-        <div class="n">03</div>
-        <h3>Products, end to end</h3>
-        <p>From the model to the checkout page: I design, build and ship VettaCV.</p>
-        <div class="proof">+134% <small>active users in the last 90 days</small></div>
+      <div class="cap rv">
+        <div class="n">04</div>
+        <h3>Experimentation &amp; causal inference</h3>
+        <p>A/B and switchback tests, power analysis and causal methods, from instrumentation to the readout.</p>
+        <div class="proof">+25pp <small>harmful-content detection accuracy, proven by experiment</small></div>
       </div>
+      <div class="cap rv d1">
+        <div class="n">05</div>
+        <h3>Automation</h3>
+        <p>Pipelines and jobs that run themselves: dbt rebuilds, scheduled workflows, less manual toil.</p>
+        <div class="proof">3 mo <small>early: dbt rebuild of ~40 legacy SQL jobs (Atlassian)</small></div>
+      </div>
+      <a class="cap more-cap rv d2" href="#tools">
+        <div class="n">06</div>
+        <h3>Toolkit</h3>
+        <p>scikit-learn, PyTorch, LangGraph, Claude, PySpark, dbt, Power BI, Grafana and more.</p>
+        <div class="proof" style="color:var(--blue)">See all →</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="sh rv">
+      <div class="label">02 — Toolkit</div>
+      <h2 class="serif">What I build <i>with</i>.</h2>
+    </div>
+    <div class="kit rv">
+      <div><span>ML &amp; deep learning</span><p><i>scikit-learn</i><i>PyTorch</i><i>TensorFlow</i><i>BERT &amp; transformers</i><i>NLP &amp; text classification</i><i>Anomaly detection</i><i>Forecasting</i><i>Recommendations</i></p></div>
+      <div><span>Agents &amp; LLMs</span><p><i>LangGraph</i><i>LangChain</i><i>Claude</i><i>OpenAI API</i><i>Structured outputs</i><i>RAG</i><i>Agent evals &amp; observability</i><i>Prompt &amp; token optimisation</i></p></div>
+      <div><span>Data &amp; pipelines</span><p><i>Python</i><i>SQL</i><i>PySpark</i><i>dbt</i><i>Databricks</i></p></div>
+      <div><span>Experimentation</span><p><i>A/B testing</i><i>Switchback experiments</i><i>Power analysis</i><i>Hypothesis testing</i><i>Causal inference</i></p></div>
+      <div><span>Dashboards &amp; BI</span><p><i>Power BI</i><i>Tableau</i><i>Grafana</i><i>Mixpanel</i><i>Databricks dashboards</i></p></div>
+      <div><span>Cloud &amp; apps</span><p><i>AWS · SageMaker</i><i>GCP</i><i>Firebase</i><i>Flask</i><i>Next.js</i><i>Git</i></p></div>
     </div>
   </section>
 
   <section id="path">
     <div class="sh rv">
-      <div class="label">02 — Career</div>
+      <div class="label">03 — Career</div>
       <h2 class="serif">Problems I <i>owned</i>, end to end.</h2>
     </div>
     <div class="path">
@@ -349,7 +401,7 @@
 
   <section id="work">
     <div class="sh rv">
-      <div class="label">03 — Side projects</div>
+      <div class="label">04 — Side projects</div>
       <h2 class="serif">What I <i>build</i> on the side.</h2>
     </div>
 
@@ -406,7 +458,7 @@
   </section>
 
   <div class="end">
-    <div class="label rv">04 — Contact</div>
+    <div class="label rv">05 — Contact</div>
     <h2 class="serif rv d1">Let's build something <i>useful</i>.</h2>
     <p class="rv d1" style="color:var(--ink-2);margin:16px auto 0;max-width:52ch">Beyond work: taught school students as a Teach for India volunteer. Tennis and swimming when I'm offline.</p>
     <div class="ctas rv d2">
