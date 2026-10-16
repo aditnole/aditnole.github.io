@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aditya Yadav</title>
-  <meta name="description" content="Aditya Yadav: senior data scientist at Atlassian who builds ML systems and AI agents end to end, from data and models to the experiments that prove them. Builder of VettaCV.">
-  <meta property="og:title" content="Aditya Yadav · data scientist & builder">
-  <meta property="og:description" content="8 years building ML systems, AI agents and the experiments behind them, at Atlassian, Grab and J.P. Morgan. Building VettaCV on the side.">
+  <meta name="description" content="Aditya Yadav, a data scientist in Bengaluru. I build ML systems and AI agents at Atlassian, and VettaCV on the side.">
+  <meta property="og:title" content="Aditya Yadav">
+  <meta property="og:description" content="Data scientist at Atlassian. ML systems, AI agents, and a side project called VettaCV.">
   <meta property="og:image" content="https://aditnole.github.io/assets/img/profile.jpeg">
   <link href="favicon.png" rel="icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +54,7 @@
     .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; padding: 72px 0 88px; }
     .hero .label { color: var(--blue); }
     .hero h1 { font-size: clamp(52px, 8vw, 96px); line-height: 0.98; font-weight: 600; letter-spacing: -0.035em; margin: 18px 0 0; }
-    .hero .lede { font-size: clamp(19px, 2vw, 22px); line-height: 1.55; color: var(--ink-2); margin: 26px 0 0; max-width: 33ch; }
+    .hero .lede { font-size: clamp(19px, 2vw, 21px); line-height: 1.6; color: var(--ink-2); margin: 26px 0 0; max-width: 38ch; }
     .hero .lede b { color: var(--ink); font-weight: 600; }
     .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
     .hero .socials { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 26px; font-size: 14.5px; color: var(--ink-2); }
@@ -94,7 +94,9 @@
     .cap .n { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--blue); }
     .cap h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; margin: 14px 0 8px; }
     .cap p { margin: 0; color: var(--ink-2); font-size: 15px; }
-    .cap .proof { margin-top: auto; padding-top: 20px; font: 600 28px/1.1 Fraunces, Georgia, serif; color: var(--ink); }
+    .cap .note { margin-top: auto !important; padding-top: 18px; font-size: 14px; line-height: 1.5; color: var(--ink); border-top: 1px dashed var(--line); }
+    .cap p + .note { margin-top: auto; }
+    .feature .quiet { color: #c7d2fe; margin-top: 22px; font-size: 15px; }
     .cap .proof small { display: block; font: 400 13px/1.4 Inter, sans-serif; color: var(--ink-3); margin-top: 6px; }
     a.more-cap { background: var(--blue-soft); }
     a.more-cap:hover { background: #dfe8ff; }
@@ -124,15 +126,15 @@
     .step .co { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--ink-3); letter-spacing: 0.04em; }
     .step .co b { color: var(--ink); font: 700 13px/1 "JetBrains Mono", monospace; letter-spacing: 0.06em; text-transform: uppercase; }
     .step h3 { font-size: 24px; font-weight: 700; letter-spacing: -0.015em; margin: 10px 0 0; }
-    .step .row { display: grid; grid-template-columns: 74px 1fr; gap: 16px; margin-top: 16px; align-items: baseline; }
+    .step .row { display: grid; grid-template-columns: 104px 1fr; gap: 16px; margin-top: 16px; align-items: baseline; }
     .step .row > span { font: 500 11px/1.9 "JetBrains Mono", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
-    .step .owned { font: italic 500 20px/1.45 Fraunces, Georgia, serif; color: var(--ink); margin: 0; }
+    .step .owned { font-size: 17px; line-height: 1.55; color: var(--ink); margin: 0; }
     .step .owned em { font-style: italic; color: var(--blue); }
     .step .built { display: flex; flex-wrap: wrap; gap: 6px; }
     .step .built i { font-style: normal; font-size: 13.5px; color: var(--ink-2); background: var(--paper); box-shadow: 0 0 0 1px var(--line); padding: 5px 10px; border-radius: 8px; }
     .step .impact { display: flex; flex-wrap: wrap; gap: 14px 36px; }
     .step .impact div { min-width: 150px; max-width: 220px; }
-    .step .impact b { display: block; font: 600 34px/1 Fraunces, Georgia, serif; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+    .step .impact b { display: block; font: 600 26px/1 Fraunces, Georgia, serif; color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
     .step .impact small { display: block; font-size: 13px; line-height: 1.4; color: var(--ink-2); margin-top: 6px; }
     .step.now .co b { color: var(--blue); }
 
@@ -226,9 +228,9 @@
     <a class="me" href="#">Aditya Yadav</a>
     <div class="links">
       <a class="ul hide-m" href="#what">What I do</a>
-      <a class="ul hide-m" href="#tools">Toolkit</a>
+      <a class="ul hide-m" href="#tools">Tools</a>
       <a class="ul hide-m" href="#path">Career</a>
-      <a class="ul hide-m" href="#work">Work</a>
+      <a class="ul hide-m" href="#work">Side projects</a>
       <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">Say hello</a>
     </div>
   </div>
@@ -237,28 +239,29 @@
 <main class="wrap">
   <header class="hero">
     <div>
-      <div class="label intro">Senior Data Scientist · Atlassian &nbsp;/&nbsp; ML systems &amp; AI agents</div>
+      <div class="label intro">Data scientist · Bengaluru</div>
       <h1 class="serif intro d1">Aditya Yadav</h1>
       <p class="lede intro d2">
-        I build <b>ML systems and AI agents</b>, and own them end to end: data, models, automation, and the
-        experiments that prove they work. Senior data scientist at <b>Atlassian</b>; on the side, I build <b>VettaCV</b>.
+        I'm a senior data scientist at Atlassian. Most of my work is building ML systems and, lately,
+        AI agents, and then checking carefully whether they actually help. On the side I'm building
+        VettaCV, a small app for people looking for their next job.
       </p>
       <div class="ctas intro d3">
-        <a class="pill dark" href="#work">See my work ↓</a>
-        <a class="pill light" href="#path">How I got here</a>
+        <a class="pill dark" href="#path">Where I've been ↓</a>
+        <a class="pill light" href="#work">Side projects</a>
       </div>
       <div class="socials intro d4">
         <a class="ul" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
         <a class="ul" href="https://www.github.com/aditnole" target="_blank" rel="noopener">GitHub</a>
         <a class="ul" href="https://drive.google.com/file/d/1zp7giUw2mceetDA1nse7wR3KS_3xXCYR/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
-        <span style="color:var(--ink-3)">Bengaluru · open to relocation</span>
+        <span style="color:var(--ink-3)">Open to relocation</span>
       </div>
     </div>
 
     <div class="stage intro d5" id="stage">
       <img class="photo" src="assets/img/profile.jpeg" alt="Aditya Yadav" data-depth="6">
       <div class="float live" data-depth="16"><i></i>Currently at Atlassian</div>
-      <div class="float yrs" data-depth="22"><b>8 yrs</b><span>in data science</span></div>
+      <div class="float yrs" data-depth="22"><b>8 yrs</b><span>working with data</span></div>
       <a class="float vetta" href="https://vettacv.com" target="_blank" rel="noopener" data-depth="12">
         <img src="assets/img/vettacv/vettacv-mark.svg" alt="">
         <span style="flex:1"><b>VettaCV</b><span>Tailored resumes · matched jobs</span></span>
@@ -268,59 +271,59 @@
   </header>
 
   <div class="cos rv">
-    <span class="label">Learned &amp; worked at</span>
+    <span class="label">Along the way</span>
     <b>IIT Delhi</b><b>IndShine</b><b>Netradyne</b><b>J.P. Morgan</b><b>Grab</b><b>Atlassian</b>
   </div>
 
   <section id="what">
     <div class="sh rv">
-      <div class="label">01 — What I do</div>
-      <h2 class="serif">ML systems and AI agents that <i>ship</i>, and the evidence that they work.</h2>
+      <div class="label">01 — Work</div>
+      <h2 class="serif">What I spend my time on.</h2>
     </div>
     <div class="caps">
       <div class="cap rv">
         <div class="n">01</div>
-        <h3>ML systems design</h3>
-        <p>End-to-end ML in production: data and features, models, serving, and monitoring once it's live.</p>
-        <div class="proof">30pp <small>lower fraud incident rate from fraud-detection models (Grab)</small></div>
+        <h3>ML systems</h3>
+        <p>Taking models from a notebook to something that runs every day: the data, the features, serving it, and keeping an eye on it once it's live.</p>
+        <p class="note">At Grab, fraud models I worked on brought the incident rate down 30 points.</p>
       </div>
       <div class="cap rv d1">
         <div class="n">02</div>
-        <h3>Agentic development</h3>
-        <p>LLM agents and multi-step pipelines with LangGraph and Claude, plus the observability to trust them.</p>
-        <div class="proof">+50% <small>deflection for an AI migration-support agent (Atlassian)</small></div>
+        <h3>AI agents</h3>
+        <p>Building agents with LangGraph and Claude, plus the less glamorous part: measuring when they get things wrong.</p>
+        <p class="note">A support agent I worked on at Atlassian now handles 50% more questions on its own.</p>
       </div>
       <div class="cap rv d2">
         <div class="n">03</div>
-        <h3>Consulting data science</h3>
-        <p>Turning undefined business questions into analyses and KPIs that leadership acts on.</p>
-        <div class="proof">13% <small>fewer safety incidents in Thailand (Grab)</small></div>
+        <h3>Consulting on the fuzzy stuff</h3>
+        <p>Sitting with a team that has a vague question and turning it into something we can measure and act on.</p>
+        <p class="note">That kind of work fed into safety changes that cut incidents in Thailand by 13%.</p>
       </div>
       <div class="cap rv">
         <div class="n">04</div>
-        <h3>Experimentation &amp; causal inference</h3>
-        <p>A/B and switchback tests, power analysis and causal methods, from instrumentation to the readout.</p>
-        <div class="proof">+25pp <small>harmful-content detection accuracy, proven by experiment</small></div>
+        <h3>Experiments &amp; causal inference</h3>
+        <p>A/B and switchback tests, power analysis, causal methods. Mostly in service of one question: did it actually work?</p>
+        <p class="note">One of these confirmed a 25-point jump in harmful-content detection.</p>
       </div>
       <div class="cap rv d1">
         <div class="n">05</div>
         <h3>Automation</h3>
-        <p>Pipelines and jobs that run themselves: dbt rebuilds, scheduled workflows, less manual toil.</p>
-        <div class="proof">3 mo <small>early: dbt rebuild of ~40 legacy SQL jobs (Atlassian)</small></div>
+        <p>Replacing fragile scripts and manual steps with pipelines that look after themselves.</p>
+        <p class="note">We moved ~40 legacy SQL jobs to dbt and finished three months ahead of plan.</p>
       </div>
       <a class="cap more-cap rv d2" href="#tools">
         <div class="n">06</div>
-        <h3>Toolkit</h3>
-        <p>scikit-learn, PyTorch, LangGraph, Claude, PySpark, dbt, Power BI, Grafana and more.</p>
-        <div class="proof" style="color:var(--blue)">See all →</div>
+        <h3>Tools</h3>
+        <p>scikit-learn, PyTorch, LangGraph, Claude, PySpark, dbt, Power BI, Grafana, and a few more.</p>
+        <p class="note" style="color:var(--blue)">The full list →</p>
       </a>
     </div>
   </section>
 
   <section id="tools">
     <div class="sh rv">
-      <div class="label">02 — Toolkit</div>
-      <h2 class="serif">What I build <i>with</i>.</h2>
+      <div class="label">02 — Tools</div>
+      <h2 class="serif">What I usually reach for.</h2>
     </div>
     <div class="kit rv">
       <div><span>ML &amp; deep learning</span><p><i>scikit-learn</i><i>PyTorch</i><i>TensorFlow</i><i>BERT &amp; transformers</i><i>NLP &amp; text classification</i><i>Anomaly detection</i><i>Forecasting</i><i>Recommendations</i></p></div>
@@ -335,7 +338,7 @@
   <section id="path">
     <div class="sh rv">
       <div class="label">03 — Career</div>
-      <h2 class="serif">Problems I <i>owned</i>, end to end.</h2>
+      <h2 class="serif">Where I've been.</h2>
     </div>
     <div class="path">
       <div class="rail" aria-hidden="true"><i id="rail"></i></div>
@@ -343,57 +346,57 @@
       <article class="step now rv">
         <div class="top"><div class="co"><b>Atlassian</b> · Bengaluru</div><div class="co">2025 – now</div></div>
         <h3>Senior Data Scientist · Cloud migration</h3>
-        <div class="row"><span>Owned</span><p class="owned">Experimentation and analytics for Atlassian's <em>Data Center → Cloud</em> migration, from metric definitions to the weekly leadership review.</p></div>
+        <div class="row"><span>Looked after</span><p class="owned">Analytics and experiments for moving customers from Data Center to Cloud, from deciding what to measure to walking leadership through it each week.</p></div>
         <div class="row"><span>Built</span><div class="built"><i>Experiments for an AI migration-support agent</i><i>Agent observability metrics</i><i>Customer complexity classifier</i><i>DBT rebuild of ~40 legacy SQL jobs</i></div></div>
-        <div class="row"><span>Impact</span><div class="impact">
-          <div><b data-n="50" data-p="+" data-s="%">+50%</b><small>deflection rate for the migration-support agent</small></div>
-          <div><b data-n="20" data-p="−" data-s="%">−20%</b><small>time to resolve a migration issue</small></div>
-          <div><b>24 → 21</b><small>days for an average customer migration</small></div>
+        <div class="row"><span>What changed</span><div class="impact">
+          <div><b>+50%</b><small>more questions handled by the migration-support agent</small></div>
+          <div><b>−20%</b><small>time to resolve a migration issue</small></div>
+          <div><b>24 → 21</b><small>days for a typical customer migration</small></div>
         </div></div>
       </article>
 
       <article class="step rv">
         <div class="top"><div class="co"><b>Grab</b> · Southeast Asia</div><div class="co">2022 – 2024</div></div>
         <h3>Data Scientist · Trust, Integrity &amp; Safety</h3>
-        <div class="row"><span>Owned</span><p class="owned">Built <em>content-moderation analytics from 0 to 1</em>, then owned fraud and safety analytics for a 10M+ user super app.</p></div>
+        <div class="row"><span>Looked after</span><p class="owned">Started content-moderation analytics from scratch, then looked after fraud and safety analytics for an app used by 10M+ people.</p></div>
         <div class="row"><span>Built</span><div class="built"><i>Fraud models: collusion, impersonation</i><i>Risk-based user verification</i><i>User Friction Score</i><i>A/B &amp; switchback experiments</i><i>C-level safety readouts</i></div></div>
-        <div class="row"><span>Impact</span><div class="impact">
-          <div><b data-n="13" data-s="%">13%</b><small>fewer safety incidents in Thailand</small></div>
-          <div><b data-n="30" data-s="pp">30pp</b><small>lower fraud incident rate, ~SGD 200K/month GMV protected</small></div>
-          <div><b data-n="70" data-s="pp">70pp</b><small>less verification friction while still catching 80% of fraud</small></div>
+        <div class="row"><span>What changed</span><div class="impact">
+          <div><b>13%</b><small>fewer safety incidents in Thailand</small></div>
+          <div><b>30pp</b><small>lower fraud rate, about SGD 200K a month in bookings kept safe</small></div>
+          <div><b>70pp</b><small>less friction in verification, still catching 80% of fraud</small></div>
         </div></div>
       </article>
 
       <article class="step rv">
         <div class="top"><div class="co"><b>J.P. Morgan</b> · Mumbai</div><div class="co">2021 – 2022</div></div>
         <h3>Senior Analyst · Thematic indices</h3>
-        <div class="row"><span>Owned</span><p class="owned">Designed and shipped <em>thematic equity indices</em>, from the NLP signal to live index performance.</p></div>
+        <div class="row"><span>Looked after</span><p class="owned">Thematic equity indices, from the NLP signal underneath to how the index behaved once it was running.</p></div>
         <div class="row"><span>Built</span><div class="built"><i>BERT sentiment pipeline on news</i><i>Theme scoring for AI &amp; renewables</i><i>Volatility-based index</i></div></div>
-        <div class="row"><span>Impact</span><div class="impact">
-          <div><b>New</b><small>thematic indices built: AI, renewables and more</small></div>
-          <div><b data-n="100" data-p="$" data-s="K">$100K</b><small>in client value</small></div>
+        <div class="row"><span>What changed</span><div class="impact">
+          <div><b>A few</b><small>thematic indices, AI and renewables among them</small></div>
+          <div><b>$100K</b><small>in client value</small></div>
         </div></div>
       </article>
 
       <article class="step rv">
         <div class="top"><div class="co"><b>Netradyne</b> · Bengaluru</div><div class="co">2020 – 2021</div></div>
         <h3>Data Analyst · Driver-safety telematics</h3>
-        <div class="row"><span>Owned</span><p class="owned">Telemetry analytics for <em>driver safety</em> on live device data, from pipelines to in-vehicle alerts.</p></div>
+        <div class="row"><span>Looked after</span><p class="owned">Analytics on live telemetry from vehicles, aimed at helping drivers stay safe.</p></div>
         <div class="row"><span>Built</span><div class="built"><i>Pipeline automation</i><i>Telemetry anomaly detection</i><i>Accident-hotspot clustering</i><i>SQL → NoSQL migration</i></div></div>
-        <div class="row"><span>Impact</span><div class="impact">
-          <div><b>1/6th</b><small>runtime cut by automation</small></div>
-          <div><b data-n="12" data-s="%">12%</b><small>fewer accidents in flagged zones</small></div>
+        <div class="row"><span>What changed</span><div class="impact">
+          <div><b>1/6th</b><small>runtime cut by automating the pipeline</small></div>
+          <div><b>12%</b><small>fewer accidents in flagged zones</small></div>
         </div></div>
       </article>
 
       <article class="step rv">
         <div class="top"><div class="co"><b>IndShine</b> · Delhi</div><div class="co">2017 – 2020</div></div>
         <h3>Senior Data Analyst · Drones &amp; geospatial</h3>
-        <div class="row"><span>Owned</span><p class="owned">Pricing and geospatial analytics for <em>drone survey projects</em> in construction, agriculture and government.</p></div>
+        <div class="row"><span>Looked after</span><p class="owned">Pricing and mapping analytics for drone surveys in construction, agriculture and government projects.</p></div>
         <div class="row"><span>Built</span><div class="built"><i>3D maps from 2D imagery</i><i>Timeline prediction models</i><i>Segment-based pricing</i></div></div>
-        <div class="row"><span>Impact</span><div class="impact">
-          <div><b data-n="20" data-s="%">20%</b><small>more accurate project timelines</small></div>
-          <div><b data-n="5" data-s="%">5%</b><small>revenue uplift from pricing</small></div>
+        <div class="row"><span>What changed</span><div class="impact">
+          <div><b>20%</b><small>more accurate project timelines</small></div>
+          <div><b>5%</b><small>revenue uplift from pricing</small></div>
         </div></div>
       </article>
     </div>
@@ -402,7 +405,7 @@
   <section id="work">
     <div class="sh rv">
       <div class="label">04 — Side projects</div>
-      <h2 class="serif">What I <i>build</i> on the side.</h2>
+      <h2 class="serif">Things I build on the side.</h2>
     </div>
 
     <div class="feature rv">
@@ -412,21 +415,17 @@
           <img class="pup" src="assets/img/vettacv/shiba-wave.webp" alt="Momo, the VettaCV Shiba">
           <span>VettaCV · side project</span>
         </div>
-        <h3>An AI job search that starts with your resume.</h3>
-        <p>Designed and built end to end, from the LLM pipeline to payments.</p>
+        <h3>A small app that helps people land their next job.</h3>
+        <p>It's a one-person project these days, so I end up touching everything from the LLM pipeline to the payment page.</p>
         <ul>
-          <li>Tailors a resume to any job in seconds, without inventing anything</li>
-          <li>Matches you to live openings and drafts the application answers</li>
-          <li>Practise with AI, or with real interviewers who can refer you</li>
+          <li>Rewrites your resume for a specific job, without making anything up</li>
+          <li>Finds openings that fit and helps with the application questions</li>
+          <li>Lets you practise interviews, with AI or with people who've done the job</li>
         </ul>
-        <div class="stats">
-          <div><b>400+</b><span>users this year</span></div>
-          <div><b>7+</b><span>countries</span></div>
-          <div><b>+134%</b><span>active users, 90 days</span></div>
-        </div>
+        <p class="quiet">About 400 people used it this year, from seven countries, and that number has been climbing.</p>
         <div class="ctas">
           <a class="pill light" href="https://vettacv.com" target="_blank" rel="noopener">Visit vettacv.com →</a>
-          <a class="pill ghost" href="projects/vettacv-story.html">How I built it</a>
+          <a class="pill ghost" href="projects/vettacv-story.html">Notes on building it</a>
         </div>
       </div>
       <div class="shot" id="shot">
@@ -439,8 +438,8 @@
     <div class="side rv">
       <div>
         <div class="label" style="color:var(--blue)">SnapMyDesign · AI photoshoot generator</div>
-        <h3 class="serif">Professional product visuals, without a designer.</h3>
-        <p>Text-to-image and style-transfer models behind one simple workflow, so non-designers can generate product photos and try-ons. Built the full UX end to end.</p>
+        <h3 class="serif">Product photos without a photographer.</h3>
+        <p>An earlier experiment: text-to-image and style-transfer models wrapped in a simple flow, so non-designers can make product shots and try-ons themselves.</p>
       </div>
       <div class="side-ctas">
         <a class="pill dark" href="https://www.snapmydesign.com" target="_blank" rel="noopener">Visit snapmydesign.com →</a>
@@ -459,8 +458,8 @@
 
   <div class="end">
     <div class="label rv">05 — Contact</div>
-    <h2 class="serif rv d1">Let's build something <i>useful</i>.</h2>
-    <p class="rv d1" style="color:var(--ink-2);margin:16px auto 0;max-width:52ch">Beyond work: taught school students as a Teach for India volunteer. Tennis and swimming when I'm offline.</p>
+    <h2 class="serif rv d1">Say hello.</h2>
+    <p class="rv d1" style="color:var(--ink-2);margin:16px auto 0;max-width:52ch">If any of this overlaps with what you're working on, I'd like to hear about it. Away from work I've taught with Teach for India, and these days it's mostly tennis and swimming.</p>
     <div class="ctas rv d2">
       <a class="pill dark" href="mailto:aditya.yadav.of@gmail.com">aditya.yadav.of@gmail.com</a>
       <a class="pill light" href="https://www.linkedin.com/in/adityayadaviit" target="_blank" rel="noopener">LinkedIn</a>
